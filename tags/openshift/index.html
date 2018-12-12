@@ -5,20 +5,15 @@
   
 
   
-  <title>Just enough GIT : Part 01 | snmaddula</title>
+  <title>Tag: openshift | snmaddula</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Welcome to Git basics!This is a very basic touch up on everyday git usage.Git is a Distributed Version Control System (DVCS), created by Linus Torvalds, primarily to address collaboration issues. Init">
-<meta name="keywords" content="Git,Just Enough Series">
-<meta property="og:type" content="article">
-<meta property="og:title" content="Just enough GIT : Part 01">
-<meta property="og:url" content="https://snmaddula.github.io/2018/09/git-basics-01/index.html">
+  <meta property="og:type" content="website">
+<meta property="og:title" content="snmaddula">
+<meta property="og:url" content="https://snmaddula.github.io/tags/openshift/index.html">
 <meta property="og:site_name" content="snmaddula">
-<meta property="og:description" content="Welcome to Git basics!This is a very basic touch up on everyday git usage.Git is a Distributed Version Control System (DVCS), created by Linus Torvalds, primarily to address collaboration issues. Init">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2018-10-30T03:02:35.911Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Just enough GIT : Part 01">
-<meta name="twitter:description" content="Welcome to Git basics!This is a very basic touch up on everyday git usage.Git is a Distributed Version Control System (DVCS), created by Linus Torvalds, primarily to address collaboration issues. Init">
+<meta name="twitter:title" content="snmaddula">
   
     <link rel="alternate" href="/atom.xml" title="snmaddula" type="application/atom+xml">
   
@@ -69,73 +64,40 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main"><article id="post-git-basics-01" class="article article-type-post" itemscope="" itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2018/09/git-basics-01/" class="article-date">
-  <time datetime="2018-09-25T06:42:12.000Z" itemprop="datePublished">2018-Sep-25</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
+        <section id="main">
   
-    <h1 class="article-title" itemprop="name">
-      Just enough GIT : Part 01
+  
+    
+    
+      
+      
+      <section class="archives-wrap">
+        <div class="archive-year-wrap">
+          <a href="/archives/2018" class="archive-year">2018</a>
+        </div>
+        <div class="archives">
+    
+    <article class="archive-article archive-type-post">
+  <div class="archive-article-inner">
+    <header class="archive-article-header">
+      <a href="/2018/12/oc-login/" class="archive-article-date">
+  <time datetime="2018-12-12T10:24:52.000Z" itemprop="datePublished">Dec 12</time>
+</a>
+      
+  
+    <h1 itemprop="name">
+      <a class="archive-article-title" href="/2018/12/oc-login/">Login to OpenShift Origin</a>
     </h1>
   
 
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>Welcome to Git basics!<br>This is a very basic touch up on everyday git usage.<br>Git is a <b>Distributed Version Control System (DVCS)</b>, created by <a href="https://en.wikipedia.org/wiki/Linus_Torvalds" target="_blank" rel="noopener">Linus Torvalds</a>, primarily to address collaboration issues.</p>
-<h3 id="Initialize-an-empty-git-repository"><a href="#Initialize-an-empty-git-repository" class="headerlink" title="Initialize an empty git repository"></a>Initialize an empty git repository</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git init</span><br></pre></td></tr></table></figure>
-<h3 id="Clone-an-existing-repository"><a href="#Clone-an-existing-repository" class="headerlink" title="Clone an existing repository"></a>Clone an existing repository</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git <span class="built_in">clone</span> https://git-repo-link.git</span><br></pre></td></tr></table></figure>
-<h3 id="Checking-for-modifications-done-in-local"><a href="#Checking-for-modifications-done-in-local" class="headerlink" title="Checking for modifications done in local"></a>Checking for modifications done in local</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git status</span><br></pre></td></tr></table></figure>
-<h3 id="Adding-your-locally-changed-files-for-staging"><a href="#Adding-your-locally-changed-files-for-staging" class="headerlink" title="Adding your locally changed files for staging"></a>Adding your locally changed files for staging</h3><p>To add a specific file:</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git add &lt;file-path&gt;</span><br></pre></td></tr></table></figure>
-<p>To add all the files at once:</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ git add --all</span><br><span class="line"><span class="comment"># OR</span></span><br><span class="line">$ git add .</span><br></pre></td></tr></table></figure>
-<h3 id="Committing-the-changes-to-local-repository"><a href="#Committing-the-changes-to-local-repository" class="headerlink" title="Committing the changes to local repository"></a>Committing the changes to local repository</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git commit -m <span class="string">'my commit message'</span></span><br></pre></td></tr></table></figure>
-<h3 id="Pushing-the-changes-to-remote"><a href="#Pushing-the-changes-to-remote" class="headerlink" title="Pushing the changes to remote"></a>Pushing the changes to remote</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ git push</span><br><span class="line"><span class="comment"># OR</span></span><br><span class="line">$ git push origin master</span><br></pre></td></tr></table></figure>
-<h3 id="Pulling-the-latest-changes-from-remote"><a href="#Pulling-the-latest-changes-from-remote" class="headerlink" title="Pulling the latest changes from remote"></a>Pulling the latest changes from remote</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git pull</span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://snmaddula.github.io/2018/09/git-basics-01/" data-id="cjpl2do2200022ssnz94nhpo8" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Git/">Git</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Just-Enough-Series/">Just Enough Series</a></li></ul>
-
-    </footer>
+    </header>
   </div>
-  
-    
-<nav id="article-nav">
-  
-    <a href="/2018/09/wiring-angular-to-spring-boot/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Newer</strong>
-      <div class="article-nav-title">
-        
-          Wiring Angular with Spring Boot
-        
-      </div>
-    </a>
-  
-  
-    <a href="/2018/09/spring-security-oauth/" id="article-nav-older" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">Securing Web Apps with Spring OAuth</div>
-    </a>
-  
-</nav>
-
-  
 </article>
+  
+  
+    </div></section>
+  
+
 
 </section>
         

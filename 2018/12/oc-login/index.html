@@ -5,20 +5,20 @@
   
 
   
-  <title>Just enough GIT : Part 01 | snmaddula</title>
+  <title>Login to OpenShift Origin | snmaddula</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Welcome to Git basics!This is a very basic touch up on everyday git usage.Git is a Distributed Version Control System (DVCS), created by Linus Torvalds, primarily to address collaboration issues. Init">
-<meta name="keywords" content="Git,Just Enough Series">
+  <meta name="description" content="There are quite a few ways to login into openshift through the oc cli. Let us explore them one by one. 1. Interactive Login with CredentialsTo Simply login use oc login. This will prompt for username">
+<meta name="keywords" content="oc,openshift">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Just enough GIT : Part 01">
-<meta property="og:url" content="https://snmaddula.github.io/2018/09/git-basics-01/index.html">
+<meta property="og:title" content="Login to OpenShift Origin">
+<meta property="og:url" content="https://snmaddula.github.io/2018/12/oc-login/index.html">
 <meta property="og:site_name" content="snmaddula">
-<meta property="og:description" content="Welcome to Git basics!This is a very basic touch up on everyday git usage.Git is a Distributed Version Control System (DVCS), created by Linus Torvalds, primarily to address collaboration issues. Init">
+<meta property="og:description" content="There are quite a few ways to login into openshift through the oc cli. Let us explore them one by one. 1. Interactive Login with CredentialsTo Simply login use oc login. This will prompt for username">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2018-10-30T03:02:35.911Z">
+<meta property="og:updated_time" content="2018-12-12T10:29:07.605Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Just enough GIT : Part 01">
-<meta name="twitter:description" content="Welcome to Git basics!This is a very basic touch up on everyday git usage.Git is a Distributed Version Control System (DVCS), created by Linus Torvalds, primarily to address collaboration issues. Init">
+<meta name="twitter:title" content="Login to OpenShift Origin">
+<meta name="twitter:description" content="There are quite a few ways to login into openshift through the oc cli. Let us explore them one by one. 1. Interactive Login with CredentialsTo Simply login use oc login. This will prompt for username">
   
     <link rel="alternate" href="/atom.xml" title="snmaddula" type="application/atom+xml">
   
@@ -69,10 +69,10 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main"><article id="post-git-basics-01" class="article article-type-post" itemscope="" itemprop="blogPost">
+        <section id="main"><article id="post-oc-login" class="article article-type-post" itemscope="" itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2018/09/git-basics-01/" class="article-date">
-  <time datetime="2018-09-25T06:42:12.000Z" itemprop="datePublished">2018-Sep-25</time>
+    <a href="/2018/12/oc-login/" class="article-date">
+  <time datetime="2018-12-12T10:24:52.000Z" itemprop="datePublished">2018-Dec-12</time>
 </a>
     
   </div>
@@ -83,7 +83,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      Just enough GIT : Part 01
+      Login to OpenShift Origin
     </h1>
   
 
@@ -91,25 +91,20 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>Welcome to Git basics!<br>This is a very basic touch up on everyday git usage.<br>Git is a <b>Distributed Version Control System (DVCS)</b>, created by <a href="https://en.wikipedia.org/wiki/Linus_Torvalds" target="_blank" rel="noopener">Linus Torvalds</a>, primarily to address collaboration issues.</p>
-<h3 id="Initialize-an-empty-git-repository"><a href="#Initialize-an-empty-git-repository" class="headerlink" title="Initialize an empty git repository"></a>Initialize an empty git repository</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git init</span><br></pre></td></tr></table></figure>
-<h3 id="Clone-an-existing-repository"><a href="#Clone-an-existing-repository" class="headerlink" title="Clone an existing repository"></a>Clone an existing repository</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git <span class="built_in">clone</span> https://git-repo-link.git</span><br></pre></td></tr></table></figure>
-<h3 id="Checking-for-modifications-done-in-local"><a href="#Checking-for-modifications-done-in-local" class="headerlink" title="Checking for modifications done in local"></a>Checking for modifications done in local</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git status</span><br></pre></td></tr></table></figure>
-<h3 id="Adding-your-locally-changed-files-for-staging"><a href="#Adding-your-locally-changed-files-for-staging" class="headerlink" title="Adding your locally changed files for staging"></a>Adding your locally changed files for staging</h3><p>To add a specific file:</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git add &lt;file-path&gt;</span><br></pre></td></tr></table></figure>
-<p>To add all the files at once:</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ git add --all</span><br><span class="line"><span class="comment"># OR</span></span><br><span class="line">$ git add .</span><br></pre></td></tr></table></figure>
-<h3 id="Committing-the-changes-to-local-repository"><a href="#Committing-the-changes-to-local-repository" class="headerlink" title="Committing the changes to local repository"></a>Committing the changes to local repository</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git commit -m <span class="string">'my commit message'</span></span><br></pre></td></tr></table></figure>
-<h3 id="Pushing-the-changes-to-remote"><a href="#Pushing-the-changes-to-remote" class="headerlink" title="Pushing the changes to remote"></a>Pushing the changes to remote</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ git push</span><br><span class="line"><span class="comment"># OR</span></span><br><span class="line">$ git push origin master</span><br></pre></td></tr></table></figure>
-<h3 id="Pulling-the-latest-changes-from-remote"><a href="#Pulling-the-latest-changes-from-remote" class="headerlink" title="Pulling the latest changes from remote"></a>Pulling the latest changes from remote</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git pull</span><br></pre></td></tr></table></figure>
+        <p>There are quite a few ways to login into openshift through the <code>oc</code> cli. Let us explore them one by one.</p>
+<h4 id="1-Interactive-Login-with-Credentials"><a href="#1-Interactive-Login-with-Credentials" class="headerlink" title="1. Interactive Login with Credentials"></a>1. Interactive Login with Credentials</h4><p>To Simply login use <b>oc login</b>. This will prompt for <i>username</i> and <i>password</i>, providing which it will authenticate and log you in.<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$ oc login</span><br><span class="line">Server[https://localhost:8443]:</span><br><span class="line">username: snmaddula</span><br><span class="line">password:</span><br><span class="line"></span><br><span class="line">Login Successful.</span><br></pre></td></tr></table></figure></p>
+<p>You can specify the Server URL in-line:<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ oc login https://localhost:8443</span><br></pre></td></tr></table></figure></p>
+<h4 id="2-Non-Interactive-Login-with-Credentials-a-k-a-one-liner"><a href="#2-Non-Interactive-Login-with-Credentials-a-k-a-one-liner" class="headerlink" title="2. Non-Interactive Login with Credentials (a.k.a one-liner)"></a>2. Non-Interactive Login with Credentials (a.k.a one-liner)</h4><p>To login by providing username and password in-line :<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">oc login -u=snmaddula -p=secret</span><br></pre></td></tr></table></figure></p>
+<p>To instantly switch to a particular namespace / project on successful login :<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">oc login -u=snmaddula -p=secret -n=project1</span><br></pre></td></tr></table></figure></p>
+<p>In the above examples, <code>-u</code> is short for <code>--username</code> as <code>-p</code> is for <code>--password</code> and <code>-n</code> for <code>--namespace</code></p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://snmaddula.github.io/2018/09/git-basics-01/" data-id="cjpl2do2200022ssnz94nhpo8" class="article-share-link">Share</a>
+      <a data-url="https://snmaddula.github.io/2018/12/oc-login/" data-id="cjpl2do2800052ssn09zkt8v2" class="article-share-link">Share</a>
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Git/">Git</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Just-Enough-Series/">Just Enough Series</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/oc/">oc</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/openshift/">openshift</a></li></ul>
 
     </footer>
   </div>
@@ -117,19 +112,19 @@
     
 <nav id="article-nav">
   
-    <a href="/2018/09/wiring-angular-to-spring-boot/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2018/12/git-and-ssh-client-setup-windows/" id="article-nav-newer" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Newer</strong>
       <div class="article-nav-title">
         
-          Wiring Angular with Spring Boot
+          Git + SSH Client Setup
         
       </div>
     </a>
   
   
-    <a href="/2018/09/spring-security-oauth/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/2018/10/json-schema-avro/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">Securing Web Apps with Spring OAuth</div>
+      <div class="article-nav-title">JSON Schema enforcement using AVRO</div>
     </a>
   
 </nav>

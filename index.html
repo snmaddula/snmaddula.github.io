@@ -66,6 +66,112 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-git-and-ssh-client-setup-windows" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/12/git-and-ssh-client-setup-windows/" class="article-date">
+  <time datetime="2018-12-12T10:31:14.000Z" itemprop="datePublished">2018-Dec-12</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/12/git-and-ssh-client-setup-windows/">Git + SSH Client Setup</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>In this article, we shall setup SSH client on Windows machine.</p>
+<h5 id="What-we-need"><a href="#What-we-need" class="headerlink" title="What we need ?"></a>What we need ?</h5><ul>
+<li>Git</li>
+<li>PowerShell (Optional)</li>
+<li>Command Prompt (Optional)</li>
+</ul>
+<p>Let us get started with the setup.</p>
+<h3 id="Setup-on-Non-GUI-Server-machines-Using-PowerShell"><a href="#Setup-on-Non-GUI-Server-machines-Using-PowerShell" class="headerlink" title="Setup on Non-GUI / Server machines :: Using PowerShell"></a>Setup on Non-GUI / Server machines :: Using PowerShell</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12</span><br><span class="line">Invoke-WebRequest -Uri https://github.com/git-for-windows/git/releases/download/v2.20.0.windows.1/Git-2.20.0-64-bit.exe -OutFile gitbin.exe</span><br><span class="line">cmd &quot;/C .\gitbit.exe&quot;</span><br></pre></td></tr></table></figure>
+<h3 id="Setup-on-Deskop-machines-GUI"><a href="#Setup-on-Deskop-machines-GUI" class="headerlink" title="Setup on Deskop machines :: GUI"></a>Setup on Deskop machines :: GUI</h3><ul>
+<li><a href="https://git-scm.com/downloads" target="_blank" rel="noopener">Download Git</a> for your machine.</li>
+</ul>
+<p>On successfully downloading Git on to your machine, follow the setup instructions as shown in the below screens.</p>
+<p></p><p align="center">Screen 01</p><img src="/images/git/001.PNG" alt=""><p></p>
+<p></p><p align="center">Screen 02</p><img src="/images/git/002.PNG" alt=""><p></p>
+<p></p><p align="center">Screen 03</p><p align="center">To access <b>SSH Client</b> from Command Prompt, it is important to choose the option that reads: <br> <b style="color:red">Use Git and optional Unix tools from the Command Prompt</b></p><br><img src="/images/git/003.PNG" alt=""><p></p>
+<p></p><p align="center">Screen 04</p><img src="/images/git/004.PNG" alt=""><p></p>
+<p></p><p align="center">Screen 05</p><img src="/images/git/005.PNG" alt=""><p></p>
+<p></p><p align="center">Screen 06</p><img src="/images/git/006.PNG" alt=""><p></p>
+<p></p><p align="center">Screen 07</p><img src="/images/git/007.PNG" alt=""><p></p>
+<p></p><p align="center">Screen 08</p><img src="/images/git/008.PNG" alt=""><p></p>
+<p></p><p align="center">Screen 09</p><img src="/images/git/009.PNG" alt=""><p></p>
+<p></p><p align="center">Screen 10</p><img src="/images/git/010.PNG" alt=""><p></p>
+<p>That’s all folks! Now you should be able to access <b>SSH</b> from your command prompt.</p>
+<p></p><p align="center">Open CMD and type <b>ssh</b> and see the result for yourself.</p><img src="/images/git/011.PNG" alt=""><p></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://snmaddula.github.io/2018/12/git-and-ssh-client-setup-windows/" data-id="cjpl2do1u00012ssnep3pyuwj" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Git/">Git</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/SSH/">SSH</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Windows/">Windows</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-oc-login" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/12/oc-login/" class="article-date">
+  <time datetime="2018-12-12T10:24:52.000Z" itemprop="datePublished">2018-Dec-12</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/12/oc-login/">Login to OpenShift Origin</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>There are quite a few ways to login into openshift through the <code>oc</code> cli. Let us explore them one by one.</p>
+<h4 id="1-Interactive-Login-with-Credentials"><a href="#1-Interactive-Login-with-Credentials" class="headerlink" title="1. Interactive Login with Credentials"></a>1. Interactive Login with Credentials</h4><p>To Simply login use <b>oc login</b>. This will prompt for <i>username</i> and <i>password</i>, providing which it will authenticate and log you in.<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$ oc login</span><br><span class="line">Server[https://localhost:8443]:</span><br><span class="line">username: snmaddula</span><br><span class="line">password:</span><br><span class="line"></span><br><span class="line">Login Successful.</span><br></pre></td></tr></table></figure></p>
+<p>You can specify the Server URL in-line:<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ oc login https://localhost:8443</span><br></pre></td></tr></table></figure></p>
+<h4 id="2-Non-Interactive-Login-with-Credentials-a-k-a-one-liner"><a href="#2-Non-Interactive-Login-with-Credentials-a-k-a-one-liner" class="headerlink" title="2. Non-Interactive Login with Credentials (a.k.a one-liner)"></a>2. Non-Interactive Login with Credentials (a.k.a one-liner)</h4><p>To login by providing username and password in-line :<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">oc login -u=snmaddula -p=secret</span><br></pre></td></tr></table></figure></p>
+<p>To instantly switch to a particular namespace / project on successful login :<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">oc login -u=snmaddula -p=secret -n=project1</span><br></pre></td></tr></table></figure></p>
+<p>In the above examples, <code>-u</code> is short for <code>--username</code> as <code>-p</code> is for <code>--password</code> and <code>-n</code> for <code>--namespace</code></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://snmaddula.github.io/2018/12/oc-login/" data-id="cjpl2do2800052ssn09zkt8v2" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/oc/">oc</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/openshift/">openshift</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-json-schema-avro" class="article article-type-post" itemscope="" itemprop="blogPost">
   <div class="article-meta">
     <a href="/2018/10/json-schema-avro/" class="article-date">
@@ -93,7 +199,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://snmaddula.github.io/2018/10/json-schema-avro/" data-id="cjpl0vsud0003j8sngpdvqaxx" class="article-share-link">Share</a>
+      <a data-url="https://snmaddula.github.io/2018/10/json-schema-avro/" data-id="cjpl2do2600042ssnfk45v3kl" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/AVRO/">AVRO</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JSON/">JSON</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Kafka/">Kafka</a></li></ul>
@@ -133,7 +239,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://snmaddula.github.io/2018/09/using-camunda-with-spring-boot/" data-id="cjpl0vswe001aj8snyawxmlzd" class="article-share-link">Share</a>
+      <a data-url="https://snmaddula.github.io/2018/09/using-camunda-with-spring-boot/" data-id="cjpl2do3j001d2ssn4vb0llpe" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Camunda/">Camunda</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Microservices/">Microservices</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Orchestration/">Orchestration</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Spring-Boot/">Spring Boot</a></li></ul>
@@ -226,7 +332,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://snmaddula.github.io/2018/09/wiring-angular-to-spring-boot/" data-id="cjpl0vsup000bj8snh2554tby" class="article-share-link">Share</a>
+      <a data-url="https://snmaddula.github.io/2018/09/wiring-angular-to-spring-boot/" data-id="cjpl2do3c00192ssnc6y8r56l" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Angular/">Angular</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Spring-Boot/">Spring Boot</a></li></ul>
@@ -275,7 +381,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://snmaddula.github.io/2018/09/git-basics-01/" data-id="cjpl0vsu70001j8sn2z2iizcu" class="article-share-link">Share</a>
+      <a data-url="https://snmaddula.github.io/2018/09/git-basics-01/" data-id="cjpl2do2200022ssnz94nhpo8" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Git/">Git</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Just-Enough-Series/">Just Enough Series</a></li></ul>
@@ -313,7 +419,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://snmaddula.github.io/2018/09/spring-security-oauth/" data-id="cjpl0vsuo000aj8sn2v9b7nr7" class="article-share-link">Share</a>
+      <a data-url="https://snmaddula.github.io/2018/09/spring-security-oauth/" data-id="cjpl2do2b00082ssnvmsh7aps" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/OAuth/">OAuth</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Spring-Boot/">Spring Boot</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Spring-Security/">Spring Security</a></li></ul>
@@ -351,7 +457,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://snmaddula.github.io/2018/09/spring-security-ldap/" data-id="cjpl0vsum0008j8sn553qwm7o" class="article-share-link">Share</a>
+      <a data-url="https://snmaddula.github.io/2018/09/spring-security-ldap/" data-id="cjpl2do2d00092ssnsr7zegcd" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/LDAP/">LDAP</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Spring-Boot/">Spring Boot</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Spring-Security/">Spring Security</a></li></ul>
@@ -389,7 +495,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://snmaddula.github.io/2018/09/spring-security-jdbc/" data-id="cjpl0vsuj0006j8snix831uvg" class="article-share-link">Share</a>
+      <a data-url="https://snmaddula.github.io/2018/09/spring-security-jdbc/" data-id="cjpl2do2900062ssnvdllywzh" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Spring-Boot/">Spring Boot</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Spring-Security/">Spring Security</a></li></ul>
@@ -427,7 +533,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://snmaddula.github.io/2018/09/reactive-spring-boot-crud/" data-id="cjpl0vsuk0007j8sntt3oa1jl" class="article-share-link">Share</a>
+      <a data-url="https://snmaddula.github.io/2018/09/reactive-spring-boot-crud/" data-id="cjpl2do3g001b2ssncakpvj4f" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Reactive-Web/">Reactive Web</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Spring-Boot/">Spring Boot</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Web-Flux/">Web-Flux</a></li></ul>
@@ -452,7 +558,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tags</h3>
     <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/AVRO/">AVRO</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Angular/">Angular</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Camunda/">Camunda</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Git/">Git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JSON/">JSON</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Just-Enough-Series/">Just Enough Series</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Kafka/">Kafka</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LDAP/">LDAP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Microservices/">Microservices</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/OAuth/">OAuth</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Orchestration/">Orchestration</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Reactive-Web/">Reactive Web</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spring-Boot/">Spring Boot</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spring-Security/">Spring Security</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Web-Flux/">Web-Flux</a></li></ul>
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/AVRO/">AVRO</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Angular/">Angular</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Camunda/">Camunda</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Git/">Git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JSON/">JSON</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Just-Enough-Series/">Just Enough Series</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Kafka/">Kafka</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LDAP/">LDAP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Microservices/">Microservices</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/OAuth/">OAuth</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Orchestration/">Orchestration</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Reactive-Web/">Reactive Web</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SSH/">SSH</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spring-Boot/">Spring Boot</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spring-Security/">Spring Security</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Web-Flux/">Web-Flux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Windows/">Windows</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/oc/">oc</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/openshift/">openshift</a></li></ul>
     </div>
   </div>
 
@@ -462,7 +568,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="/tags/AVRO/" style="font-size: 10px;">AVRO</a> <a href="/tags/Angular/" style="font-size: 10px;">Angular</a> <a href="/tags/Camunda/" style="font-size: 10px;">Camunda</a> <a href="/tags/Git/" style="font-size: 10px;">Git</a> <a href="/tags/JSON/" style="font-size: 10px;">JSON</a> <a href="/tags/Just-Enough-Series/" style="font-size: 10px;">Just Enough Series</a> <a href="/tags/Kafka/" style="font-size: 10px;">Kafka</a> <a href="/tags/LDAP/" style="font-size: 10px;">LDAP</a> <a href="/tags/Microservices/" style="font-size: 10px;">Microservices</a> <a href="/tags/OAuth/" style="font-size: 10px;">OAuth</a> <a href="/tags/Orchestration/" style="font-size: 10px;">Orchestration</a> <a href="/tags/Reactive-Web/" style="font-size: 10px;">Reactive Web</a> <a href="/tags/Spring-Boot/" style="font-size: 20px;">Spring Boot</a> <a href="/tags/Spring-Security/" style="font-size: 15px;">Spring Security</a> <a href="/tags/Web-Flux/" style="font-size: 10px;">Web-Flux</a>
+      <a href="/tags/AVRO/" style="font-size: 10px;">AVRO</a> <a href="/tags/Angular/" style="font-size: 10px;">Angular</a> <a href="/tags/Camunda/" style="font-size: 10px;">Camunda</a> <a href="/tags/Git/" style="font-size: 13.33px;">Git</a> <a href="/tags/JSON/" style="font-size: 10px;">JSON</a> <a href="/tags/Just-Enough-Series/" style="font-size: 10px;">Just Enough Series</a> <a href="/tags/Kafka/" style="font-size: 10px;">Kafka</a> <a href="/tags/LDAP/" style="font-size: 10px;">LDAP</a> <a href="/tags/Microservices/" style="font-size: 10px;">Microservices</a> <a href="/tags/OAuth/" style="font-size: 10px;">OAuth</a> <a href="/tags/Orchestration/" style="font-size: 10px;">Orchestration</a> <a href="/tags/Reactive-Web/" style="font-size: 10px;">Reactive Web</a> <a href="/tags/SSH/" style="font-size: 10px;">SSH</a> <a href="/tags/Spring-Boot/" style="font-size: 20px;">Spring Boot</a> <a href="/tags/Spring-Security/" style="font-size: 16.67px;">Spring Security</a> <a href="/tags/Web-Flux/" style="font-size: 10px;">Web-Flux</a> <a href="/tags/Windows/" style="font-size: 10px;">Windows</a> <a href="/tags/oc/" style="font-size: 10px;">oc</a> <a href="/tags/openshift/" style="font-size: 10px;">openshift</a>
     </div>
   </div>
 
@@ -471,7 +577,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">October 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">September 2018</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">December 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">October 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">September 2018</a></li></ul>
     </div>
   </div>
 
@@ -484,6 +590,14 @@
       <ul>
         
           <li>
+            <a href="/2018/12/git-and-ssh-client-setup-windows/">Git + SSH Client Setup</a>
+          </li>
+        
+          <li>
+            <a href="/2018/12/oc-login/">Login to OpenShift Origin</a>
+          </li>
+        
+          <li>
             <a href="/2018/10/json-schema-avro/">JSON Schema enforcement using AVRO</a>
           </li>
         
@@ -493,14 +607,6 @@
         
           <li>
             <a href="/2018/09/wiring-angular-to-spring-boot/">Wiring Angular with Spring Boot</a>
-          </li>
-        
-          <li>
-            <a href="/2018/09/git-basics-01/">Just enough GIT : Part 01</a>
-          </li>
-        
-          <li>
-            <a href="/2018/09/spring-security-oauth/">Securing Web Apps with Spring OAuth</a>
           </li>
         
       </ul>
