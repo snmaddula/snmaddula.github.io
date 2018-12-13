@@ -5,20 +5,20 @@
   
 
   
-  <title>Login to OpenShift Origin | snmaddula</title>
+  <title>JSON Schema enforcement using AVRO | snmaddula</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="There are quite a few ways to login into openshift through the oc cli. Let us explore them one by one. 1. Interactive Login with CredentialsTo Simply login use oc login. This will prompt for username">
-<meta name="keywords" content="oc,openshift">
+  <meta name="description" content="To be added…">
+<meta name="keywords" content="JSON,AVRO,Kafka">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Login to OpenShift Origin">
-<meta property="og:url" content="https://snmaddula.github.io/2018/12/oc-login/index.html">
+<meta property="og:title" content="JSON Schema enforcement using AVRO">
+<meta property="og:url" content="https://snmaddula.github.io/json-schema-avro/index.html">
 <meta property="og:site_name" content="snmaddula">
-<meta property="og:description" content="There are quite a few ways to login into openshift through the oc cli. Let us explore them one by one. 1. Interactive Login with CredentialsTo Simply login use oc login. This will prompt for username">
+<meta property="og:description" content="To be added…">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2018-12-13T10:43:09.674Z">
+<meta property="og:updated_time" content="2018-10-30T03:02:35.917Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Login to OpenShift Origin">
-<meta name="twitter:description" content="There are quite a few ways to login into openshift through the oc cli. Let us explore them one by one. 1. Interactive Login with CredentialsTo Simply login use oc login. This will prompt for username">
+<meta name="twitter:title" content="JSON Schema enforcement using AVRO">
+<meta name="twitter:description" content="To be added…">
   
     <link rel="alternate" href="/atom.xml" title="snmaddula" type="application/atom+xml">
   
@@ -69,10 +69,10 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main"><article id="post-oc-login" class="article article-type-post" itemscope="" itemprop="blogPost">
+        <section id="main"><article id="post-json-schema-avro" class="article article-type-post" itemscope="" itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2018/12/oc-login/" class="article-date">
-  <time datetime="2018-12-09T10:24:52.000Z" itemprop="datePublished">2018-Dec-09</time>
+    <a href="/json-schema-avro/" class="article-date">
+  <time datetime="2018-10-01T00:49:33.000Z" itemprop="datePublished">2018-Oct-01</time>
 </a>
     
   </div>
@@ -83,7 +83,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      Login to OpenShift Origin
+      JSON Schema enforcement using AVRO
     </h1>
   
 
@@ -91,20 +91,15 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>There are quite a few ways to login into openshift through the <code>oc</code> cli. Let us explore them one by one.</p>
-<h4 id="1-Interactive-Login-with-Credentials"><a href="#1-Interactive-Login-with-Credentials" class="headerlink" title="1. Interactive Login with Credentials"></a>1. Interactive Login with Credentials</h4><p>To Simply login use <b>oc login</b>. This will prompt for <i>username</i> and <i>password</i>, providing which it will authenticate and log you in.<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$ oc login</span><br><span class="line">Server[https://localhost:8443]:</span><br><span class="line">username: snmaddula</span><br><span class="line">password:</span><br><span class="line"></span><br><span class="line">Login Successful.</span><br></pre></td></tr></table></figure></p>
-<p>You can specify the Server URL in-line:<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ oc login https://localhost:8443</span><br></pre></td></tr></table></figure></p>
-<h4 id="2-Non-Interactive-Login-with-Credentials-a-k-a-one-liner"><a href="#2-Non-Interactive-Login-with-Credentials-a-k-a-one-liner" class="headerlink" title="2. Non-Interactive Login with Credentials (a.k.a one-liner)"></a>2. Non-Interactive Login with Credentials (a.k.a one-liner)</h4><p>To login by providing username and password in-line :<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">oc login -u=snmaddula -p=secret</span><br></pre></td></tr></table></figure></p>
-<p>To instantly switch to a particular namespace / project on successful login :<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">oc login -u=snmaddula -p=secret -n=project1</span><br></pre></td></tr></table></figure></p>
-<p>In the above examples, <code>-u</code> is short for <code>--username</code> as <code>-p</code> is for <code>--password</code> and <code>-n</code> for <code>--namespace</code></p>
+        <p>To be added…</p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://snmaddula.github.io/2018/12/oc-login/" data-id="cjpmh71zl0006g8snfof34063" class="article-share-link">Share</a>
+      <a data-url="https://snmaddula.github.io/json-schema-avro/" data-id="cjpmh7q8y000bb4snndwiferg" class="article-share-link">Share</a>
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/oc/">oc</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/openshift/">openshift</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/AVRO/">AVRO</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JSON/">JSON</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Kafka/">Kafka</a></li></ul>
 
     </footer>
   </div>
@@ -112,19 +107,19 @@
     
 <nav id="article-nav">
   
-    <a href="/2018/12/open-port-firewall-cmd/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/oc-login/" id="article-nav-newer" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Newer</strong>
       <div class="article-nav-title">
         
-          Enable / Disable TCP Ports
+          Login to OpenShift Origin
         
       </div>
     </a>
   
   
-    <a href="/2018/10/json-schema-avro/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/using-camunda-with-spring-boot/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">JSON Schema enforcement using AVRO</div>
+      <div class="article-nav-title">Orchestrating Spring Boot Microservices with Camunda</div>
     </a>
   
 </nav>
@@ -175,23 +170,23 @@
       <ul>
         
           <li>
-            <a href="/2018/12/ansible-awx-magic-lab-setup/">Ansible &amp; Ansible Tower (AWX) Lab Setup</a>
+            <a href="/ansible-awx-magic-lab-setup/">Ansible &amp; Ansible Tower (AWX) Lab Setup</a>
           </li>
         
           <li>
-            <a href="/2018/12/ansible-winrm-windows/">PowerShell : Enable WinRm on Windows</a>
+            <a href="/ansible-winrm-windows/">PowerShell : Enable WinRm on Windows</a>
           </li>
         
           <li>
-            <a href="/2018/12/git-and-ssh-client-setup-windows/">Git + SSH Client Setup</a>
+            <a href="/git-and-ssh-client-setup-windows/">Git + SSH Client Setup</a>
           </li>
         
           <li>
-            <a href="/2018/12/open-port-firewall-cmd/">Enable / Disable TCP Ports</a>
+            <a href="/open-port-firewall-cmd/">Enable / Disable TCP Ports</a>
           </li>
         
           <li>
-            <a href="/2018/12/oc-login/">Login to OpenShift Origin</a>
+            <a href="/oc-login/">Login to OpenShift Origin</a>
           </li>
         
       </ul>
