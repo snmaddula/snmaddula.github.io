@@ -16,7 +16,8 @@
 <meta property="og:description" content="Magic scripts to setup Ansible &amp;amp; Ansible Tower (AWX) Learner’s Lab environment on a personal computer. Download the below ScriptsAnsibleMagicLab_Pre_Reboot.ps1 AnsibleMagicLab_Post_Reboot.ps1 Laun">
 <meta property="og:locale" content="default">
 <meta property="og:image" content="https://snmaddula.github.io/images/awx/AWX_LOGIN.PNG">
-<meta property="og:updated_time" content="2018-12-13T17:27:58.761Z">
+<meta property="og:image" content="https://snmaddula.github.io/images/awx/AWX_DASHBOARD.PNG">
+<meta property="og:updated_time" content="2018-12-13T23:26:26.035Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Ansible &amp; Ansible Tower (AWX) Lab Setup (Short Version)">
 <meta name="twitter:description" content="Magic scripts to setup Ansible &amp;amp; Ansible Tower (AWX) Learner’s Lab environment on a personal computer. Download the below ScriptsAnsibleMagicLab_Pre_Reboot.ps1 AnsibleMagicLab_Post_Reboot.ps1 Laun">
@@ -101,17 +102,17 @@
 </code></pre><h6 id="On-Successful-installation-of-Vagrant-the-machine-should-reboot"><a href="#On-Successful-installation-of-Vagrant-the-machine-should-reboot" class="headerlink" title="On Successful installation of Vagrant, the machine should reboot."></a>On Successful installation of Vagrant, the machine should reboot.</h6><p>Once the machine is up, Open Command Prompt in ‘Administrator’ mode, go to the scripts download location and execute the below command.</p>
 <h3 id="1-Post-Reboot-Setup"><a href="#1-Post-Reboot-Setup" class="headerlink" title="[1] Post-Reboot Setup"></a>[1] Post-Reboot Setup</h3><pre><code>powershell.exe -ExecutionPolicy Bypass -File AnsibleMagicLab_Post_Reboot.ps1
 </code></pre><p>Done that ?<br>Now you’ll be able to access your Ansible Tower (AWX) web interface using the Ip of the Vagrant machine.</p>
-<blockquote>
-<p>Open up a browser and provide the IP <code>&lt;IP of Vagrant Machine&gt;</code> and hit Enter. You’ll get to see a page like below.<br><img src="/images/awx/AWX_LOGIN.PNG" alt="AWX Web Interface"></p>
-</blockquote>
+<p> Open up a browser and provide the IP <code>&lt;IP of AWX Instance&gt;</code> and hit Enter. You’ll get to see a page like below.</p>
+<p><img src="/images/awx/AWX_LOGIN.PNG" alt="AWX Web Interface Login Screen"></p>
 <h4 id="CREDENTIALS-for-AWX-Login"><a href="#CREDENTIALS-for-AWX-Login" class="headerlink" title="CREDENTIALS for AWX Login"></a>CREDENTIALS for AWX Login</h4><pre><code>username : admin
 password : password
 </code></pre><p>On successful login, you’ll see a dashboard similar to the below one.</p>
+<p><img src="/images/awx/AWX_DASHBOARD.PNG" alt="AWX Web Interface Fresh Dashboard"></p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://snmaddula.github.io/ansible-awx-magic-lab-script-version/" data-id="cjpmvnljo00052csn0ml29wtf" class="article-share-link">Share</a>
+      <a data-url="https://snmaddula.github.io/ansible-awx-magic-lab-script-version/" data-id="cjpn8gwee000464sn0j0qtosl" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/AWX/">AWX</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Ansible/">Ansible</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/powershell/">powershell</a></li></ul>
