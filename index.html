@@ -66,10 +66,75 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-ansible-awx-magic-lab-setup" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/12/ansible-awx-magic-lab-setup/" class="article-date">
+  <time datetime="2018-12-13T10:39:30.000Z" itemprop="datePublished">2018-Dec-13</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/12/ansible-awx-magic-lab-setup/">Ansible &amp; Ansible Tower (AWX) Lab Setup</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Magic scripts to setup <b>Ansible &amp; Ansible Tower (AWX) Learner’s Lab</b> environment on a personal computer.</p>
+<h3 id="Launch-Sequence"><a href="#Launch-Sequence" class="headerlink" title="Launch Sequence"></a>Launch Sequence</h3><p>Open Powershell in ‘Administrator’ mode and execute the below commands in a sequence.</p>
+<h3 id="1-Switch-to-HOME-directory"><a href="#1-Switch-to-HOME-directory" class="headerlink" title="[1] Switch to HOME directory"></a>[1] Switch to HOME directory</h3><pre><code>cd ~
+</code></pre><h3 id="2-Create-a-LAB-directory"><a href="#2-Create-a-LAB-directory" class="headerlink" title="[2] Create a LAB directory"></a>[2] Create a LAB directory</h3><pre><code>mkdir __lab__
+cd __lab__
+</code></pre><h3 id="3-Bypass-SSL"><a href="#3-Bypass-SSL" class="headerlink" title="[3] Bypass SSL"></a>[3] Bypass SSL</h3><pre><code>[Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
+</code></pre><h3 id="4-Setup-Git-SSH-Client"><a href="#4-Setup-Git-SSH-Client" class="headerlink" title="[4] Setup Git + SSH Client"></a>[4] Setup Git + SSH Client</h3><pre><code>Invoke-WebRequest -Uri https://github.com/git-for-windows/git/releases/download/v2.20.0.windows.1/Git-2.20.0-64-bit.exe -OutFile gitbin.exe
+cmd &quot;/C .\gitbin.exe /SP- /SILENT /NOCANCEL /NORESTART /COMPONENTS=icons,ext\reg\shellhere,assoc,assoc_sh&quot;
+$env:Path=&quot;$env:Path;C:\Program Files\Git\bin\;C:\Program Files\Git\usr\bin\;&quot;
+rm gitbin.exe
+</code></pre><h3 id="5-Setup-VirtualBox"><a href="#5-Setup-VirtualBox" class="headerlink" title="[5] Setup VirtualBox"></a>[5] Setup VirtualBox</h3><pre><code>Invoke-WebRequest -Uri https://download.virtualbox.org/virtualbox/5.2.22/VirtualBox-5.2.22-126460-Win.exe -OutFile vbox.exe
+cmd &quot;/C .\vbox.exe -msiparams ADDLOCAL=VBoxApplication,VBoxUSB NETWORKTYPE=NDIS6 --silent&quot;
+rm vbox.exe
+</code></pre><h3 id="6-Disable-Hyper-V"><a href="#6-Disable-Hyper-V" class="headerlink" title="[6] Disable Hyper-V"></a>[6] Disable Hyper-V</h3><pre><code>Disable-WindowsOptionalFeature -Online -FeatureName Microsoft-Hyper-V-All
+</code></pre><h6 id="At-this-stage-the-machine-will-reboot"><a href="#At-this-stage-the-machine-will-reboot" class="headerlink" title="At this stage, the machine will reboot!"></a>At this stage, the machine will reboot!</h6><h6 id="Once-the-machine-is-up-Open-Powershell-in-‘Administrator’-mode-and-follow-the-below-steps"><a href="#Once-the-machine-is-up-Open-Powershell-in-‘Administrator’-mode-and-follow-the-below-steps" class="headerlink" title="Once, the machine is up, Open Powershell in ‘Administrator’ mode and follow the below steps."></a>Once, the machine is up, Open Powershell in ‘Administrator’ mode and follow the below steps.</h6><h3 id="7-Setup-Vagrant"><a href="#7-Setup-Vagrant" class="headerlink" title="[7] Setup Vagrant"></a>[7] Setup Vagrant</h3><pre><code>cd ~/__lab__
+[Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
+Invoke-WebRequest -Uri https://releases.hashicorp.com/vagrant/2.2.2/vagrant_2.2.2_x86_64.msi -OutFile vag.msi
+cmd &quot;/C .\vag.msi&quot;
+rm vag.msi
+</code></pre><h6 id="On-Successful-installation-of-Vagrant-the-machine-should-reboot"><a href="#On-Successful-installation-of-Vagrant-the-machine-should-reboot" class="headerlink" title="On Successful installation of Vagrant, the machine should reboot."></a>On Successful installation of Vagrant, the machine should reboot.</h6><h6 id="Once-the-machine-is-up-Open-Powershell-in-‘Administrator’-mode-and-follow-the-below-steps-1"><a href="#Once-the-machine-is-up-Open-Powershell-in-‘Administrator’-mode-and-follow-the-below-steps-1" class="headerlink" title="Once, the machine is up, Open Powershell in ‘Administrator’ mode and follow the below steps."></a>Once, the machine is up, Open Powershell in ‘Administrator’ mode and follow the below steps.</h6><h3 id="8-Ansible-amp-AWX-Lab-Setup"><a href="#8-Ansible-amp-AWX-Lab-Setup" class="headerlink" title="[8] Ansible &amp; AWX Lab Setup"></a>[8] Ansible &amp; AWX Lab Setup</h3><pre><code>cd ~/__lab__
+cmd &quot;/C git clone https://github.com/snmaddula/ansible-magic-lab.git&quot;
+cd ansible-magic-lab
+cmd &quot;/c vagrant up&quot;
+</code></pre><p>Done that ?<br>Now you’ll be able to access your Ansible Tower (AWX) web interface using the Ip of the Vagrant machine.</p>
+<p> Open up a browser and enter the IP i.e. <code>&lt;IP in Vagrantfile&gt;</code> and hit Enter. You’ll get to see a page like below.<br><a href=""></a></p>
+<h4 id="CREDENTIALS-for-AWX-Login"><a href="#CREDENTIALS-for-AWX-Login" class="headerlink" title="CREDENTIALS for AWX Login"></a>CREDENTIALS for AWX Login</h4><pre><code>username : admin
+password : password
+</code></pre>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://snmaddula.github.io/2018/12/ansible-awx-magic-lab-setup/" data-id="cjpmh71zd0002g8snvnolaqod" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/AWX/">AWX</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Ansible/">Ansible</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/PowerShell/">PowerShell</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-ansible-winrm-windows" class="article article-type-post" itemscope="" itemprop="blogPost">
   <div class="article-meta">
     <a href="/2018/12/ansible-winrm-windows/" class="article-date">
-  <time datetime="2018-12-13T00:57:50.000Z" itemprop="datePublished">2018-Dec-13</time>
+  <time datetime="2018-12-12T00:57:50.000Z" itemprop="datePublished">2018-Dec-12</time>
 </a>
     
   </div>
@@ -95,7 +160,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://snmaddula.github.io/2018/12/ansible-winrm-windows/" data-id="cjpme9z96000220sny12t5ka9" class="article-share-link">Share</a>
+      <a data-url="https://snmaddula.github.io/2018/12/ansible-winrm-windows/" data-id="cjpmh71zj0005g8snb3p6iuoz" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Ansible/">Ansible</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/PowerShell/">PowerShell</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/WinRm/">WinRm</a></li></ul>
@@ -110,7 +175,7 @@
     <article id="post-git-and-ssh-client-setup-windows" class="article article-type-post" itemscope="" itemprop="blogPost">
   <div class="article-meta">
     <a href="/2018/12/git-and-ssh-client-setup-windows/" class="article-date">
-  <time datetime="2018-12-12T10:31:14.000Z" itemprop="datePublished">2018-Dec-12</time>
+  <time datetime="2018-12-11T10:31:14.000Z" itemprop="datePublished">2018-Dec-11</time>
 </a>
     
   </div>
@@ -158,7 +223,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://snmaddula.github.io/2018/12/git-and-ssh-client-setup-windows/" data-id="cjpme9z8z000020sn6px0z1ef" class="article-share-link">Share</a>
+      <a data-url="https://snmaddula.github.io/2018/12/git-and-ssh-client-setup-windows/" data-id="cjpmh71zh0004g8sn58sw2ia7" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Git/">Git</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/SSH/">SSH</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Windows/">Windows</a></li></ul>
@@ -170,10 +235,58 @@
 
 
   
+    <article id="post-open-port-firewall-cmd" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/12/open-port-firewall-cmd/" class="article-date">
+  <time datetime="2018-12-10T09:23:55.000Z" itemprop="datePublished">2018-Dec-10</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/12/open-port-firewall-cmd/">Enable / Disable TCP Ports</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>To enable / disable port accessibility on a machine, we can use the <code>firewall-cmd</code> utility.</p>
+<p><b>Note</b>: You need Administrator / sudo access to play around with this utility.</p>
+<p><b> Switch to Root Account.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo su</span><br></pre></td></tr></table></figure></b></p>
+<h4 id="To-Install-firewalld"><a href="#To-Install-firewalld" class="headerlink" title="To Install firewalld"></a>To Install <code>firewalld</code></h4><p>If you already have <b>firewall daemon</b> available on your machine, you can skip this.</p>
+<p>Execute the below command to install <b>firewall daemon</b><br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install -y firewalld</span><br></pre></td></tr></table></figure></p>
+<h4 id="To-check-status-of-firewall-daemon"><a href="#To-check-status-of-firewall-daemon" class="headerlink" title="To check status of firewall daemon"></a>To check status of firewall daemon</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">firewall-cmd --state</span><br></pre></td></tr></table></figure>
+<p>You should see <i>running</i> as the result for the above command.</p>
+<h4 id="Enable-TCP-Ports"><a href="#Enable-TCP-Ports" class="headerlink" title="Enable TCP Ports"></a>Enable TCP Ports</h4><p>To enable any tcp port say 9090 for example, the command you need to execute is :<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">firewall-cmd --zone=public --permanent --add-port=9090/tcp</span><br><span class="line">firewall-cmd --reload</span><br></pre></td></tr></table></figure></p>
+<h4 id="Enable-TCP-Ports-1"><a href="#Enable-TCP-Ports-1" class="headerlink" title="Enable TCP Ports"></a>Enable TCP Ports</h4><p>To disable any tcp port say 8090 for example, the command you need to execute is :<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">firewall-cmd --zone=public --permanent --remove-port=8090/tcp</span><br><span class="line">firewall-cmd --reload</span><br></pre></td></tr></table></figure></p>
+<h4 id="List-open-ports"><a href="#List-open-ports" class="headerlink" title="List open ports"></a>List open ports</h4><p>To list publicly accessible ports on the machine, use the below command.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ firewall-cmd --zone=public --list-ports</span><br><span class="line">9090/tcp</span><br></pre></td></tr></table></figure></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://snmaddula.github.io/2018/12/open-port-firewall-cmd/" data-id="cjpmh71zo0009g8snwprq4xps" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Firewall/">Firewall</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/">Linux</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-oc-login" class="article article-type-post" itemscope="" itemprop="blogPost">
   <div class="article-meta">
     <a href="/2018/12/oc-login/" class="article-date">
-  <time datetime="2018-12-12T10:24:52.000Z" itemprop="datePublished">2018-Dec-12</time>
+  <time datetime="2018-12-09T10:24:52.000Z" itemprop="datePublished">2018-Dec-09</time>
 </a>
     
   </div>
@@ -202,7 +315,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://snmaddula.github.io/2018/12/oc-login/" data-id="cjpme9z9c000720snv0xcl3z9" class="article-share-link">Share</a>
+      <a data-url="https://snmaddula.github.io/2018/12/oc-login/" data-id="cjpmh71zl0006g8snfof34063" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/oc/">oc</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/openshift/">openshift</a></li></ul>
@@ -241,7 +354,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://snmaddula.github.io/2018/10/json-schema-avro/" data-id="cjpme9z9q000g20snr8aqgm3a" class="article-share-link">Share</a>
+      <a data-url="https://snmaddula.github.io/2018/10/json-schema-avro/" data-id="cjpmh71zn0008g8sncdc4ghdo" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/AVRO/">AVRO</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JSON/">JSON</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Kafka/">Kafka</a></li></ul>
@@ -281,7 +394,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://snmaddula.github.io/2018/09/using-camunda-with-spring-boot/" data-id="cjpme9z9l000d20sna0p3kq34" class="article-share-link">Share</a>
+      <a data-url="https://snmaddula.github.io/2018/09/using-camunda-with-spring-boot/" data-id="cjpmh71zw000hg8sntl6pigqn" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Camunda/">Camunda</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Microservices/">Microservices</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Orchestration/">Orchestration</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Spring-Boot/">Spring Boot</a></li></ul>
@@ -374,7 +487,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://snmaddula.github.io/2018/09/wiring-angular-to-spring-boot/" data-id="cjpme9zau001w20sn9yz9y93e" class="article-share-link">Share</a>
+      <a data-url="https://snmaddula.github.io/2018/09/wiring-angular-to-spring-boot/" data-id="cjpmh720w0027g8snydsu2jz6" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Angular/">Angular</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Spring-Boot/">Spring Boot</a></li></ul>
@@ -423,7 +536,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://snmaddula.github.io/2018/09/git-basics-01/" data-id="cjpme9z9n000e20snbdtbqfwu" class="article-share-link">Share</a>
+      <a data-url="https://snmaddula.github.io/2018/09/git-basics-01/" data-id="cjpmh71z60000g8snlsbhndrl" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Git/">Git</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Just-Enough-Series/">Just Enough Series</a></li></ul>
@@ -461,86 +574,10 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://snmaddula.github.io/2018/09/spring-security-oauth/" data-id="cjpme9z9g000a20sn94p3pnsj" class="article-share-link">Share</a>
+      <a data-url="https://snmaddula.github.io/2018/09/spring-security-oauth/" data-id="cjpmh71zx000jg8sndxbyy2j7" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/OAuth/">OAuth</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Spring-Boot/">Spring Boot</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Spring-Security/">Spring Security</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-spring-security-ldap" class="article article-type-post" itemscope="" itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2018/09/spring-security-ldap/" class="article-date">
-  <time datetime="2018-09-03T06:06:52.000Z" itemprop="datePublished">2018-Sep-03</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/09/spring-security-ldap/">Securing Web Apps with Spring LDAP</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://snmaddula.github.io/2018/09/spring-security-ldap/" data-id="cjpme9z9e000820snaublpg7x" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/LDAP/">LDAP</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Spring-Boot/">Spring Boot</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Spring-Security/">Spring Security</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-spring-security-jdbc" class="article article-type-post" itemscope="" itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2018/09/spring-security-jdbc/" class="article-date">
-  <time datetime="2018-09-02T06:06:52.000Z" itemprop="datePublished">2018-Sep-02</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/09/spring-security-jdbc/">Securing Web Apps with Spring Jdbc Auth</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://snmaddula.github.io/2018/09/spring-security-jdbc/" data-id="cjpme9z9b000520snhdai3wbb" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Spring-Boot/">Spring Boot</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Spring-Security/">Spring Security</a></li></ul>
 
     </footer>
   </div>
@@ -567,7 +604,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tags</h3>
     <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/AVRO/">AVRO</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Angular/">Angular</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Ansible/">Ansible</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Camunda/">Camunda</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Git/">Git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JSON/">JSON</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Just-Enough-Series/">Just Enough Series</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Kafka/">Kafka</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LDAP/">LDAP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Microservices/">Microservices</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/OAuth/">OAuth</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Orchestration/">Orchestration</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/PowerShell/">PowerShell</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Reactive-Web/">Reactive Web</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SSH/">SSH</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spring-Boot/">Spring Boot</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spring-Security/">Spring Security</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Web-Flux/">Web-Flux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/WinRm/">WinRm</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Windows/">Windows</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/oc/">oc</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/openshift/">openshift</a></li></ul>
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/AVRO/">AVRO</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/AWX/">AWX</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Angular/">Angular</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Ansible/">Ansible</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Camunda/">Camunda</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Firewall/">Firewall</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Git/">Git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JSON/">JSON</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Just-Enough-Series/">Just Enough Series</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Kafka/">Kafka</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LDAP/">LDAP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/">Linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Microservices/">Microservices</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/OAuth/">OAuth</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Orchestration/">Orchestration</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/PowerShell/">PowerShell</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Reactive-Web/">Reactive Web</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SSH/">SSH</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spring-Boot/">Spring Boot</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spring-Security/">Spring Security</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Web-Flux/">Web-Flux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/WinRm/">WinRm</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Windows/">Windows</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/oc/">oc</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/openshift/">openshift</a></li></ul>
     </div>
   </div>
 
@@ -577,7 +614,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="/tags/AVRO/" style="font-size: 10px;">AVRO</a> <a href="/tags/Angular/" style="font-size: 10px;">Angular</a> <a href="/tags/Ansible/" style="font-size: 10px;">Ansible</a> <a href="/tags/Camunda/" style="font-size: 10px;">Camunda</a> <a href="/tags/Git/" style="font-size: 13.33px;">Git</a> <a href="/tags/JSON/" style="font-size: 10px;">JSON</a> <a href="/tags/Just-Enough-Series/" style="font-size: 10px;">Just Enough Series</a> <a href="/tags/Kafka/" style="font-size: 10px;">Kafka</a> <a href="/tags/LDAP/" style="font-size: 10px;">LDAP</a> <a href="/tags/Microservices/" style="font-size: 10px;">Microservices</a> <a href="/tags/OAuth/" style="font-size: 10px;">OAuth</a> <a href="/tags/Orchestration/" style="font-size: 10px;">Orchestration</a> <a href="/tags/PowerShell/" style="font-size: 10px;">PowerShell</a> <a href="/tags/Reactive-Web/" style="font-size: 10px;">Reactive Web</a> <a href="/tags/SSH/" style="font-size: 10px;">SSH</a> <a href="/tags/Spring-Boot/" style="font-size: 20px;">Spring Boot</a> <a href="/tags/Spring-Security/" style="font-size: 16.67px;">Spring Security</a> <a href="/tags/Web-Flux/" style="font-size: 10px;">Web-Flux</a> <a href="/tags/WinRm/" style="font-size: 10px;">WinRm</a> <a href="/tags/Windows/" style="font-size: 10px;">Windows</a> <a href="/tags/oc/" style="font-size: 10px;">oc</a> <a href="/tags/openshift/" style="font-size: 10px;">openshift</a>
+      <a href="/tags/AVRO/" style="font-size: 10px;">AVRO</a> <a href="/tags/AWX/" style="font-size: 10px;">AWX</a> <a href="/tags/Angular/" style="font-size: 10px;">Angular</a> <a href="/tags/Ansible/" style="font-size: 13.33px;">Ansible</a> <a href="/tags/Camunda/" style="font-size: 10px;">Camunda</a> <a href="/tags/Firewall/" style="font-size: 10px;">Firewall</a> <a href="/tags/Git/" style="font-size: 13.33px;">Git</a> <a href="/tags/JSON/" style="font-size: 10px;">JSON</a> <a href="/tags/Just-Enough-Series/" style="font-size: 10px;">Just Enough Series</a> <a href="/tags/Kafka/" style="font-size: 10px;">Kafka</a> <a href="/tags/LDAP/" style="font-size: 10px;">LDAP</a> <a href="/tags/Linux/" style="font-size: 10px;">Linux</a> <a href="/tags/Microservices/" style="font-size: 10px;">Microservices</a> <a href="/tags/OAuth/" style="font-size: 10px;">OAuth</a> <a href="/tags/Orchestration/" style="font-size: 10px;">Orchestration</a> <a href="/tags/PowerShell/" style="font-size: 13.33px;">PowerShell</a> <a href="/tags/Reactive-Web/" style="font-size: 10px;">Reactive Web</a> <a href="/tags/SSH/" style="font-size: 10px;">SSH</a> <a href="/tags/Spring-Boot/" style="font-size: 20px;">Spring Boot</a> <a href="/tags/Spring-Security/" style="font-size: 16.67px;">Spring Security</a> <a href="/tags/Web-Flux/" style="font-size: 10px;">Web-Flux</a> <a href="/tags/WinRm/" style="font-size: 10px;">WinRm</a> <a href="/tags/Windows/" style="font-size: 10px;">Windows</a> <a href="/tags/oc/" style="font-size: 10px;">oc</a> <a href="/tags/openshift/" style="font-size: 10px;">openshift</a>
     </div>
   </div>
 
@@ -599,6 +636,10 @@
       <ul>
         
           <li>
+            <a href="/2018/12/ansible-awx-magic-lab-setup/">Ansible &amp; Ansible Tower (AWX) Lab Setup</a>
+          </li>
+        
+          <li>
             <a href="/2018/12/ansible-winrm-windows/">PowerShell : Enable WinRm on Windows</a>
           </li>
         
@@ -607,15 +648,11 @@
           </li>
         
           <li>
+            <a href="/2018/12/open-port-firewall-cmd/">Enable / Disable TCP Ports</a>
+          </li>
+        
+          <li>
             <a href="/2018/12/oc-login/">Login to OpenShift Origin</a>
-          </li>
-        
-          <li>
-            <a href="/2018/10/json-schema-avro/">JSON Schema enforcement using AVRO</a>
-          </li>
-        
-          <li>
-            <a href="/2018/09/using-camunda-with-spring-boot/">Orchestrating Spring Boot Microservices with Camunda</a>
           </li>
         
       </ul>
