@@ -66,6 +66,47 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-ansible-winrm-windows" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/12/ansible-winrm-windows/" class="article-date">
+  <time datetime="2018-12-13T00:57:50.000Z" itemprop="datePublished">2018-Dec-13</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/12/ansible-winrm-windows/">PowerShell : Enable WinRm on Windows</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h4 id="Step-01"><a href="#Step-01" class="headerlink" title="Step 01"></a>Step 01</h4><p>Download the PowerShell script provided by Ansible here: <a href="/pf/ConfigureRemotingForAnsible.ps1">ConfigureRemotingForAnsible.ps1</a></p>
+<h5 id="Note-To-execute-the-script-Administrator-access-is-required"><a href="#Note-To-execute-the-script-Administrator-access-is-required" class="headerlink" title="Note: To execute the script, Administrator access is required."></a>Note: To execute the script, Administrator access is required.</h5><h4 id="Step-02"><a href="#Step-02" class="headerlink" title="Step 02"></a>Step 02</h4><p>Now, go to the script download location and open the Command Prompt as an ‘Administrator’ and run the following command:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">powershell.exe -File ConfigureRemotingForAnsible.ps1 -CertValidityDays 100</span><br></pre></td></tr></table></figure></p>
+<h5 id="Note-Ensure-that-port-5986-is-open-in-firewall-rules"><a href="#Note-Ensure-that-port-5986-is-open-in-firewall-rules" class="headerlink" title="Note: Ensure that port 5986 is open in firewall rules."></a>Note: Ensure that port 5986 is open in firewall rules.</h5><p>That’s all you need, to enable WinRm on windows!</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://snmaddula.github.io/2018/12/ansible-winrm-windows/" data-id="cjpm1m8sg0005n4sndsvdoz6g" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Ansible/">Ansible</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/PowerShell/">PowerShell</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/WinRm/">WinRm</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-git-and-ssh-client-setup-windows" class="article article-type-post" itemscope="" itemprop="blogPost">
   <div class="article-meta">
     <a href="/2018/12/git-and-ssh-client-setup-windows/" class="article-date">
@@ -95,7 +136,8 @@
 <li>Command Prompt (Optional)</li>
 </ul>
 <p>Let us get started with the setup.</p>
-<h3 id="Setup-on-Non-GUI-Server-machines-Using-PowerShell"><a href="#Setup-on-Non-GUI-Server-machines-Using-PowerShell" class="headerlink" title="Setup on Non-GUI / Server machines :: Using PowerShell"></a>Setup on Non-GUI / Server machines :: Using PowerShell</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12</span><br><span class="line">Invoke-WebRequest -Uri https://github.com/git-for-windows/git/releases/download/v2.20.0.windows.1/Git-2.20.0-64-bit.exe -OutFile gitbin.exe</span><br><span class="line">cmd &quot;/C .\gitbit.exe&quot;</span><br></pre></td></tr></table></figure>
+<h3 id="Silent-UnAttended-Install-Using-PowerShell"><a href="#Silent-UnAttended-Install-Using-PowerShell" class="headerlink" title="Silent / UnAttended Install :: Using PowerShell"></a>Silent / UnAttended Install :: Using PowerShell</h3><p>To download &amp; install <code>git</code> in silent / un-attended mode, execute the below commands<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12</span><br><span class="line">Invoke-WebRequest -Uri https://github.com/git-for-windows/git/releases/download/v2.20.0.windows.1/Git-2.20.0-64-bit.exe -OutFile gitbin.exe</span><br><span class="line">cmd &quot;/C .\gitbin.exe /SP- /SILENT /NOCANCEL /NORESTART /COMPONENTS=icons,ext\reg\shellhere,assoc,assoc_sh&quot;</span><br></pre></td></tr></table></figure></p>
+<p>Add git &amp; ssh to your path without closing and re-launching PowerShell.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$env:Path=&quot;$env:Path;C:\Program Files\Git\bin\;&quot;</span><br><span class="line">$env:Path=&quot;$env:Path;C:\Program Files\Git\usr\bin\;&quot;</span><br></pre></td></tr></table></figure></p>
 <h3 id="Setup-on-Deskop-machines-GUI"><a href="#Setup-on-Deskop-machines-GUI" class="headerlink" title="Setup on Deskop machines :: GUI"></a>Setup on Deskop machines :: GUI</h3><ul>
 <li><a href="https://git-scm.com/downloads" target="_blank" rel="noopener">Download Git</a> for your machine.</li>
 </ul>
@@ -116,7 +158,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://snmaddula.github.io/2018/12/git-and-ssh-client-setup-windows/" data-id="cjpl2do1u00012ssnep3pyuwj" class="article-share-link">Share</a>
+      <a data-url="https://snmaddula.github.io/2018/12/git-and-ssh-client-setup-windows/" data-id="cjpm1m8sh0006n4sn9qb4p2fl" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Git/">Git</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/SSH/">SSH</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Windows/">Windows</a></li></ul>
@@ -160,7 +202,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://snmaddula.github.io/2018/12/oc-login/" data-id="cjpl2do2800052ssn09zkt8v2" class="article-share-link">Share</a>
+      <a data-url="https://snmaddula.github.io/2018/12/oc-login/" data-id="cjpm1m8sj0007n4snpurv89vq" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/oc/">oc</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/openshift/">openshift</a></li></ul>
@@ -199,7 +241,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://snmaddula.github.io/2018/10/json-schema-avro/" data-id="cjpl2do2600042ssnfk45v3kl" class="article-share-link">Share</a>
+      <a data-url="https://snmaddula.github.io/2018/10/json-schema-avro/" data-id="cjpm1m8s30000n4snct9qpvic" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/AVRO/">AVRO</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JSON/">JSON</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Kafka/">Kafka</a></li></ul>
@@ -239,7 +281,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://snmaddula.github.io/2018/09/using-camunda-with-spring-boot/" data-id="cjpl2do3j001d2ssn4vb0llpe" class="article-share-link">Share</a>
+      <a data-url="https://snmaddula.github.io/2018/09/using-camunda-with-spring-boot/" data-id="cjpm1m8su000fn4sns1xzqzj6" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Camunda/">Camunda</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Microservices/">Microservices</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Orchestration/">Orchestration</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Spring-Boot/">Spring Boot</a></li></ul>
@@ -332,7 +374,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://snmaddula.github.io/2018/09/wiring-angular-to-spring-boot/" data-id="cjpl2do3c00192ssnc6y8r56l" class="article-share-link">Share</a>
+      <a data-url="https://snmaddula.github.io/2018/09/wiring-angular-to-spring-boot/" data-id="cjpm1m8sr000dn4snujn8pfqw" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Angular/">Angular</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Spring-Boot/">Spring Boot</a></li></ul>
@@ -381,7 +423,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://snmaddula.github.io/2018/09/git-basics-01/" data-id="cjpl2do2200022ssnz94nhpo8" class="article-share-link">Share</a>
+      <a data-url="https://snmaddula.github.io/2018/09/git-basics-01/" data-id="cjpm1m8sa0002n4sn59pkga93" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Git/">Git</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Just-Enough-Series/">Just Enough Series</a></li></ul>
@@ -419,7 +461,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://snmaddula.github.io/2018/09/spring-security-oauth/" data-id="cjpl2do2b00082ssnvmsh7aps" class="article-share-link">Share</a>
+      <a data-url="https://snmaddula.github.io/2018/09/spring-security-oauth/" data-id="cjpm1m8sm000an4snswlrerqr" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/OAuth/">OAuth</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Spring-Boot/">Spring Boot</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Spring-Security/">Spring Security</a></li></ul>
@@ -457,7 +499,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://snmaddula.github.io/2018/09/spring-security-ldap/" data-id="cjpl2do2d00092ssnsr7zegcd" class="article-share-link">Share</a>
+      <a data-url="https://snmaddula.github.io/2018/09/spring-security-ldap/" data-id="cjpm1m8sw000hn4snd65rxkvs" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/LDAP/">LDAP</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Spring-Boot/">Spring Boot</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Spring-Security/">Spring Security</a></li></ul>
@@ -495,7 +537,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://snmaddula.github.io/2018/09/spring-security-jdbc/" data-id="cjpl2do2900062ssnvdllywzh" class="article-share-link">Share</a>
+      <a data-url="https://snmaddula.github.io/2018/09/spring-security-jdbc/" data-id="cjpm1m8sl0009n4sn6iqhm4h4" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Spring-Boot/">Spring Boot</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Spring-Security/">Spring Security</a></li></ul>
@@ -507,45 +549,12 @@
 
 
   
-    <article id="post-reactive-spring-boot-crud" class="article article-type-post" itemscope="" itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2018/09/reactive-spring-boot-crud/" class="article-date">
-  <time datetime="2018-09-01T06:06:52.000Z" itemprop="datePublished">2018-Sep-01</time>
-</a>
+
+
+  <nav id="page-nav">
     
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/09/reactive-spring-boot-crud/">Reactive Spring Boot CRUD using Flux &amp; Mono</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://snmaddula.github.io/2018/09/reactive-spring-boot-crud/" data-id="cjpl2do3g001b2ssncakpvj4f" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Reactive-Web/">Reactive Web</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Spring-Boot/">Spring Boot</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Web-Flux/">Web-Flux</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
+  </nav>
 
 </section>
         
@@ -558,7 +567,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tags</h3>
     <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/AVRO/">AVRO</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Angular/">Angular</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Camunda/">Camunda</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Git/">Git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JSON/">JSON</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Just-Enough-Series/">Just Enough Series</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Kafka/">Kafka</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LDAP/">LDAP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Microservices/">Microservices</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/OAuth/">OAuth</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Orchestration/">Orchestration</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Reactive-Web/">Reactive Web</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SSH/">SSH</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spring-Boot/">Spring Boot</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spring-Security/">Spring Security</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Web-Flux/">Web-Flux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Windows/">Windows</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/oc/">oc</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/openshift/">openshift</a></li></ul>
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/AVRO/">AVRO</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Angular/">Angular</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Ansible/">Ansible</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Camunda/">Camunda</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Git/">Git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JSON/">JSON</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Just-Enough-Series/">Just Enough Series</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Kafka/">Kafka</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LDAP/">LDAP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Microservices/">Microservices</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/OAuth/">OAuth</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Orchestration/">Orchestration</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/PowerShell/">PowerShell</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Reactive-Web/">Reactive Web</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SSH/">SSH</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spring-Boot/">Spring Boot</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spring-Security/">Spring Security</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Web-Flux/">Web-Flux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/WinRm/">WinRm</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Windows/">Windows</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/oc/">oc</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/openshift/">openshift</a></li></ul>
     </div>
   </div>
 
@@ -568,7 +577,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="/tags/AVRO/" style="font-size: 10px;">AVRO</a> <a href="/tags/Angular/" style="font-size: 10px;">Angular</a> <a href="/tags/Camunda/" style="font-size: 10px;">Camunda</a> <a href="/tags/Git/" style="font-size: 13.33px;">Git</a> <a href="/tags/JSON/" style="font-size: 10px;">JSON</a> <a href="/tags/Just-Enough-Series/" style="font-size: 10px;">Just Enough Series</a> <a href="/tags/Kafka/" style="font-size: 10px;">Kafka</a> <a href="/tags/LDAP/" style="font-size: 10px;">LDAP</a> <a href="/tags/Microservices/" style="font-size: 10px;">Microservices</a> <a href="/tags/OAuth/" style="font-size: 10px;">OAuth</a> <a href="/tags/Orchestration/" style="font-size: 10px;">Orchestration</a> <a href="/tags/Reactive-Web/" style="font-size: 10px;">Reactive Web</a> <a href="/tags/SSH/" style="font-size: 10px;">SSH</a> <a href="/tags/Spring-Boot/" style="font-size: 20px;">Spring Boot</a> <a href="/tags/Spring-Security/" style="font-size: 16.67px;">Spring Security</a> <a href="/tags/Web-Flux/" style="font-size: 10px;">Web-Flux</a> <a href="/tags/Windows/" style="font-size: 10px;">Windows</a> <a href="/tags/oc/" style="font-size: 10px;">oc</a> <a href="/tags/openshift/" style="font-size: 10px;">openshift</a>
+      <a href="/tags/AVRO/" style="font-size: 10px;">AVRO</a> <a href="/tags/Angular/" style="font-size: 10px;">Angular</a> <a href="/tags/Ansible/" style="font-size: 10px;">Ansible</a> <a href="/tags/Camunda/" style="font-size: 10px;">Camunda</a> <a href="/tags/Git/" style="font-size: 13.33px;">Git</a> <a href="/tags/JSON/" style="font-size: 10px;">JSON</a> <a href="/tags/Just-Enough-Series/" style="font-size: 10px;">Just Enough Series</a> <a href="/tags/Kafka/" style="font-size: 10px;">Kafka</a> <a href="/tags/LDAP/" style="font-size: 10px;">LDAP</a> <a href="/tags/Microservices/" style="font-size: 10px;">Microservices</a> <a href="/tags/OAuth/" style="font-size: 10px;">OAuth</a> <a href="/tags/Orchestration/" style="font-size: 10px;">Orchestration</a> <a href="/tags/PowerShell/" style="font-size: 10px;">PowerShell</a> <a href="/tags/Reactive-Web/" style="font-size: 10px;">Reactive Web</a> <a href="/tags/SSH/" style="font-size: 10px;">SSH</a> <a href="/tags/Spring-Boot/" style="font-size: 20px;">Spring Boot</a> <a href="/tags/Spring-Security/" style="font-size: 16.67px;">Spring Security</a> <a href="/tags/Web-Flux/" style="font-size: 10px;">Web-Flux</a> <a href="/tags/WinRm/" style="font-size: 10px;">WinRm</a> <a href="/tags/Windows/" style="font-size: 10px;">Windows</a> <a href="/tags/oc/" style="font-size: 10px;">oc</a> <a href="/tags/openshift/" style="font-size: 10px;">openshift</a>
     </div>
   </div>
 
@@ -590,6 +599,10 @@
       <ul>
         
           <li>
+            <a href="/2018/12/ansible-winrm-windows/">PowerShell : Enable WinRm on Windows</a>
+          </li>
+        
+          <li>
             <a href="/2018/12/git-and-ssh-client-setup-windows/">Git + SSH Client Setup</a>
           </li>
         
@@ -603,10 +616,6 @@
         
           <li>
             <a href="/2018/09/using-camunda-with-spring-boot/">Orchestrating Spring Boot Microservices with Camunda</a>
-          </li>
-        
-          <li>
-            <a href="/2018/09/wiring-angular-to-spring-boot/">Wiring Angular with Spring Boot</a>
           </li>
         
       </ul>

@@ -7,13 +7,13 @@
   
   <title>Git + SSH Client Setup | snmaddula</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="In this article, we shall setup SSH client on Windows machine. What we need ? Git PowerShell (Optional) Command Prompt (Optional)  Let us get started with the setup. Setup on Non-GUI / Server machines">
+  <meta name="description" content="In this article, we shall setup SSH client on Windows machine. What we need ? Git PowerShell (Optional) Command Prompt (Optional)  Let us get started with the setup. Silent / UnAttended Install :: Usi">
 <meta name="keywords" content="Git,SSH,Windows">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Git + SSH Client Setup">
 <meta property="og:url" content="https://snmaddula.github.io/2018/12/git-and-ssh-client-setup-windows/index.html">
 <meta property="og:site_name" content="snmaddula">
-<meta property="og:description" content="In this article, we shall setup SSH client on Windows machine. What we need ? Git PowerShell (Optional) Command Prompt (Optional)  Let us get started with the setup. Setup on Non-GUI / Server machines">
+<meta property="og:description" content="In this article, we shall setup SSH client on Windows machine. What we need ? Git PowerShell (Optional) Command Prompt (Optional)  Let us get started with the setup. Silent / UnAttended Install :: Usi">
 <meta property="og:locale" content="default">
 <meta property="og:image" content="https://snmaddula.github.io/images/git/001.PNG">
 <meta property="og:image" content="https://snmaddula.github.io/images/git/002.PNG">
@@ -26,10 +26,10 @@
 <meta property="og:image" content="https://snmaddula.github.io/images/git/009.PNG">
 <meta property="og:image" content="https://snmaddula.github.io/images/git/010.PNG">
 <meta property="og:image" content="https://snmaddula.github.io/images/git/011.PNG">
-<meta property="og:updated_time" content="2018-12-12T10:54:31.988Z">
+<meta property="og:updated_time" content="2018-12-13T03:25:55.991Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Git + SSH Client Setup">
-<meta name="twitter:description" content="In this article, we shall setup SSH client on Windows machine. What we need ? Git PowerShell (Optional) Command Prompt (Optional)  Let us get started with the setup. Setup on Non-GUI / Server machines">
+<meta name="twitter:description" content="In this article, we shall setup SSH client on Windows machine. What we need ? Git PowerShell (Optional) Command Prompt (Optional)  Let us get started with the setup. Silent / UnAttended Install :: Usi">
 <meta name="twitter:image" content="https://snmaddula.github.io/images/git/001.PNG">
   
     <link rel="alternate" href="/atom.xml" title="snmaddula" type="application/atom+xml">
@@ -110,7 +110,8 @@
 <li>Command Prompt (Optional)</li>
 </ul>
 <p>Let us get started with the setup.</p>
-<h3 id="Setup-on-Non-GUI-Server-machines-Using-PowerShell"><a href="#Setup-on-Non-GUI-Server-machines-Using-PowerShell" class="headerlink" title="Setup on Non-GUI / Server machines :: Using PowerShell"></a>Setup on Non-GUI / Server machines :: Using PowerShell</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12</span><br><span class="line">Invoke-WebRequest -Uri https://github.com/git-for-windows/git/releases/download/v2.20.0.windows.1/Git-2.20.0-64-bit.exe -OutFile gitbin.exe</span><br><span class="line">cmd &quot;/C .\gitbit.exe&quot;</span><br></pre></td></tr></table></figure>
+<h3 id="Silent-UnAttended-Install-Using-PowerShell"><a href="#Silent-UnAttended-Install-Using-PowerShell" class="headerlink" title="Silent / UnAttended Install :: Using PowerShell"></a>Silent / UnAttended Install :: Using PowerShell</h3><p>To download &amp; install <code>git</code> in silent / un-attended mode, execute the below commands<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12</span><br><span class="line">Invoke-WebRequest -Uri https://github.com/git-for-windows/git/releases/download/v2.20.0.windows.1/Git-2.20.0-64-bit.exe -OutFile gitbin.exe</span><br><span class="line">cmd &quot;/C .\gitbin.exe /SP- /SILENT /NOCANCEL /NORESTART /COMPONENTS=icons,ext\reg\shellhere,assoc,assoc_sh&quot;</span><br></pre></td></tr></table></figure></p>
+<p>Add git &amp; ssh to your path without closing and re-launching PowerShell.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$env:Path=&quot;$env:Path;C:\Program Files\Git\bin\;&quot;</span><br><span class="line">$env:Path=&quot;$env:Path;C:\Program Files\Git\usr\bin\;&quot;</span><br></pre></td></tr></table></figure></p>
 <h3 id="Setup-on-Deskop-machines-GUI"><a href="#Setup-on-Deskop-machines-GUI" class="headerlink" title="Setup on Deskop machines :: GUI"></a>Setup on Deskop machines :: GUI</h3><ul>
 <li><a href="https://git-scm.com/downloads" target="_blank" rel="noopener">Download Git</a> for your machine.</li>
 </ul>
@@ -131,7 +132,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://snmaddula.github.io/2018/12/git-and-ssh-client-setup-windows/" data-id="cjpl2do1u00012ssnep3pyuwj" class="article-share-link">Share</a>
+      <a data-url="https://snmaddula.github.io/2018/12/git-and-ssh-client-setup-windows/" data-id="cjpm1m8sh0006n4sn9qb4p2fl" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Git/">Git</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/SSH/">SSH</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Windows/">Windows</a></li></ul>
@@ -141,6 +142,15 @@
   
     
 <nav id="article-nav">
+  
+    <a href="/2018/12/ansible-winrm-windows/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          PowerShell : Enable WinRm on Windows
+        
+      </div>
+    </a>
   
   
     <a href="/2018/12/oc-login/" id="article-nav-older" class="article-nav-link-wrap">
@@ -164,7 +174,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tags</h3>
     <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/AVRO/">AVRO</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Angular/">Angular</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Camunda/">Camunda</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Git/">Git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JSON/">JSON</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Just-Enough-Series/">Just Enough Series</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Kafka/">Kafka</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LDAP/">LDAP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Microservices/">Microservices</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/OAuth/">OAuth</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Orchestration/">Orchestration</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Reactive-Web/">Reactive Web</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SSH/">SSH</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spring-Boot/">Spring Boot</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spring-Security/">Spring Security</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Web-Flux/">Web-Flux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Windows/">Windows</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/oc/">oc</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/openshift/">openshift</a></li></ul>
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/AVRO/">AVRO</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Angular/">Angular</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Ansible/">Ansible</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Camunda/">Camunda</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Git/">Git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JSON/">JSON</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Just-Enough-Series/">Just Enough Series</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Kafka/">Kafka</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LDAP/">LDAP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Microservices/">Microservices</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/OAuth/">OAuth</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Orchestration/">Orchestration</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/PowerShell/">PowerShell</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Reactive-Web/">Reactive Web</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SSH/">SSH</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spring-Boot/">Spring Boot</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spring-Security/">Spring Security</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Web-Flux/">Web-Flux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/WinRm/">WinRm</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Windows/">Windows</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/oc/">oc</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/openshift/">openshift</a></li></ul>
     </div>
   </div>
 
@@ -174,7 +184,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="/tags/AVRO/" style="font-size: 10px;">AVRO</a> <a href="/tags/Angular/" style="font-size: 10px;">Angular</a> <a href="/tags/Camunda/" style="font-size: 10px;">Camunda</a> <a href="/tags/Git/" style="font-size: 13.33px;">Git</a> <a href="/tags/JSON/" style="font-size: 10px;">JSON</a> <a href="/tags/Just-Enough-Series/" style="font-size: 10px;">Just Enough Series</a> <a href="/tags/Kafka/" style="font-size: 10px;">Kafka</a> <a href="/tags/LDAP/" style="font-size: 10px;">LDAP</a> <a href="/tags/Microservices/" style="font-size: 10px;">Microservices</a> <a href="/tags/OAuth/" style="font-size: 10px;">OAuth</a> <a href="/tags/Orchestration/" style="font-size: 10px;">Orchestration</a> <a href="/tags/Reactive-Web/" style="font-size: 10px;">Reactive Web</a> <a href="/tags/SSH/" style="font-size: 10px;">SSH</a> <a href="/tags/Spring-Boot/" style="font-size: 20px;">Spring Boot</a> <a href="/tags/Spring-Security/" style="font-size: 16.67px;">Spring Security</a> <a href="/tags/Web-Flux/" style="font-size: 10px;">Web-Flux</a> <a href="/tags/Windows/" style="font-size: 10px;">Windows</a> <a href="/tags/oc/" style="font-size: 10px;">oc</a> <a href="/tags/openshift/" style="font-size: 10px;">openshift</a>
+      <a href="/tags/AVRO/" style="font-size: 10px;">AVRO</a> <a href="/tags/Angular/" style="font-size: 10px;">Angular</a> <a href="/tags/Ansible/" style="font-size: 10px;">Ansible</a> <a href="/tags/Camunda/" style="font-size: 10px;">Camunda</a> <a href="/tags/Git/" style="font-size: 13.33px;">Git</a> <a href="/tags/JSON/" style="font-size: 10px;">JSON</a> <a href="/tags/Just-Enough-Series/" style="font-size: 10px;">Just Enough Series</a> <a href="/tags/Kafka/" style="font-size: 10px;">Kafka</a> <a href="/tags/LDAP/" style="font-size: 10px;">LDAP</a> <a href="/tags/Microservices/" style="font-size: 10px;">Microservices</a> <a href="/tags/OAuth/" style="font-size: 10px;">OAuth</a> <a href="/tags/Orchestration/" style="font-size: 10px;">Orchestration</a> <a href="/tags/PowerShell/" style="font-size: 10px;">PowerShell</a> <a href="/tags/Reactive-Web/" style="font-size: 10px;">Reactive Web</a> <a href="/tags/SSH/" style="font-size: 10px;">SSH</a> <a href="/tags/Spring-Boot/" style="font-size: 20px;">Spring Boot</a> <a href="/tags/Spring-Security/" style="font-size: 16.67px;">Spring Security</a> <a href="/tags/Web-Flux/" style="font-size: 10px;">Web-Flux</a> <a href="/tags/WinRm/" style="font-size: 10px;">WinRm</a> <a href="/tags/Windows/" style="font-size: 10px;">Windows</a> <a href="/tags/oc/" style="font-size: 10px;">oc</a> <a href="/tags/openshift/" style="font-size: 10px;">openshift</a>
     </div>
   </div>
 
@@ -196,6 +206,10 @@
       <ul>
         
           <li>
+            <a href="/2018/12/ansible-winrm-windows/">PowerShell : Enable WinRm on Windows</a>
+          </li>
+        
+          <li>
             <a href="/2018/12/git-and-ssh-client-setup-windows/">Git + SSH Client Setup</a>
           </li>
         
@@ -209,10 +223,6 @@
         
           <li>
             <a href="/2018/09/using-camunda-with-spring-boot/">Orchestrating Spring Boot Microservices with Camunda</a>
-          </li>
-        
-          <li>
-            <a href="/2018/09/wiring-angular-to-spring-boot/">Wiring Angular with Spring Boot</a>
           </li>
         
       </ul>
