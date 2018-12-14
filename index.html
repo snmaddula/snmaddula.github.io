@@ -106,7 +106,7 @@ password : password
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://snmaddula.github.io/ansible-awx-magic-lab-setup/" data-id="cjpohebeo0000x0snsa7r17k8" class="article-share-link">Share</a>
+      <a data-url="https://snmaddula.github.io/ansible-awx-magic-lab-setup/" data-id="cjpohfqs00002t8snft70nh91" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/AWX/">AWX</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Ansible/">Ansible</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/powershell/">powershell</a></li></ul>
@@ -121,7 +121,7 @@ password : password
     <article id="post-ansible-winrm-windows" class="article article-type-post" itemscope="" itemprop="blogPost">
   <div class="article-meta">
     <a href="/ansible-winrm-windows/" class="article-date">
-  <time datetime="2018-12-12T00:57:50.000Z" itemprop="datePublished">2018-Dec-12</time>
+  <time datetime="2018-12-13T00:57:50.000Z" itemprop="datePublished">2018-Dec-13</time>
 </a>
     
   </div>
@@ -147,10 +147,58 @@ password : password
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://snmaddula.github.io/ansible-winrm-windows/" data-id="cjpohebew0003x0snbz2nphqk" class="article-share-link">Share</a>
+      <a data-url="https://snmaddula.github.io/ansible-winrm-windows/" data-id="cjpohfqsc0006t8snbw6psg1v" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Ansible/">Ansible</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/PowerShell/">PowerShell</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/WinRm/">WinRm</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-open-port-firewall-cmd" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/open-port-firewall-cmd/" class="article-date">
+  <time datetime="2018-12-12T09:23:55.000Z" itemprop="datePublished">2018-Dec-12</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/open-port-firewall-cmd/">Enable / Disable TCP Ports</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>To enable / disable port accessibility on a machine, we can use the <code>firewall-cmd</code> utility.</p>
+<p><b>Note</b>: You need Administrator / sudo access to play around with this utility.</p>
+<p><b> Switch to Root Account.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo su</span><br></pre></td></tr></table></figure></b></p>
+<h4 id="To-Install-firewalld"><a href="#To-Install-firewalld" class="headerlink" title="To Install firewalld"></a>To Install <code>firewalld</code></h4><p>If you already have <b>firewall daemon</b> available on your machine, you can skip this.</p>
+<p>Execute the below command to install <b>firewall daemon</b><br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install -y firewalld</span><br></pre></td></tr></table></figure></p>
+<h4 id="To-check-status-of-firewall-daemon"><a href="#To-check-status-of-firewall-daemon" class="headerlink" title="To check status of firewall daemon"></a>To check status of firewall daemon</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">firewall-cmd --state</span><br></pre></td></tr></table></figure>
+<p>You should see <i>running</i> as the result for the above command.</p>
+<h4 id="Enable-TCP-Ports"><a href="#Enable-TCP-Ports" class="headerlink" title="Enable TCP Ports"></a>Enable TCP Ports</h4><p>To enable any tcp port say 9090 for example, the command you need to execute is :<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">firewall-cmd --zone=public --permanent --add-port=9090/tcp</span><br><span class="line">firewall-cmd --reload</span><br></pre></td></tr></table></figure></p>
+<h4 id="Enable-TCP-Ports-1"><a href="#Enable-TCP-Ports-1" class="headerlink" title="Enable TCP Ports"></a>Enable TCP Ports</h4><p>To disable any tcp port say 8090 for example, the command you need to execute is :<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">firewall-cmd --zone=public --permanent --remove-port=8090/tcp</span><br><span class="line">firewall-cmd --reload</span><br></pre></td></tr></table></figure></p>
+<h4 id="List-open-ports"><a href="#List-open-ports" class="headerlink" title="List open ports"></a>List open ports</h4><p>To list publicly accessible ports on the machine, use the below command.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ firewall-cmd --zone=public --list-ports</span><br><span class="line">9090/tcp</span><br></pre></td></tr></table></figure></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://snmaddula.github.io/open-port-firewall-cmd/" data-id="cjpohfqsi0009t8snteat3ms0" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Firewall/">Firewall</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/">Linux</a></li></ul>
 
     </footer>
   </div>
@@ -210,58 +258,10 @@ password : password
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://snmaddula.github.io/git-and-ssh-client-setup-windows/" data-id="cjpohebgc000qx0sn4x404a6w" class="article-share-link">Share</a>
+      <a data-url="https://snmaddula.github.io/git-and-ssh-client-setup-windows/" data-id="cjpohfqrv0001t8sn91w45dip" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Git/">Git</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/SSH/">SSH</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Windows/">Windows</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-open-port-firewall-cmd" class="article article-type-post" itemscope="" itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/open-port-firewall-cmd/" class="article-date">
-  <time datetime="2018-12-10T09:23:55.000Z" itemprop="datePublished">2018-Dec-10</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/open-port-firewall-cmd/">Enable / Disable TCP Ports</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>To enable / disable port accessibility on a machine, we can use the <code>firewall-cmd</code> utility.</p>
-<p><b>Note</b>: You need Administrator / sudo access to play around with this utility.</p>
-<p><b> Switch to Root Account.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo su</span><br></pre></td></tr></table></figure></b></p>
-<h4 id="To-Install-firewalld"><a href="#To-Install-firewalld" class="headerlink" title="To Install firewalld"></a>To Install <code>firewalld</code></h4><p>If you already have <b>firewall daemon</b> available on your machine, you can skip this.</p>
-<p>Execute the below command to install <b>firewall daemon</b><br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install -y firewalld</span><br></pre></td></tr></table></figure></p>
-<h4 id="To-check-status-of-firewall-daemon"><a href="#To-check-status-of-firewall-daemon" class="headerlink" title="To check status of firewall daemon"></a>To check status of firewall daemon</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">firewall-cmd --state</span><br></pre></td></tr></table></figure>
-<p>You should see <i>running</i> as the result for the above command.</p>
-<h4 id="Enable-TCP-Ports"><a href="#Enable-TCP-Ports" class="headerlink" title="Enable TCP Ports"></a>Enable TCP Ports</h4><p>To enable any tcp port say 9090 for example, the command you need to execute is :<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">firewall-cmd --zone=public --permanent --add-port=9090/tcp</span><br><span class="line">firewall-cmd --reload</span><br></pre></td></tr></table></figure></p>
-<h4 id="Enable-TCP-Ports-1"><a href="#Enable-TCP-Ports-1" class="headerlink" title="Enable TCP Ports"></a>Enable TCP Ports</h4><p>To disable any tcp port say 8090 for example, the command you need to execute is :<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">firewall-cmd --zone=public --permanent --remove-port=8090/tcp</span><br><span class="line">firewall-cmd --reload</span><br></pre></td></tr></table></figure></p>
-<h4 id="List-open-ports"><a href="#List-open-ports" class="headerlink" title="List open ports"></a>List open ports</h4><p>To list publicly accessible ports on the machine, use the below command.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ firewall-cmd --zone=public --list-ports</span><br><span class="line">9090/tcp</span><br></pre></td></tr></table></figure></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://snmaddula.github.io/open-port-firewall-cmd/" data-id="cjpohebgt0010x0snqopnq7bk" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Firewall/">Firewall</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/">Linux</a></li></ul>
 
     </footer>
   </div>
@@ -302,7 +302,7 @@ password : password
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://snmaddula.github.io/oc-login/" data-id="cjpohebgg000sx0snstg5hl98" class="article-share-link">Share</a>
+      <a data-url="https://snmaddula.github.io/oc-login/" data-id="cjpohfqs90005t8snkjngrgpt" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/oc/">oc</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/openshift/">openshift</a></li></ul>
@@ -341,7 +341,7 @@ password : password
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://snmaddula.github.io/json-schema-avro/" data-id="cjpohebey0004x0snsvzqg3x7" class="article-share-link">Share</a>
+      <a data-url="https://snmaddula.github.io/json-schema-avro/" data-id="cjpohfqs50004t8snq5qc7zj1" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/AVRO/">AVRO</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JSON/">JSON</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Kafka/">Kafka</a></li></ul>
@@ -381,7 +381,7 @@ password : password
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://snmaddula.github.io/using-camunda-with-spring-boot/" data-id="cjpohebh00013x0sn3kzz3exl" class="article-share-link">Share</a>
+      <a data-url="https://snmaddula.github.io/using-camunda-with-spring-boot/" data-id="cjpohfqv00022t8snhyko5mc2" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Camunda/">Camunda</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Microservices/">Microservices</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Orchestration/">Orchestration</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Spring-Boot/">Spring Boot</a></li></ul>
@@ -474,7 +474,7 @@ password : password
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://snmaddula.github.io/wiring-angular-to-spring-boot/" data-id="cjpohebh30015x0sn1fnrqagh" class="article-share-link">Share</a>
+      <a data-url="https://snmaddula.github.io/wiring-angular-to-spring-boot/" data-id="cjpohfqt6000jt8snh5n400iv" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Angular/">Angular</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Spring-Boot/">Spring Boot</a></li></ul>
@@ -523,7 +523,7 @@ password : password
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://snmaddula.github.io/git-basics-01/" data-id="cjpohebes0001x0snyrbm9e5s" class="article-share-link">Share</a>
+      <a data-url="https://snmaddula.github.io/git-basics-01/" data-id="cjpohfqsg0008t8sndbt4mfwm" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Git/">Git</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Just-Enough-Series/">Just Enough Series</a></li></ul>
@@ -561,7 +561,7 @@ password : password
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://snmaddula.github.io/spring-security-oauth/" data-id="cjpohebgo000xx0snouo2fdi6" class="article-share-link">Share</a>
+      <a data-url="https://snmaddula.github.io/spring-security-oauth/" data-id="cjpohfqt1000gt8sn0o531x30" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/OAuth/">OAuth</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Spring-Boot/">Spring Boot</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Spring-Security/">Spring Security</a></li></ul>
@@ -631,11 +631,11 @@ password : password
           </li>
         
           <li>
-            <a href="/git-and-ssh-client-setup-windows/">Git + SSH Client Setup</a>
+            <a href="/open-port-firewall-cmd/">Enable / Disable TCP Ports</a>
           </li>
         
           <li>
-            <a href="/open-port-firewall-cmd/">Enable / Disable TCP Ports</a>
+            <a href="/git-and-ssh-client-setup-windows/">Git + SSH Client Setup</a>
           </li>
         
           <li>
