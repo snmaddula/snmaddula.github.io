@@ -5,7 +5,7 @@ echo "##########################################################################
 # Switch to Lab directory
 cd ~/__LAB__
 # Clone ansible magic repo
-cmd "/C git clone https://github.com/snmaddula/ansible-magic-lab.git"; cd ansible-magic-lab
+cmd "/C git clone -b box https://github.com/snmaddula/ansible-magic-lab.git"; cd ansible-magic-lab
 # Spin up Lab
 cmd "/c vagrant up"
 
