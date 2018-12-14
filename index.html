@@ -66,9 +66,9 @@
       <div class="outer">
         <section id="main">
   
-    <article id="post-ansible-awx-magic-lab-script-version" class="article article-type-post" itemscope="" itemprop="blogPost">
+    <article id="post-ansible-awx-magic-lab-setup" class="article article-type-post" itemscope="" itemprop="blogPost">
   <div class="article-meta">
-    <a href="/ansible-awx-magic-lab-script-version/" class="article-date">
+    <a href="/ansible-awx-magic-lab-setup/" class="article-date">
   <time datetime="2018-12-14T17:19:49.000Z" itemprop="datePublished">2018-Dec-14</time>
 </a>
     
@@ -80,7 +80,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/ansible-awx-magic-lab-script-version/">Ansible &amp; Ansible Tower (AWX) Lab Setup (PowerShell)</a>
+      <a class="article-title" href="/ansible-awx-magic-lab-setup/">Ansible &amp; Ansible Tower (AWX) Lab Setup (PowerShell)</a>
     </h1>
   
 
@@ -106,62 +106,10 @@ password : password
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://snmaddula.github.io/ansible-awx-magic-lab-script-version/" data-id="cjpogedys0007g4snp695tpqg" class="article-share-link">Share</a>
+      <a data-url="https://snmaddula.github.io/ansible-awx-magic-lab-setup/" data-id="cjpohebeo0000x0snsa7r17k8" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/AWX/">AWX</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Ansible/">Ansible</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/powershell/">powershell</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-ansible-awx-magic-lab-setup" class="article article-type-post" itemscope="" itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/ansible-awx-magic-lab-setup/" class="article-date">
-  <time datetime="2018-12-13T10:39:30.000Z" itemprop="datePublished">2018-Dec-13</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/ansible-awx-magic-lab-setup/">Ansible &amp; Ansible Tower (AWX) Lab Setup</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>Magic scripts to setup <b>Ansible &amp; Ansible Tower (AWX) Learner’s Lab</b> environment on a personal computer.</p>
-<h3 id="Launch-Sequence"><a href="#Launch-Sequence" class="headerlink" title="Launch Sequence"></a>Launch Sequence</h3><p>Open Powershell in ‘Administrator’ mode and execute the below commands in a sequence.</p>
-<h3 id="1-Switch-to-HOME-directory"><a href="#1-Switch-to-HOME-directory" class="headerlink" title="[1] Switch to HOME directory"></a>[1] Switch to HOME directory</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cd ~</span><br></pre></td></tr></table></figure>
-<h3 id="2-Create-a-LAB-directory"><a href="#2-Create-a-LAB-directory" class="headerlink" title="[2] Create a LAB directory"></a>[2] Create a LAB directory</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mkdir __lab__</span><br><span class="line">cd __lab__</span><br></pre></td></tr></table></figure>
-<h3 id="3-Bypass-SSL"><a href="#3-Bypass-SSL" class="headerlink" title="[3] Bypass SSL"></a>[3] Bypass SSL</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12</span><br></pre></td></tr></table></figure>
-<h3 id="4-Setup-Git-SSH-Client"><a href="#4-Setup-Git-SSH-Client" class="headerlink" title="[4] Setup Git + SSH Client"></a>[4] Setup Git + SSH Client</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Invoke-WebRequest -Uri https://github.com/git-for-windows/git/releases/download/v2.20.0.windows.1/Git-2.20.0-64-bit.exe -OutFile gitbin.exe</span><br><span class="line">cmd &quot;/C .\gitbin.exe /SP- /SILENT /NOCANCEL /NORESTART /COMPONENTS=icons,ext\reg\shellhere,assoc,assoc_sh&quot;</span><br><span class="line">$env:Path=&quot;$env:Path;C:\Program Files\Git\bin\;C:\Program Files\Git\usr\bin\;&quot;</span><br><span class="line">rm gitbin.exe</span><br></pre></td></tr></table></figure>
-<h3 id="5-Setup-VirtualBox"><a href="#5-Setup-VirtualBox" class="headerlink" title="[5] Setup VirtualBox"></a>[5] Setup VirtualBox</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Invoke-WebRequest -Uri https://download.virtualbox.org/virtualbox/5.2.22/VirtualBox-5.2.22-126460-Win.exe -OutFile vbox.exe</span><br><span class="line">cmd &quot;/C .\vbox.exe -msiparams ADDLOCAL=VBoxApplication,VBoxUSB,VBoxNetwork,VBoxPython,VBoxNetworkFlt,VBoxNetworkAdp --silent&quot;</span><br><span class="line">rm vbox.exe</span><br></pre></td></tr></table></figure>
-<h3 id="6-Disable-Hyper-V"><a href="#6-Disable-Hyper-V" class="headerlink" title="[6] Disable Hyper-V"></a>[6] Disable Hyper-V</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Disable-WindowsOptionalFeature -Online -FeatureName Microsoft-Hyper-V-All</span><br></pre></td></tr></table></figure>
-<h6 id="At-this-stage-the-machine-will-reboot"><a href="#At-this-stage-the-machine-will-reboot" class="headerlink" title="At this stage, the machine will reboot!"></a>At this stage, the machine will reboot!</h6><h6 id="Once-the-machine-is-up-Open-Powershell-in-‘Administrator’-mode-and-follow-the-below-steps"><a href="#Once-the-machine-is-up-Open-Powershell-in-‘Administrator’-mode-and-follow-the-below-steps" class="headerlink" title="Once, the machine is up, Open Powershell in ‘Administrator’ mode and follow the below steps."></a>Once, the machine is up, Open Powershell in ‘Administrator’ mode and follow the below steps.</h6><h3 id="7-Setup-Vagrant"><a href="#7-Setup-Vagrant" class="headerlink" title="[7] Setup Vagrant"></a>[7] Setup Vagrant</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">cd ~/__lab__</span><br><span class="line">[Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12</span><br><span class="line">Invoke-WebRequest -Uri https://releases.hashicorp.com/vagrant/2.2.2/vagrant_2.2.2_x86_64.msi -OutFile vag.msi</span><br><span class="line">cmd &quot;/C .\vag.msi&quot;</span><br></pre></td></tr></table></figure>
-<h6 id="On-Successful-installation-of-Vagrant-the-machine-should-reboot"><a href="#On-Successful-installation-of-Vagrant-the-machine-should-reboot" class="headerlink" title="On Successful installation of Vagrant, the machine should reboot."></a>On Successful installation of Vagrant, the machine should reboot.</h6><h6 id="Once-the-machine-is-up-Open-Powershell-in-‘Administrator’-mode-and-follow-the-below-steps-1"><a href="#Once-the-machine-is-up-Open-Powershell-in-‘Administrator’-mode-and-follow-the-below-steps-1" class="headerlink" title="Once, the machine is up, Open Powershell in ‘Administrator’ mode and follow the below steps."></a>Once, the machine is up, Open Powershell in ‘Administrator’ mode and follow the below steps.</h6><h3 id="8-Ansible-amp-AWX-Lab-Setup"><a href="#8-Ansible-amp-AWX-Lab-Setup" class="headerlink" title="[8] Ansible &amp; AWX Lab Setup"></a>[8] Ansible &amp; AWX Lab Setup</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">cd ~/__lab__</span><br><span class="line">rm vag.msi</span><br><span class="line">cmd &quot;/C git clone https://github.com/snmaddula/ansible-magic-lab.git&quot;</span><br><span class="line">cd ansible-magic-lab</span><br><span class="line">cmd &quot;/c vagrant up&quot;</span><br></pre></td></tr></table></figure>
-<p>Done that ?<br>Now you’ll be able to access your Ansible Tower (AWX) web interface using the Ip of the Vagrant machine.</p>
-<p> Open up a browser and enter the IP i.e. <code>&lt;IP in Vagrantfile&gt;</code> and hit Enter. You’ll get to see a page like below.<br><a href=""></a></p>
-<h4 id="CREDENTIALS-for-AWX-Login"><a href="#CREDENTIALS-for-AWX-Login" class="headerlink" title="CREDENTIALS for AWX Login"></a>CREDENTIALS for AWX Login</h4><pre><code>username : admin
-password : password
-</code></pre>
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://snmaddula.github.io/ansible-awx-magic-lab-setup/" data-id="cjpogedym0003g4snwcrcwssg" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/AWX/">AWX</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Ansible/">Ansible</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/PowerShell/">PowerShell</a></li></ul>
 
     </footer>
   </div>
@@ -199,7 +147,7 @@ password : password
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://snmaddula.github.io/ansible-winrm-windows/" data-id="cjpogedy80000g4snj71kzge5" class="article-share-link">Share</a>
+      <a data-url="https://snmaddula.github.io/ansible-winrm-windows/" data-id="cjpohebew0003x0snbz2nphqk" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Ansible/">Ansible</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/PowerShell/">PowerShell</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/WinRm/">WinRm</a></li></ul>
@@ -262,7 +210,7 @@ password : password
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://snmaddula.github.io/git-and-ssh-client-setup-windows/" data-id="cjpogedyf0001g4snsim6iw1d" class="article-share-link">Share</a>
+      <a data-url="https://snmaddula.github.io/git-and-ssh-client-setup-windows/" data-id="cjpohebgc000qx0sn4x404a6w" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Git/">Git</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/SSH/">SSH</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Windows/">Windows</a></li></ul>
@@ -310,7 +258,7 @@ password : password
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://snmaddula.github.io/open-port-firewall-cmd/" data-id="cjpogedyw000ag4snyhlwys0n" class="article-share-link">Share</a>
+      <a data-url="https://snmaddula.github.io/open-port-firewall-cmd/" data-id="cjpohebgt0010x0snqopnq7bk" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Firewall/">Firewall</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/">Linux</a></li></ul>
@@ -354,7 +302,7 @@ password : password
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://snmaddula.github.io/oc-login/" data-id="cjpogedyq0005g4snqz449jmh" class="article-share-link">Share</a>
+      <a data-url="https://snmaddula.github.io/oc-login/" data-id="cjpohebgg000sx0snstg5hl98" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/oc/">oc</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/openshift/">openshift</a></li></ul>
@@ -393,7 +341,7 @@ password : password
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://snmaddula.github.io/json-schema-avro/" data-id="cjpogedyo0004g4sn2bmfvxfx" class="article-share-link">Share</a>
+      <a data-url="https://snmaddula.github.io/json-schema-avro/" data-id="cjpohebey0004x0snsvzqg3x7" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/AVRO/">AVRO</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JSON/">JSON</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Kafka/">Kafka</a></li></ul>
@@ -433,7 +381,7 @@ password : password
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://snmaddula.github.io/using-camunda-with-spring-boot/" data-id="cjpogedze000kg4snao6gq346" class="article-share-link">Share</a>
+      <a data-url="https://snmaddula.github.io/using-camunda-with-spring-boot/" data-id="cjpohebh00013x0sn3kzz3exl" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Camunda/">Camunda</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Microservices/">Microservices</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Orchestration/">Orchestration</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Spring-Boot/">Spring Boot</a></li></ul>
@@ -526,7 +474,7 @@ password : password
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://snmaddula.github.io/wiring-angular-to-spring-boot/" data-id="cjpogee3c002dg4snz3j94kdw" class="article-share-link">Share</a>
+      <a data-url="https://snmaddula.github.io/wiring-angular-to-spring-boot/" data-id="cjpohebh30015x0sn1fnrqagh" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Angular/">Angular</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Spring-Boot/">Spring Boot</a></li></ul>
@@ -575,10 +523,48 @@ password : password
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://snmaddula.github.io/git-basics-01/" data-id="cjpogedyu0008g4snw2t2eqdb" class="article-share-link">Share</a>
+      <a data-url="https://snmaddula.github.io/git-basics-01/" data-id="cjpohebes0001x0snyrbm9e5s" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Git/">Git</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Just-Enough-Series/">Just Enough Series</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-spring-security-oauth" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/spring-security-oauth/" class="article-date">
+  <time datetime="2018-09-04T06:06:52.000Z" itemprop="datePublished">2018-Sep-04</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/spring-security-oauth/">Securing Web Apps with Spring OAuth</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://snmaddula.github.io/spring-security-oauth/" data-id="cjpohebgo000xx0snouo2fdi6" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/OAuth/">OAuth</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Spring-Boot/">Spring Boot</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Spring-Security/">Spring Security</a></li></ul>
 
     </footer>
   </div>
@@ -615,7 +601,7 @@ password : password
   <div class="widget-wrap">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="/tags/AVRO/" style="font-size: 10px;">AVRO</a> <a href="/tags/AWX/" style="font-size: 13.33px;">AWX</a> <a href="/tags/Angular/" style="font-size: 10px;">Angular</a> <a href="/tags/Ansible/" style="font-size: 16.67px;">Ansible</a> <a href="/tags/Camunda/" style="font-size: 10px;">Camunda</a> <a href="/tags/Firewall/" style="font-size: 10px;">Firewall</a> <a href="/tags/Git/" style="font-size: 13.33px;">Git</a> <a href="/tags/JSON/" style="font-size: 10px;">JSON</a> <a href="/tags/Just-Enough-Series/" style="font-size: 10px;">Just Enough Series</a> <a href="/tags/Kafka/" style="font-size: 10px;">Kafka</a> <a href="/tags/LDAP/" style="font-size: 10px;">LDAP</a> <a href="/tags/Linux/" style="font-size: 10px;">Linux</a> <a href="/tags/Microservices/" style="font-size: 10px;">Microservices</a> <a href="/tags/OAuth/" style="font-size: 10px;">OAuth</a> <a href="/tags/Orchestration/" style="font-size: 10px;">Orchestration</a> <a href="/tags/PowerShell/" style="font-size: 13.33px;">PowerShell</a> <a href="/tags/Reactive-Web/" style="font-size: 10px;">Reactive Web</a> <a href="/tags/SSH/" style="font-size: 10px;">SSH</a> <a href="/tags/Spring-Boot/" style="font-size: 20px;">Spring Boot</a> <a href="/tags/Spring-Security/" style="font-size: 16.67px;">Spring Security</a> <a href="/tags/Web-Flux/" style="font-size: 10px;">Web-Flux</a> <a href="/tags/WinRm/" style="font-size: 10px;">WinRm</a> <a href="/tags/Windows/" style="font-size: 10px;">Windows</a> <a href="/tags/oc/" style="font-size: 10px;">oc</a> <a href="/tags/openshift/" style="font-size: 10px;">openshift</a> <a href="/tags/powershell/" style="font-size: 10px;">powershell</a>
+      <a href="/tags/AVRO/" style="font-size: 10px;">AVRO</a> <a href="/tags/AWX/" style="font-size: 10px;">AWX</a> <a href="/tags/Angular/" style="font-size: 10px;">Angular</a> <a href="/tags/Ansible/" style="font-size: 13.33px;">Ansible</a> <a href="/tags/Camunda/" style="font-size: 10px;">Camunda</a> <a href="/tags/Firewall/" style="font-size: 10px;">Firewall</a> <a href="/tags/Git/" style="font-size: 13.33px;">Git</a> <a href="/tags/JSON/" style="font-size: 10px;">JSON</a> <a href="/tags/Just-Enough-Series/" style="font-size: 10px;">Just Enough Series</a> <a href="/tags/Kafka/" style="font-size: 10px;">Kafka</a> <a href="/tags/LDAP/" style="font-size: 10px;">LDAP</a> <a href="/tags/Linux/" style="font-size: 10px;">Linux</a> <a href="/tags/Microservices/" style="font-size: 10px;">Microservices</a> <a href="/tags/OAuth/" style="font-size: 10px;">OAuth</a> <a href="/tags/Orchestration/" style="font-size: 10px;">Orchestration</a> <a href="/tags/PowerShell/" style="font-size: 10px;">PowerShell</a> <a href="/tags/Reactive-Web/" style="font-size: 10px;">Reactive Web</a> <a href="/tags/SSH/" style="font-size: 10px;">SSH</a> <a href="/tags/Spring-Boot/" style="font-size: 20px;">Spring Boot</a> <a href="/tags/Spring-Security/" style="font-size: 16.67px;">Spring Security</a> <a href="/tags/Web-Flux/" style="font-size: 10px;">Web-Flux</a> <a href="/tags/WinRm/" style="font-size: 10px;">WinRm</a> <a href="/tags/Windows/" style="font-size: 10px;">Windows</a> <a href="/tags/oc/" style="font-size: 10px;">oc</a> <a href="/tags/openshift/" style="font-size: 10px;">openshift</a> <a href="/tags/powershell/" style="font-size: 10px;">powershell</a>
     </div>
   </div>
 
@@ -637,11 +623,7 @@ password : password
       <ul>
         
           <li>
-            <a href="/ansible-awx-magic-lab-script-version/">Ansible &amp; Ansible Tower (AWX) Lab Setup (PowerShell)</a>
-          </li>
-        
-          <li>
-            <a href="/ansible-awx-magic-lab-setup/">Ansible &amp; Ansible Tower (AWX) Lab Setup</a>
+            <a href="/ansible-awx-magic-lab-setup/">Ansible &amp; Ansible Tower (AWX) Lab Setup (PowerShell)</a>
           </li>
         
           <li>
@@ -654,6 +636,10 @@ password : password
         
           <li>
             <a href="/open-port-firewall-cmd/">Enable / Disable TCP Ports</a>
+          </li>
+        
+          <li>
+            <a href="/oc-login/">Login to OpenShift Origin</a>
           </li>
         
       </ul>
