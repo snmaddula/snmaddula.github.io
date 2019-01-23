@@ -13,7 +13,7 @@ cmd "/C git clone -b box https://github.com/snmaddula/ansible-magic-lab.git"; cd
 
 # Spin up Lab
 cmd "/C vagrant destroy"
-cmd "/C vagrant box remove snmaddula/ubuntu"
+#cmd "/C vagrant box remove snmaddula/ubuntu"
 cmd "/c vagrant up"
 
 # Fetch AWX IP
