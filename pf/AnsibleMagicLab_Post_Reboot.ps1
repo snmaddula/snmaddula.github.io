@@ -4,10 +4,11 @@ echo "##########################       PART 02 (POST-REBOOT)      ##############
 echo "##############################################################################################"
 
 # Switch / Setup a Lab directory
-New-Item -ItemType Directory -Path ~/__LAB__ -Force; cd ~/__LAB__
+New-Item -ItemType Directory -Path ~\__LAB__ -Force; cd ~\__LAB__
 
 # Clone ansible magic repo
-Remove-Item -Path ansible-magic-lab -Recurse -ErrorAction Ignore
+#Remove-Item -Path ~/__LAB__\ansible-magic-lab -Recurse -ErrorAction Ignore
+Remove-Item .\ansible-magic-lab -Force  -Recurse -ErrorAction SilentlyContinue
 cmd "/C git clone -b box https://github.com/snmaddula/ansible-magic-lab.git"; cd ansible-magic-lab
 
 # Spin up Lab
