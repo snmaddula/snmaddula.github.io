@@ -15,7 +15,7 @@
 <meta property="og:site_name" content="snmaddula">
 <meta property="og:description" content="A quick guide on generating an excel workbook with the output from an SQL query. Add Apache POI dependencies to your pom.xml 1234567891011&amp;lt;dependency&amp;gt;  &amp;lt;groupId&amp;gt;org.apache.poi&amp;lt;/groupId&amp;">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-02-08T08:59:37.140Z">
+<meta property="og:updated_time" content="2019-02-08T09:00:55.039Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Generate Excel from JDBC ResultSet">
 <meta name="twitter:description" content="A quick guide on generating an excel workbook with the output from an SQL query. Add Apache POI dependencies to your pom.xml 1234567891011&amp;lt;dependency&amp;gt;  &amp;lt;groupId&amp;gt;org.apache.poi&amp;lt;/groupId&amp;">
@@ -101,7 +101,7 @@
 <p>Extract the rows from the <code>ResultSet</code> and populate the workbook.</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> rowIndex = <span class="number">0</span>;</span><br><span class="line"><span class="keyword">while</span> (rs.next()) &#123;</span><br><span class="line">  Row row = sheet.createRow(++rowIndex);</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; columns.size(); i++) &#123;</span><br><span class="line">    Cell cell = row.createCell(i);</span><br><span class="line">    <span class="comment">// if you have complex values like Date, then use cell formatter.</span></span><br><span class="line">    cell.setCellValue(Objects.toString(rs.getObject(columns.get(i)), <span class="string">""</span>));</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>Writing the excel workbook to filesystem.</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">FileOutputStream fos = <span class="keyword">new</span> FileOutputStream(<span class="string">"FILE_PATH"</span>);</span><br><span class="line">book.write(fos);</span><br><span class="line">fos.close();</span><br><span class="line">book.close();</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">try</span> (FileOutputStream fos = <span class="keyword">new</span> FileOutputStream(<span class="string">"FILE_PATH"</span>)) &#123;</span><br><span class="line">book.write(fos);  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>You can download this entire class : <a href="/pf/ResultSetToExcel.java">ResultSetToExcel.java</a>, which is readily usable.</p>
 <p>That’s all.</p>
 <p>If you have any queries, please do reach out to me via email / phone.</p>
@@ -109,7 +109,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://snmaddula.github.io/resultset-to-excel/" data-id="cjrvtlbhw000ek0snb2di771a" class="article-share-link">Share</a>
+      <a data-url="https://snmaddula.github.io/resultset-to-excel/" data-id="cjrvtmlbn002ts0snaepcusno" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Apache-POI/">Apache POI</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JDBC/">JDBC</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/">Java</a></li></ul>
