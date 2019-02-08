@@ -7,18 +7,18 @@
   
   <title>Generate Excel from JDBC ResultSet | snmaddula</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="A quick guide on generating an excel workbook with the output from an SQL query. Add Apache POI dependencies to your pom.xml 1234567891011&amp;lt;dependency&amp;gt;  &amp;lt;groupId&amp;gt;org.apache.poi&amp;lt;/groupId&amp;">
+  <meta name="description" content="A quick guide on generating an excel workbook with the output from an SQL query. Video guide of the process   &amp;nbsp;Follow the below stepsAdd Apache POI dependencies to your pom.xml 1234567891011&amp;lt;d">
 <meta name="keywords" content="Apache POI,JDBC,Java">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Generate Excel from JDBC ResultSet">
 <meta property="og:url" content="https://snmaddula.github.io/resultset-to-excel/index.html">
 <meta property="og:site_name" content="snmaddula">
-<meta property="og:description" content="A quick guide on generating an excel workbook with the output from an SQL query. Add Apache POI dependencies to your pom.xml 1234567891011&amp;lt;dependency&amp;gt;  &amp;lt;groupId&amp;gt;org.apache.poi&amp;lt;/groupId&amp;">
+<meta property="og:description" content="A quick guide on generating an excel workbook with the output from an SQL query. Video guide of the process   &amp;nbsp;Follow the below stepsAdd Apache POI dependencies to your pom.xml 1234567891011&amp;lt;d">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-02-08T09:13:43.235Z">
+<meta property="og:updated_time" content="2019-02-08T16:44:29.306Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Generate Excel from JDBC ResultSet">
-<meta name="twitter:description" content="A quick guide on generating an excel workbook with the output from an SQL query. Add Apache POI dependencies to your pom.xml 1234567891011&amp;lt;dependency&amp;gt;  &amp;lt;groupId&amp;gt;org.apache.poi&amp;lt;/groupId&amp;">
+<meta name="twitter:description" content="A quick guide on generating an excel workbook with the output from an SQL query. Video guide of the process   &amp;nbsp;Follow the below stepsAdd Apache POI dependencies to your pom.xml 1234567891011&amp;lt;d">
   
     <link rel="alternate" href="/atom.xml" title="snmaddula" type="application/atom+xml">
   
@@ -92,7 +92,10 @@
     <div class="article-entry" itemprop="articleBody">
       
         <p>A quick guide on generating an excel workbook with the output from an SQL query.</p>
-<p>Add <a href="https://poi.apache.org/" target="_blank" rel="noopener">Apache POI</a> dependencies to your pom.xml</p>
+<h3 id="Video-guide-of-the-process"><a href="#Video-guide-of-the-process" class="headerlink" title="Video guide of the process"></a>Video guide of the process</h3><iframe width="789" height="390" src="https://www.youtube.com/embed/mXOeGJuXijc" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+
+<h6 id="nbsp"><a href="#nbsp" class="headerlink" title="&nbsp;"></a>&nbsp;</h6><h3 id="Follow-the-below-steps"><a href="#Follow-the-below-steps" class="headerlink" title="Follow the below steps"></a>Follow the below steps</h3><p>Add <a href="https://poi.apache.org/" target="_blank" rel="noopener">Apache POI</a> dependencies to your pom.xml</p>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.apache.poi<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>poi<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">version</span>&gt;</span>4.0.1<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.apache.poi<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>poi-ooxml<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">version</span>&gt;</span>4.0.1<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
 <p>Create a workbook and add the header row.<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">try</span> (Workbook book = <span class="keyword">new</span> XSSFWorkbook()) &#123;</span><br><span class="line">  Sheet sheet = book.createSheet();</span><br><span class="line">  Row header = sheet.createRow(<span class="number">0</span>);  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <p>Extract columns from the ResultSet.</p>
@@ -109,7 +112,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://snmaddula.github.io/resultset-to-excel/" data-id="cjrvu3ral000fl8snwx95tm4e" class="article-share-link">Share</a>
+      <a data-url="https://snmaddula.github.io/resultset-to-excel/" data-id="cjrwa7gws000j0csnihuye5pp" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Apache-POI/">Apache POI</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JDBC/">JDBC</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/">Java</a></li></ul>
