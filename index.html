@@ -99,14 +99,14 @@
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> rowIndex = <span class="number">0</span>;</span><br><span class="line"><span class="keyword">while</span> (rs.next()) &#123;</span><br><span class="line">  Row row = sheet.createRow(++rowIndex);</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; columns.size(); i++) &#123;</span><br><span class="line">    Cell cell = row.createCell(i);</span><br><span class="line">    <span class="comment">// if you have complex values like Date, then use cell formatter.</span></span><br><span class="line">    cell.setCellValue(Objects.toString(rs.getObject(columns.get(i)), <span class="string">""</span>));</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>Writing the excel workbook to filesystem.</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">try</span> (FileOutputStream fos = <span class="keyword">new</span> FileOutputStream(<span class="string">"FILE_PATH"</span>)) &#123;</span><br><span class="line">  book.write(fos);  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>You can download this entire class : <a href="/pf/ResultSetToExcel.java">ResultSetToExcel.java</a>, which is readily usable.</p>
+<p>You can download this entire class - <a href="/pf/ResultSetToExcel.java">ResultSetToExcel.java</a>, which is readily usable.</p>
 <p>That’s all.</p>
 <p>If you have any queries, please do reach out to me via email / phone.</p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://snmaddula.github.io/resultset-to-excel/" data-id="cjrvtne6v000hgssnud78sgq6" class="article-share-link">Share</a>
+      <a data-url="https://snmaddula.github.io/resultset-to-excel/" data-id="cjrvts25y001iyosnw82c3sk0" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Apache-POI/">Apache POI</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JDBC/">JDBC</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/">Java</a></li></ul>
@@ -151,7 +151,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://snmaddula.github.io/aws-sqs-deadletter/" data-id="cjrvtne6c0005gssnp7g0o7gu" class="article-share-link">Share</a>
+      <a data-url="https://snmaddula.github.io/aws-sqs-deadletter/" data-id="cjrvts2480003yosn9cjazg7y" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/AWS/">AWS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/SQS/">SQS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Spring-Boot/">Spring Boot</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Spring-Cloud/">Spring Cloud</a></li></ul>
@@ -204,7 +204,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://snmaddula.github.io/tuning-jacoco-for-powermock/" data-id="cjrvtne70000ogssnexovacod" class="article-share-link">Share</a>
+      <a data-url="https://snmaddula.github.io/tuning-jacoco-for-powermock/" data-id="cjrvts25y001ryosn2moipsrf" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JUnit/">JUnit</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JaCoCo/">JaCoCo</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/PowerMock/">PowerMock</a></li></ul>
@@ -265,7 +265,7 @@ password : password
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://snmaddula.github.io/ansible-awx-magic-lab-setup/" data-id="cjrvtne5m0000gssns6l3yh01" class="article-share-link">Share</a>
+      <a data-url="https://snmaddula.github.io/ansible-awx-magic-lab-setup/" data-id="cjrvts23s0000yosnuhq8s1xp" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/AWX/">AWX</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Ansible/">Ansible</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Powershell/">Powershell</a></li></ul>
@@ -306,7 +306,7 @@ password : password
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://snmaddula.github.io/ansible-winrm-windows/" data-id="cjrvtne620002gssnzqtbypd9" class="article-share-link">Share</a>
+      <a data-url="https://snmaddula.github.io/ansible-winrm-windows/" data-id="cjrvts2480004yosnkavx9br3" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Ansible/">Ansible</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/PowerShell/">PowerShell</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/WinRm/">WinRm</a></li></ul>
@@ -354,7 +354,7 @@ password : password
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://snmaddula.github.io/open-port-firewall-cmd/" data-id="cjrvtne6m000agssnm1zky7io" class="article-share-link">Share</a>
+      <a data-url="https://snmaddula.github.io/open-port-firewall-cmd/" data-id="cjrvts248000ayosn4ys33mr7" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Firewall/">Firewall</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/">Linux</a></li></ul>
@@ -417,7 +417,7 @@ password : password
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://snmaddula.github.io/git-and-ssh-client-setup-windows/" data-id="cjrvtne6e0006gssn9ift5ii7" class="article-share-link">Share</a>
+      <a data-url="https://snmaddula.github.io/git-and-ssh-client-setup-windows/" data-id="cjrvts23s0001yosnood9y7h6" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Git/">Git</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/SSH/">SSH</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Windows/">Windows</a></li></ul>
@@ -461,7 +461,7 @@ password : password
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://snmaddula.github.io/oc-login/" data-id="cjrvtne6p000cgssnd2t78wx7" class="article-share-link">Share</a>
+      <a data-url="https://snmaddula.github.io/oc-login/" data-id="cjrvts2480008yosnarxe3ea5" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/oc/">oc</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/openshift/">openshift</a></li></ul>
@@ -500,7 +500,7 @@ password : password
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://snmaddula.github.io/json-schema-avro/" data-id="cjrvtne6g0007gssnjmq55ivu" class="article-share-link">Share</a>
+      <a data-url="https://snmaddula.github.io/json-schema-avro/" data-id="cjrvts2480007yosnha61afuk" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/AVRO/">AVRO</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JSON/">JSON</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Kafka/">Kafka</a></li></ul>
@@ -540,7 +540,7 @@ password : password
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://snmaddula.github.io/using-camunda-with-spring-boot/" data-id="cjrvtne70000pgssn9jl228td" class="article-share-link">Share</a>
+      <a data-url="https://snmaddula.github.io/using-camunda-with-spring-boot/" data-id="cjrvts25y001qyosns14qcwug" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Camunda/">Camunda</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Microservices/">Microservices</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Orchestration/">Orchestration</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Spring-Boot/">Spring Boot</a></li></ul>
