@@ -95,13 +95,22 @@
 <li>Payload</li>
 <li>Signing Key</li>
 </ul>
+<p><b>The Header</b> basically consists the <code>type</code> of the token which is <code>JWT</code> and the algorithm that is used to sign this token.</p>
+<p>The second part of the token is the <b>payload</b>, which consists of the claims i.e. the information about the user.</p>
+<p>The <b>Base64 URL encoded</b> form of the Header and Payload respectively form the 1st and 2nd parts of Json Web Token.</p>
 <h3 id="Video-guide-of-the-process"><a href="#Video-guide-of-the-process" class="headerlink" title="Video guide of the process"></a>Video guide of the process</h3><div class="iframe_container"><br>  <iframe src="https://www.youtube.com/embed/rKHpPJVGC3g" frameborder="0" allowfullscreen="allowfullscreen"> </iframe><br></div>
 
-<h6 id="nbsp"><a href="#nbsp" class="headerlink" title="&nbsp;"></a>&nbsp;</h6><h3 id="Follow-the-below-steps"><a href="#Follow-the-below-steps" class="headerlink" title="Follow the below steps"></a>Follow the below steps</h3>
+<h6 id="nbsp"><a href="#nbsp" class="headerlink" title="&nbsp;"></a>&nbsp;</h6><h3 id="Steps-involved"><a href="#Steps-involved" class="headerlink" title="Steps involved:"></a>Steps involved:</h3><p>Add <code>commons-codec</code> dependency from Apache in pom.xml<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>commons-codec<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>commons-codec<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.11<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">String token = <span class="string">"&lt;YOUR JWT TOKEN&gt;"</span>;</span><br></pre></td></tr></table></figure>
+<p>Split the token based on period <code>.</code> and extract the payload part from the token.<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">String payload = token.split(<span class="string">"\\."</span>)[<span class="number">1</span>];</span><br></pre></td></tr></table></figure></p>
+<p>Use <code>Base64</code> utility to decode the payload.<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">String payloadValue = <span class="keyword">new</span> String (Base64.decodeBase64(payload));</span><br></pre></td></tr></table></figure></p>
+<p>If you want to use a specific charset like UTF-8, you can use the below snippet.<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">try</span> &#123;</span><br><span class="line">  String payloadValue = <span class="keyword">new</span> String(Base64.decodeBase64(payload), <span class="string">"UTF-8"</span>);</span><br><span class="line">&#125;<span class="keyword">catch</span>(UnsupportedEncodingException ex) &#123;</span><br><span class="line">  System.err.println(ex.getMessage());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p><b>Note:</b> Make sure to import the <code>Base64</code> from the package <code>org.apache.commons.codec.binary.Base64</code>.</p>
+
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://snmaddula.github.io/decode-jwt-payload/" data-id="cjs0521qq0006e4snq92lby98" class="article-share-link">Share</a>
+      <a data-url="https://snmaddula.github.io/decode-jwt-payload/" data-id="cjs0dja5i00058wsnmx8vpx5m" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JWT/">JWT</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/">Java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Quick-Trick/">Quick Trick</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Security/">Security</a></li></ul>
@@ -155,7 +164,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://snmaddula.github.io/resultset-to-excel/" data-id="cjs0521r2000he4snw65cann6" class="article-share-link">Share</a>
+      <a data-url="https://snmaddula.github.io/resultset-to-excel/" data-id="cjs0dja65000m8wsnk84u3w96" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Apache-POI/">Apache POI</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JDBC/">JDBC</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/">Java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Quick-Trick/">Quick Trick</a></li></ul>
@@ -200,7 +209,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://snmaddula.github.io/aws-sqs-deadletter/" data-id="cjs0521qo0005e4snh6uyhm5n" class="article-share-link">Share</a>
+      <a data-url="https://snmaddula.github.io/aws-sqs-deadletter/" data-id="cjs0dja5m00078wsncajy83ag" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/AWS/">AWS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/SQS/">SQS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Spring-Boot/">Spring Boot</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Spring-Cloud/">Spring Cloud</a></li></ul>
@@ -253,7 +262,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://snmaddula.github.io/tuning-jacoco-for-powermock/" data-id="cjs0521r8000oe4snufegb6hg" class="article-share-link">Share</a>
+      <a data-url="https://snmaddula.github.io/tuning-jacoco-for-powermock/" data-id="cjs0dja68000p8wsnfok8qnzz" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JUnit/">JUnit</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JaCoCo/">JaCoCo</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/PowerMock/">PowerMock</a></li></ul>
@@ -314,7 +323,7 @@ password : password
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://snmaddula.github.io/ansible-awx-magic-lab-setup/" data-id="cjs0521qi0002e4sn62hgxw7a" class="article-share-link">Share</a>
+      <a data-url="https://snmaddula.github.io/ansible-awx-magic-lab-setup/" data-id="cjs0dja5d00038wsn5vwg3h5b" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/AWX/">AWX</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Ansible/">Ansible</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Powershell/">Powershell</a></li></ul>
@@ -355,7 +364,7 @@ password : password
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://snmaddula.github.io/ansible-winrm-windows/" data-id="cjs0521qc0000e4snt0q5ig3k" class="article-share-link">Share</a>
+      <a data-url="https://snmaddula.github.io/ansible-winrm-windows/" data-id="cjs0dja5700018wsn56irginq" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Ansible/">Ansible</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/PowerShell/">PowerShell</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/WinRm/">WinRm</a></li></ul>
@@ -403,7 +412,7 @@ password : password
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://snmaddula.github.io/open-port-firewall-cmd/" data-id="cjs0521r0000fe4snv9dk9blm" class="article-share-link">Share</a>
+      <a data-url="https://snmaddula.github.io/open-port-firewall-cmd/" data-id="cjs0dja5y000f8wsnf97hsrdp" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Firewall/">Firewall</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/">Linux</a></li></ul>
@@ -466,7 +475,7 @@ password : password
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://snmaddula.github.io/git-and-ssh-client-setup-windows/" data-id="cjs0521qr0007e4sn4feg29j4" class="article-share-link">Share</a>
+      <a data-url="https://snmaddula.github.io/git-and-ssh-client-setup-windows/" data-id="cjs0dja5k00068wsngutw8rjx" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Git/">Git</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/SSH/">SSH</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Windows/">Windows</a></li></ul>
@@ -510,7 +519,7 @@ password : password
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://snmaddula.github.io/oc-login/" data-id="cjs0521qx000ce4snjnc45rzd" class="article-share-link">Share</a>
+      <a data-url="https://snmaddula.github.io/oc-login/" data-id="cjs0dja5u000c8wsn138x1rir" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/oc/">oc</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/openshift/">openshift</a></li></ul>
@@ -549,7 +558,7 @@ password : password
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://snmaddula.github.io/json-schema-avro/" data-id="cjs0521qt0009e4snso6jjx4f" class="article-share-link">Share</a>
+      <a data-url="https://snmaddula.github.io/json-schema-avro/" data-id="cjs0dja5p00098wsnxcyw41ur" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/AVRO/">AVRO</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JSON/">JSON</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Kafka/">Kafka</a></li></ul>
