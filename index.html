@@ -110,7 +110,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://snmaddula.github.io/decode-jwt-payload/" data-id="cjs0druea000524snwi5et91c" class="article-share-link">Share</a>
+      <a data-url="https://snmaddula.github.io/decode-jwt-payload/" data-id="cjs46kb830005e8snaezhiq1q" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JWT/">JWT</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/">Java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Quick-Trick/">Quick Trick</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Security/">Security</a></li></ul>
@@ -164,7 +164,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://snmaddula.github.io/resultset-to-excel/" data-id="cjs0druek000e24snk96st6o9" class="article-share-link">Share</a>
+      <a data-url="https://snmaddula.github.io/resultset-to-excel/" data-id="cjs46kb8h000ge8snp4gnj72c" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Apache-POI/">Apache POI</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JDBC/">JDBC</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/">Java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Quick-Trick/">Quick Trick</a></li></ul>
@@ -217,10 +217,84 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://snmaddula.github.io/tuning-jacoco-for-powermock/" data-id="cjs0druel000g24sngl88vb2u" class="article-share-link">Share</a>
+      <a data-url="https://snmaddula.github.io/tuning-jacoco-for-powermock/" data-id="cjs46kb8c000ce8snao50vyo3" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JUnit/">JUnit</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JaCoCo/">JaCoCo</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/PowerMock/">PowerMock</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-git-basics-01" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/git-basics-01/" class="article-date">
+  <time datetime="2019-01-01T06:42:12.000Z" itemprop="datePublished">2019-Jan-01</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/git-basics-01/">Git basics for day to day work</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Welcome to Git basics!<br>This is a very basic touch up on everyday git usage.<br>Git is a <b>Distributed Version Control System (DVCS)</b>, created by <a href="https://en.wikipedia.org/wiki/Linus_Torvalds" target="_blank" rel="noopener">Linus Torvalds</a>, primarily to address collaboration issues.</p>
+<h4 id="I-CLONE-COMMANDS-git-clone"><a href="#I-CLONE-COMMANDS-git-clone" class="headerlink" title="I. CLONE COMMANDS: git clone"></a>I. CLONE COMMANDS: <code>git clone</code></h4><ol>
+<li><p>Clone a repository into a new directory</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git <span class="built_in">clone</span> &lt;URL&gt;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Clone a repository into a new custom directory  <code>myApp</code></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git <span class="built_in">clone</span> &lt;URL&gt; myApp</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Clone a specific branch <code>develop</code></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git <span class="built_in">clone</span> -b develop &lt;URL&gt;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Create a shallow clone with a history truncated to the specified number of commits</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git <span class="built_in">clone</span> &lt;URL&gt; --depth=2</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Create a shallow clone with a history after the specified time.</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git <span class="built_in">clone</span> &lt;URL&gt; --shallow-since=yyyy-mm-dd</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Clone by providing credentials in-line</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git <span class="built_in">clone</span> &lt;protocol&gt;://&lt;username&gt;:password@&lt;domain&gt;/repo-name.git --shallow-since=yyyy-mm-dd</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>In the above example,</p>
+<ul>
+<li><b>protocol</b> can be : <code>https</code>, <code>git</code>, <code>ssh</code>, <code>ftp</code></li>
+<li><b>username</b> and <b>password</b> are the credentials that has access to clone this repository.</li>
+<li><b>domain</b> is the git host.  Ex. <code>github</code> or <code>bitbucket</code> or <code>gitlab</code>, etc.</li>
+</ul>
+<p><br><hr><br></p>
+<h4 id="II-CHECKOUT-COMMANDS-git-checkouy"><a href="#II-CHECKOUT-COMMANDS-git-checkouy" class="headerlink" title="II. CHECKOUT COMMANDS: git checkouy"></a>II. CHECKOUT COMMANDS: <code>git checkouy</code></h4><h3 id="Checking-for-modifications-done-in-local"><a href="#Checking-for-modifications-done-in-local" class="headerlink" title="Checking for modifications done in local"></a>Checking for modifications done in local</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git status</span><br></pre></td></tr></table></figure>
+<h3 id="Adding-your-locally-changed-files-for-staging"><a href="#Adding-your-locally-changed-files-for-staging" class="headerlink" title="Adding your locally changed files for staging"></a>Adding your locally changed files for staging</h3><p>To add a specific file:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git add &lt;file-path&gt;</span><br></pre></td></tr></table></figure>
+<p>To add all the files at once:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ git add --all</span><br><span class="line"><span class="comment"># OR</span></span><br><span class="line">$ git add .</span><br></pre></td></tr></table></figure>
+<h3 id="Committing-the-changes-to-local-repository"><a href="#Committing-the-changes-to-local-repository" class="headerlink" title="Committing the changes to local repository"></a>Committing the changes to local repository</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git commit -m <span class="string">'my commit message'</span></span><br></pre></td></tr></table></figure>
+<h3 id="Pushing-the-changes-to-remote"><a href="#Pushing-the-changes-to-remote" class="headerlink" title="Pushing the changes to remote"></a>Pushing the changes to remote</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ git push</span><br><span class="line"><span class="comment"># OR</span></span><br><span class="line">$ git push origin master</span><br></pre></td></tr></table></figure>
+<h3 id="Pulling-the-latest-changes-from-remote"><a href="#Pulling-the-latest-changes-from-remote" class="headerlink" title="Pulling the latest changes from remote"></a>Pulling the latest changes from remote</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git pull</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://snmaddula.github.io/git-basics-01/" data-id="cjs46kb880009e8sn0wyparm1" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Git/">Git</a></li></ul>
 
     </footer>
   </div>
@@ -278,7 +352,7 @@ password : password
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://snmaddula.github.io/ansible-awx-magic-lab-setup/" data-id="cjs0druee000824sn2nd4kszt" class="article-share-link">Share</a>
+      <a data-url="https://snmaddula.github.io/ansible-awx-magic-lab-setup/" data-id="cjs46kb7t0000e8snlqph92ng" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/AWX/">AWX</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Ansible/">Ansible</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Powershell/">Powershell</a></li></ul>
@@ -319,7 +393,7 @@ password : password
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://snmaddula.github.io/ansible-winrm-windows/" data-id="cjs0drue4000224sn3fbo0wrb" class="article-share-link">Share</a>
+      <a data-url="https://snmaddula.github.io/ansible-winrm-windows/" data-id="cjs46kb7y0002e8snc1pzpwhm" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Ansible/">Ansible</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/PowerShell/">PowerShell</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/WinRm/">WinRm</a></li></ul>
@@ -367,7 +441,7 @@ password : password
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://snmaddula.github.io/open-port-firewall-cmd/" data-id="cjs0druej000d24snhv7m55a5" class="article-share-link">Share</a>
+      <a data-url="https://snmaddula.github.io/open-port-firewall-cmd/" data-id="cjs46kb8a000be8snvy2nxmbp" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Firewall/">Firewall</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/">Linux</a></li></ul>
@@ -414,7 +488,7 @@ password : password
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://snmaddula.github.io/git-and-ssh-client-setup-windows/" data-id="cjs0drudx000024sn9zz0zkyb" class="article-share-link">Share</a>
+      <a data-url="https://snmaddula.github.io/git-and-ssh-client-setup-windows/" data-id="cjs46kb850006e8snuiy1zlvs" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Git/">Git</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/SSH/">SSH</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Windows/">Windows</a></li></ul>
@@ -458,7 +532,7 @@ password : password
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://snmaddula.github.io/oc-login/" data-id="cjs0drueh000b24snpm92xsdj" class="article-share-link">Share</a>
+      <a data-url="https://snmaddula.github.io/oc-login/" data-id="cjs46kb820004e8sn3q7fj97t" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/oc/">oc</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/openshift/">openshift</a></li></ul>
@@ -497,50 +571,10 @@ password : password
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://snmaddula.github.io/json-schema-avro/" data-id="cjs0drued000724snobdhgywu" class="article-share-link">Share</a>
+      <a data-url="https://snmaddula.github.io/json-schema-avro/" data-id="cjs46kb870008e8sn2geculdv" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/AVRO/">AVRO</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JSON/">JSON</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Kafka/">Kafka</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-using-camunda-with-spring-boot" class="article article-type-post" itemscope="" itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/using-camunda-with-spring-boot/" class="article-date">
-  <time datetime="2018-09-30T14:31:11.000Z" itemprop="datePublished">2018-Sep-30</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/using-camunda-with-spring-boot/">Orchestrating Spring Boot Microservices with Camunda</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="STEP-01-Create-a-simple-orchestration-flow"><a href="#STEP-01-Create-a-simple-orchestration-flow" class="headerlink" title="STEP 01 : Create a simple orchestration flow"></a>STEP 01 : Create a simple orchestration flow</h3><p>Here, I have chosen a simple remittance orchestration, where in few microservices work together in processing a remit request.</p>
-<p><img src="/images/p3/remit-orchestration.png" alt=""></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://snmaddula.github.io/using-camunda-with-spring-boot/" data-id="cjs0druer000l24sn0zf4f0no" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Camunda/">Camunda</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Microservices/">Microservices</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Orchestration/">Orchestration</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Spring-Boot/">Spring Boot</a></li></ul>
 
     </footer>
   </div>
@@ -581,7 +615,7 @@ password : password
     <h3 class="widget-title">&nbsp;</h3>
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="/tags/AVRO/" style="font-size: 10px;">AVRO</a> <a href="/tags/AWX/" style="font-size: 10px;">AWX</a> <a href="/tags/Angular/" style="font-size: 10px;">Angular</a> <a href="/tags/Ansible/" style="font-size: 20px;">Ansible</a> <a href="/tags/Apache-POI/" style="font-size: 10px;">Apache POI</a> <a href="/tags/Camunda/" style="font-size: 10px;">Camunda</a> <a href="/tags/Firewall/" style="font-size: 10px;">Firewall</a> <a href="/tags/Git/" style="font-size: 20px;">Git</a> <a href="/tags/JDBC/" style="font-size: 10px;">JDBC</a> <a href="/tags/JSON/" style="font-size: 10px;">JSON</a> <a href="/tags/JUnit/" style="font-size: 10px;">JUnit</a> <a href="/tags/JWT/" style="font-size: 10px;">JWT</a> <a href="/tags/JaCoCo/" style="font-size: 10px;">JaCoCo</a> <a href="/tags/Java/" style="font-size: 20px;">Java</a> <a href="/tags/Just-Enough-Series/" style="font-size: 10px;">Just Enough Series</a> <a href="/tags/Kafka/" style="font-size: 10px;">Kafka</a> <a href="/tags/Linux/" style="font-size: 10px;">Linux</a> <a href="/tags/Microservices/" style="font-size: 10px;">Microservices</a> <a href="/tags/Orchestration/" style="font-size: 10px;">Orchestration</a> <a href="/tags/PowerMock/" style="font-size: 10px;">PowerMock</a> <a href="/tags/PowerShell/" style="font-size: 10px;">PowerShell</a> <a href="/tags/Powershell/" style="font-size: 10px;">Powershell</a> <a href="/tags/Quick-Trick/" style="font-size: 20px;">Quick Trick</a> <a href="/tags/SSH/" style="font-size: 10px;">SSH</a> <a href="/tags/Security/" style="font-size: 10px;">Security</a> <a href="/tags/Spring-Boot/" style="font-size: 20px;">Spring Boot</a> <a href="/tags/WinRm/" style="font-size: 10px;">WinRm</a> <a href="/tags/Windows/" style="font-size: 10px;">Windows</a> <a href="/tags/oc/" style="font-size: 10px;">oc</a> <a href="/tags/openshift/" style="font-size: 10px;">openshift</a>
+      <a href="/tags/AVRO/" style="font-size: 10px;">AVRO</a> <a href="/tags/AWX/" style="font-size: 10px;">AWX</a> <a href="/tags/Angular/" style="font-size: 10px;">Angular</a> <a href="/tags/Ansible/" style="font-size: 20px;">Ansible</a> <a href="/tags/Apache-POI/" style="font-size: 10px;">Apache POI</a> <a href="/tags/Camunda/" style="font-size: 10px;">Camunda</a> <a href="/tags/Firewall/" style="font-size: 10px;">Firewall</a> <a href="/tags/Git/" style="font-size: 20px;">Git</a> <a href="/tags/JDBC/" style="font-size: 10px;">JDBC</a> <a href="/tags/JSON/" style="font-size: 10px;">JSON</a> <a href="/tags/JUnit/" style="font-size: 10px;">JUnit</a> <a href="/tags/JWT/" style="font-size: 10px;">JWT</a> <a href="/tags/JaCoCo/" style="font-size: 10px;">JaCoCo</a> <a href="/tags/Java/" style="font-size: 20px;">Java</a> <a href="/tags/Kafka/" style="font-size: 10px;">Kafka</a> <a href="/tags/Linux/" style="font-size: 10px;">Linux</a> <a href="/tags/Microservices/" style="font-size: 10px;">Microservices</a> <a href="/tags/Orchestration/" style="font-size: 10px;">Orchestration</a> <a href="/tags/PowerMock/" style="font-size: 10px;">PowerMock</a> <a href="/tags/PowerShell/" style="font-size: 10px;">PowerShell</a> <a href="/tags/Powershell/" style="font-size: 10px;">Powershell</a> <a href="/tags/Quick-Trick/" style="font-size: 20px;">Quick Trick</a> <a href="/tags/SSH/" style="font-size: 10px;">SSH</a> <a href="/tags/Security/" style="font-size: 10px;">Security</a> <a href="/tags/Spring-Boot/" style="font-size: 20px;">Spring Boot</a> <a href="/tags/WinRm/" style="font-size: 10px;">WinRm</a> <a href="/tags/Windows/" style="font-size: 10px;">Windows</a> <a href="/tags/oc/" style="font-size: 10px;">oc</a> <a href="/tags/openshift/" style="font-size: 10px;">openshift</a>
     </div>
   </div>
 
@@ -616,11 +650,11 @@ password : password
           </li>
         
           <li>
-            <a href="/ansible-awx-magic-lab-setup/">Ansible &amp; Ansible Tower (AWX) Lab Setup (PowerShell)</a>
+            <a href="/git-basics-01/">Git basics for day to day work</a>
           </li>
         
           <li>
-            <a href="/ansible-winrm-windows/">PowerShell : Enable WinRm on Windows</a>
+            <a href="/ansible-awx-magic-lab-setup/">Ansible &amp; Ansible Tower (AWX) Lab Setup (PowerShell)</a>
           </li>
         
       </ul>

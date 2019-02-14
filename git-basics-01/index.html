@@ -5,20 +5,20 @@
   
 
   
-  <title>Just enough GIT : Part 01 | snmaddula</title>
+  <title>Git basics for day to day work | snmaddula</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Welcome to Git basics!This is a very basic touch up on everyday git usage.Git is a Distributed Version Control System (DVCS), created by Linus Torvalds, primarily to address collaboration issues. Init">
-<meta name="keywords" content="Git,Just Enough Series">
+  <meta name="description" content="Welcome to Git basics!This is a very basic touch up on everyday git usage.Git is a Distributed Version Control System (DVCS), created by Linus Torvalds, primarily to address collaboration issues. I. C">
+<meta name="keywords" content="Git">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Just enough GIT : Part 01">
+<meta property="og:title" content="Git basics for day to day work">
 <meta property="og:url" content="https://snmaddula.github.io/git-basics-01/index.html">
 <meta property="og:site_name" content="snmaddula">
-<meta property="og:description" content="Welcome to Git basics!This is a very basic touch up on everyday git usage.Git is a Distributed Version Control System (DVCS), created by Linus Torvalds, primarily to address collaboration issues. Init">
+<meta property="og:description" content="Welcome to Git basics!This is a very basic touch up on everyday git usage.Git is a Distributed Version Control System (DVCS), created by Linus Torvalds, primarily to address collaboration issues. I. C">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2018-10-30T03:02:35.911Z">
+<meta property="og:updated_time" content="2019-02-14T05:24:57.606Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Just enough GIT : Part 01">
-<meta name="twitter:description" content="Welcome to Git basics!This is a very basic touch up on everyday git usage.Git is a Distributed Version Control System (DVCS), created by Linus Torvalds, primarily to address collaboration issues. Init">
+<meta name="twitter:title" content="Git basics for day to day work">
+<meta name="twitter:description" content="Welcome to Git basics!This is a very basic touch up on everyday git usage.Git is a Distributed Version Control System (DVCS), created by Linus Torvalds, primarily to address collaboration issues. I. C">
   
     <link rel="alternate" href="/atom.xml" title="snmaddula" type="application/atom+xml">
   
@@ -72,7 +72,7 @@
         <section id="main"><article id="post-git-basics-01" class="article article-type-post" itemscope="" itemprop="blogPost">
   <div class="article-meta">
     <a href="/git-basics-01/" class="article-date">
-  <time datetime="2018-09-25T06:42:12.000Z" itemprop="datePublished">2018-Sep-25</time>
+  <time datetime="2019-01-01T06:42:12.000Z" itemprop="datePublished">2019-Jan-01</time>
 </a>
     
   </div>
@@ -83,7 +83,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      Just enough GIT : Part 01
+      Git basics for day to day work
     </h1>
   
 
@@ -92,9 +92,34 @@
     <div class="article-entry" itemprop="articleBody">
       
         <p>Welcome to Git basics!<br>This is a very basic touch up on everyday git usage.<br>Git is a <b>Distributed Version Control System (DVCS)</b>, created by <a href="https://en.wikipedia.org/wiki/Linus_Torvalds" target="_blank" rel="noopener">Linus Torvalds</a>, primarily to address collaboration issues.</p>
-<h3 id="Initialize-an-empty-git-repository"><a href="#Initialize-an-empty-git-repository" class="headerlink" title="Initialize an empty git repository"></a>Initialize an empty git repository</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git init</span><br></pre></td></tr></table></figure>
-<h3 id="Clone-an-existing-repository"><a href="#Clone-an-existing-repository" class="headerlink" title="Clone an existing repository"></a>Clone an existing repository</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git <span class="built_in">clone</span> https://git-repo-link.git</span><br></pre></td></tr></table></figure>
-<h3 id="Checking-for-modifications-done-in-local"><a href="#Checking-for-modifications-done-in-local" class="headerlink" title="Checking for modifications done in local"></a>Checking for modifications done in local</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git status</span><br></pre></td></tr></table></figure>
+<h4 id="I-CLONE-COMMANDS-git-clone"><a href="#I-CLONE-COMMANDS-git-clone" class="headerlink" title="I. CLONE COMMANDS: git clone"></a>I. CLONE COMMANDS: <code>git clone</code></h4><ol>
+<li><p>Clone a repository into a new directory</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git <span class="built_in">clone</span> &lt;URL&gt;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Clone a repository into a new custom directory  <code>myApp</code></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git <span class="built_in">clone</span> &lt;URL&gt; myApp</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Clone a specific branch <code>develop</code></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git <span class="built_in">clone</span> -b develop &lt;URL&gt;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Create a shallow clone with a history truncated to the specified number of commits</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git <span class="built_in">clone</span> &lt;URL&gt; --depth=2</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Create a shallow clone with a history after the specified time.</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git <span class="built_in">clone</span> &lt;URL&gt; --shallow-since=yyyy-mm-dd</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Clone by providing credentials in-line</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git <span class="built_in">clone</span> &lt;protocol&gt;://&lt;username&gt;:password@&lt;domain&gt;/repo-name.git --shallow-since=yyyy-mm-dd</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>In the above example,</p>
+<ul>
+<li><b>protocol</b> can be : <code>https</code>, <code>git</code>, <code>ssh</code>, <code>ftp</code></li>
+<li><b>username</b> and <b>password</b> are the credentials that has access to clone this repository.</li>
+<li><b>domain</b> is the git host.  Ex. <code>github</code> or <code>bitbucket</code> or <code>gitlab</code>, etc.</li>
+</ul>
+<p><br><hr><br></p>
+<h4 id="II-CHECKOUT-COMMANDS-git-checkouy"><a href="#II-CHECKOUT-COMMANDS-git-checkouy" class="headerlink" title="II. CHECKOUT COMMANDS: git checkouy"></a>II. CHECKOUT COMMANDS: <code>git checkouy</code></h4><h3 id="Checking-for-modifications-done-in-local"><a href="#Checking-for-modifications-done-in-local" class="headerlink" title="Checking for modifications done in local"></a>Checking for modifications done in local</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git status</span><br></pre></td></tr></table></figure>
 <h3 id="Adding-your-locally-changed-files-for-staging"><a href="#Adding-your-locally-changed-files-for-staging" class="headerlink" title="Adding your locally changed files for staging"></a>Adding your locally changed files for staging</h3><p>To add a specific file:</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git add &lt;file-path&gt;</span><br></pre></td></tr></table></figure>
 <p>To add all the files at once:</p>
@@ -106,10 +131,10 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://snmaddula.github.io/git-basics-01/" data-id="cjs0drueg000a24snwrtimsam" class="article-share-link">Share</a>
+      <a data-url="https://snmaddula.github.io/git-basics-01/" data-id="cjs46kb880009e8sn0wyparm1" class="article-share-link">Share</a>
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Git/">Git</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Just-Enough-Series/">Just Enough Series</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Git/">Git</a></li></ul>
 
     </footer>
   </div>
@@ -117,15 +142,20 @@
     
 <nav id="article-nav">
   
-    <a href="/wiring-angular-to-spring-boot/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/tuning-jacoco-for-powermock/" id="article-nav-newer" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Newer</strong>
       <div class="article-nav-title">
         
-          Wiring Angular with Spring Boot
+          Tuning JaCoCo for PowerMock Coverage
         
       </div>
     </a>
   
+  
+    <a href="/ansible-awx-magic-lab-setup/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Ansible &amp; Ansible Tower (AWX) Lab Setup (PowerShell)</div>
+    </a>
   
 </nav>
 
@@ -157,7 +187,7 @@
     <h3 class="widget-title">&nbsp;</h3>
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="/tags/AVRO/" style="font-size: 10px;">AVRO</a> <a href="/tags/AWX/" style="font-size: 10px;">AWX</a> <a href="/tags/Angular/" style="font-size: 10px;">Angular</a> <a href="/tags/Ansible/" style="font-size: 20px;">Ansible</a> <a href="/tags/Apache-POI/" style="font-size: 10px;">Apache POI</a> <a href="/tags/Camunda/" style="font-size: 10px;">Camunda</a> <a href="/tags/Firewall/" style="font-size: 10px;">Firewall</a> <a href="/tags/Git/" style="font-size: 20px;">Git</a> <a href="/tags/JDBC/" style="font-size: 10px;">JDBC</a> <a href="/tags/JSON/" style="font-size: 10px;">JSON</a> <a href="/tags/JUnit/" style="font-size: 10px;">JUnit</a> <a href="/tags/JWT/" style="font-size: 10px;">JWT</a> <a href="/tags/JaCoCo/" style="font-size: 10px;">JaCoCo</a> <a href="/tags/Java/" style="font-size: 20px;">Java</a> <a href="/tags/Just-Enough-Series/" style="font-size: 10px;">Just Enough Series</a> <a href="/tags/Kafka/" style="font-size: 10px;">Kafka</a> <a href="/tags/Linux/" style="font-size: 10px;">Linux</a> <a href="/tags/Microservices/" style="font-size: 10px;">Microservices</a> <a href="/tags/Orchestration/" style="font-size: 10px;">Orchestration</a> <a href="/tags/PowerMock/" style="font-size: 10px;">PowerMock</a> <a href="/tags/PowerShell/" style="font-size: 10px;">PowerShell</a> <a href="/tags/Powershell/" style="font-size: 10px;">Powershell</a> <a href="/tags/Quick-Trick/" style="font-size: 20px;">Quick Trick</a> <a href="/tags/SSH/" style="font-size: 10px;">SSH</a> <a href="/tags/Security/" style="font-size: 10px;">Security</a> <a href="/tags/Spring-Boot/" style="font-size: 20px;">Spring Boot</a> <a href="/tags/WinRm/" style="font-size: 10px;">WinRm</a> <a href="/tags/Windows/" style="font-size: 10px;">Windows</a> <a href="/tags/oc/" style="font-size: 10px;">oc</a> <a href="/tags/openshift/" style="font-size: 10px;">openshift</a>
+      <a href="/tags/AVRO/" style="font-size: 10px;">AVRO</a> <a href="/tags/AWX/" style="font-size: 10px;">AWX</a> <a href="/tags/Angular/" style="font-size: 10px;">Angular</a> <a href="/tags/Ansible/" style="font-size: 20px;">Ansible</a> <a href="/tags/Apache-POI/" style="font-size: 10px;">Apache POI</a> <a href="/tags/Camunda/" style="font-size: 10px;">Camunda</a> <a href="/tags/Firewall/" style="font-size: 10px;">Firewall</a> <a href="/tags/Git/" style="font-size: 20px;">Git</a> <a href="/tags/JDBC/" style="font-size: 10px;">JDBC</a> <a href="/tags/JSON/" style="font-size: 10px;">JSON</a> <a href="/tags/JUnit/" style="font-size: 10px;">JUnit</a> <a href="/tags/JWT/" style="font-size: 10px;">JWT</a> <a href="/tags/JaCoCo/" style="font-size: 10px;">JaCoCo</a> <a href="/tags/Java/" style="font-size: 20px;">Java</a> <a href="/tags/Kafka/" style="font-size: 10px;">Kafka</a> <a href="/tags/Linux/" style="font-size: 10px;">Linux</a> <a href="/tags/Microservices/" style="font-size: 10px;">Microservices</a> <a href="/tags/Orchestration/" style="font-size: 10px;">Orchestration</a> <a href="/tags/PowerMock/" style="font-size: 10px;">PowerMock</a> <a href="/tags/PowerShell/" style="font-size: 10px;">PowerShell</a> <a href="/tags/Powershell/" style="font-size: 10px;">Powershell</a> <a href="/tags/Quick-Trick/" style="font-size: 20px;">Quick Trick</a> <a href="/tags/SSH/" style="font-size: 10px;">SSH</a> <a href="/tags/Security/" style="font-size: 10px;">Security</a> <a href="/tags/Spring-Boot/" style="font-size: 20px;">Spring Boot</a> <a href="/tags/WinRm/" style="font-size: 10px;">WinRm</a> <a href="/tags/Windows/" style="font-size: 10px;">Windows</a> <a href="/tags/oc/" style="font-size: 10px;">oc</a> <a href="/tags/openshift/" style="font-size: 10px;">openshift</a>
     </div>
   </div>
 
@@ -192,11 +222,11 @@
           </li>
         
           <li>
-            <a href="/ansible-awx-magic-lab-setup/">Ansible &amp; Ansible Tower (AWX) Lab Setup (PowerShell)</a>
+            <a href="/git-basics-01/">Git basics for day to day work</a>
           </li>
         
           <li>
-            <a href="/ansible-winrm-windows/">PowerShell : Enable WinRm on Windows</a>
+            <a href="/ansible-awx-magic-lab-setup/">Ansible &amp; Ansible Tower (AWX) Lab Setup (PowerShell)</a>
           </li>
         
       </ul>
