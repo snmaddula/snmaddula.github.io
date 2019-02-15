@@ -66,6 +66,104 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-spring-boot-file-download-via-angular-service" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/spring-boot-file-download-via-angular-service/" class="article-date">
+  <time datetime="2019-02-15T06:50:57.000Z" itemprop="datePublished">2019-Feb-15</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/spring-boot-file-download-via-angular-service/">Spring Boot File Download via Angular Service</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><br></p>
+<h3 id="I-Create-a-Simple-Spring-Boot-App"><a href="#I-Create-a-Simple-Spring-Boot-App" class="headerlink" title="I. Create a Simple Spring Boot App."></a>I. Create a Simple Spring Boot App.</h3><p>As a pre-requisite, we need to implement a service with file download feature.</p>
+<p>So I composed the below class, which is a complete spring boot application, with file download functionality at its simplest form.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> snmaddula.quicktrick.ng;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="keyword">static</span> java.nio.file.Files.readAllBytes;</span><br><span class="line"><span class="keyword">import</span> <span class="keyword">static</span> java.nio.file.Paths.get;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> javax.servlet.http.HttpServletResponse;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.springframework.boot.SpringApplication;</span><br><span class="line"><span class="keyword">import</span> org.springframework.boot.autoconfigure.SpringBootApplication;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.bind.annotation.GetMapping;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.bind.annotation.RestController;</span><br><span class="line"></span><br><span class="line"><span class="meta">@RestController</span></span><br><span class="line"><span class="meta">@SpringBootApplication</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">FileDownloadApp</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">  <span class="meta">@GetMapping</span>(<span class="string">"/download"</span>)</span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">downloadFile</span><span class="params">(String fileName, HttpServletResponse res)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">    res.setHeader(<span class="string">"Content-Disposition"</span>, <span class="string">"attachment; filename="</span> + fileName);</span><br><span class="line">    res.getOutputStream().write(contentOf(fileName));</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">private</span> <span class="keyword">byte</span>[] contentOf(String fileName) <span class="keyword">throws</span> Exception &#123;</span><br><span class="line">    <span class="keyword">return</span> readAllBytes(get(getClass().getClassLoader().getResource(fileName).toURI()));</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">    SpringApplication.run(FileDownloadApp.class, args);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>The only dependency that is needed for this boot application is <code>spring-boot-starter-web</code>, add it to your pom.xml</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-web<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>For testing purpose, we need some files to be available for download.<br>So place some files in your application classpath under <code>src/main/resources</code> like below: (.xls, .xlsx, .pdf, etc)</p>
+<p><img src="/images/p4/ng-file-download.png" alt=""></p>
+<p>With this we are done with the server side / spring boot side of the application. Now, let us write the Angular side implementation.</p>
+<hr>
+
+<h3 id="II-Preparing-the-Angular-Client"><a href="#II-Preparing-the-Angular-Client" class="headerlink" title="II. Preparing the Angular Client"></a>II. Preparing the Angular Client</h3><h5 id="1-Create-Angular-App"><a href="#1-Create-Angular-App" class="headerlink" title="1. Create Angular App"></a>1. Create Angular App</h5><p>Use the below command to create a new angular app with name <code>client</code>.<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ng <span class="keyword">new</span> client --routing --minimal --defaults</span><br></pre></td></tr></table></figure></p>
+<p>In case if you see any vulnerabilities reported after the app was created, switch to the <code>client</code> directory and run the below command to let <code>npm</code> fix those issues.<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm audit fix</span><br></pre></td></tr></table></figure></p>
+<h5 id="2-Add-File-Saver-dependency"><a href="#2-Add-File-Saver-dependency" class="headerlink" title="2. Add File Saver dependency"></a>2. Add File Saver dependency</h5><p>Add <code>file-saver</code> dependency to enable saving files to the file-system on the client side.<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm i -s file-saver</span><br></pre></td></tr></table></figure></p>
+<h5 id="3-Create-File-Download-Service"><a href="#3-Create-File-Download-Service" class="headerlink" title="3. Create File Download Service"></a>3. Create File Download Service</h5><p>Use the below command to generate file download service.<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ng g s service/file-download</span><br></pre></td></tr></table></figure></p>
+<h5 id="4-Create-File-Download-Component"><a href="#4-Create-File-Download-Component" class="headerlink" title="4. Create File Download Component"></a>4. Create File Download Component</h5><p>Use the below command to generate file download component.<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ng g c component/file-download</span><br></pre></td></tr></table></figure></p>
+<h5 id="5-Implement-File-Download-Service"><a href="#5-Implement-File-Download-Service" class="headerlink" title="5. Implement File Download Service"></a>5. Implement File Download Service</h5><p>Update <b>file-download.service.ts</b> with the below implementation.<br><figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; Injectable &#125; <span class="keyword">from</span> <span class="string">'@angular/core'</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; HttpClient, HttpParams &#125; <span class="keyword">from</span> <span class="string">'@angular/common/http'</span>;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Injectable</span>(&#123;</span><br><span class="line">  providedIn: <span class="string">'root'</span></span><br><span class="line">&#125;)</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">class</span> FileDownloadService &#123;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">constructor</span>(<span class="params"><span class="keyword">private</span> http:HttpClient</span>) &#123; &#125;</span><br><span class="line"></span><br><span class="line">  downloadFile(data) &#123;</span><br><span class="line">    <span class="keyword">const</span> REQUEST_PARAMS = <span class="keyword">new</span> HttpParams().set(<span class="string">'fileName'</span>, data.fileName);</span><br><span class="line">    <span class="keyword">const</span> REQUEST_URL = <span class="string">'/server/file/download'</span></span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">this</span>.http.get(REQUEST_URL, &#123;</span><br><span class="line">      params: REQUEST_PARAMS,</span><br><span class="line">      responseType: <span class="string">'arraybuffer'</span></span><br><span class="line">    &#125;);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h5 id="6-Implement-File-Download-Component"><a href="#6-Implement-File-Download-Component" class="headerlink" title="6. Implement File Download Component"></a>6. Implement File Download Component</h5><p>&nbsp;&nbsp;&nbsp;&nbsp;<b>i.</b> Update <b>file-download.component.ts</b> with the below implementation.<br><figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; Component, OnInit &#125; <span class="keyword">from</span> <span class="string">'@angular/core'</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; FileDownloadService &#125; <span class="keyword">from</span> <span class="string">'../../services/file-download.service'</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; saveAs &#125; <span class="keyword">from</span> <span class="string">'file-saver'</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> MIME_TYPES = &#123;</span><br><span class="line">    pdf  : <span class="string">'application/pdf'</span>,</span><br><span class="line">    xls  : <span class="string">'application/vnd.ms-excel'</span>,</span><br><span class="line">    xlsx : <span class="string">'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Component</span>(&#123;</span><br><span class="line">  selector: <span class="string">'app-file-download'</span>,</span><br><span class="line">  templateUrl: <span class="string">'./file-download.component.html'</span>,</span><br><span class="line">  styleUrls: [<span class="string">'./file-download.component.css'</span>]</span><br><span class="line">&#125;)</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">class</span> FileDownloadComponent <span class="keyword">implements</span> OnInit &#123;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">constructor</span>(<span class="params"><span class="keyword">private</span> service:FileDownloadService</span>) &#123; &#125;</span><br><span class="line"></span><br><span class="line">  ngOnInit() &#123;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  downloadFile(fileName) &#123;</span><br><span class="line">    <span class="keyword">const</span> extension = fileName.substr(fileName.lastIndexOf(<span class="string">'.'</span>) + <span class="number">1</span>)</span><br><span class="line">    <span class="keyword">this</span>.service.downloadFile(&#123;<span class="string">'fileName'</span>: fileName&#125;)</span><br><span class="line">    .subscribe(<span class="function"><span class="params">data</span> =&gt;</span> &#123;</span><br><span class="line">      saveAs(<span class="keyword">new</span> Blob([data], &#123; <span class="keyword">type</span>: MIME_TYPES[extension] &#125;), fileName);</span><br><span class="line">    &#125;)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;<b>ii.</b> Update <b>file-download.component.html</b> with the below implementation.</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">TODO</span><br></pre></td></tr></table></figure>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;<b>iii.</b> Update <b>file-download.component.css</b> with the below implementation.</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">TODO</span></span><br></pre></td></tr></table></figure>
+<h5 id="7-Add-Route-for-the-Component"><a href="#7-Add-Route-for-the-Component" class="headerlink" title="7. Add Route for the Component"></a>7. Add Route for the Component</h5><h5 id="8-Add-Proxy-Configuration-to-reach-Spring-Boot-Service"><a href="#8-Add-Proxy-Configuration-to-reach-Spring-Boot-Service" class="headerlink" title="8. Add Proxy Configuration to reach Spring Boot Service."></a>8. Add Proxy Configuration to reach Spring Boot Service.</h5>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://snmaddula.github.io/spring-boot-file-download-via-angular-service/" data-id="cjs5uqkqf000dscsn7q0lj4hq" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Angular/">Angular</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Spring-Boot/">Spring Boot</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-spring-boot-okta-saml" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/spring-boot-okta-saml/" class="article-date">
+  <time datetime="2019-02-15T02:05:59.000Z" itemprop="datePublished">2019-Feb-15</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/spring-boot-okta-saml/">Spring Boot SAML 2.0 with OKTA</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="1-Setup-Okta-Application"><a href="#1-Setup-Okta-Application" class="headerlink" title="1. Setup Okta Application"></a>1. Setup Okta Application</h3>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://snmaddula.github.io/spring-boot-okta-saml/" data-id="cjs5uqkqd000cscsnitqty1qr" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/OKTA/">OKTA</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/SAML2/">SAML2</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Spring-Boot/">Spring Boot</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Spring-Security/">Spring Security</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-decode-jwt-payload" class="article article-type-post" itemscope="" itemprop="blogPost">
   <div class="article-meta">
     <a href="/decode-jwt-payload/" class="article-date">
@@ -110,7 +208,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://snmaddula.github.io/decode-jwt-payload/" data-id="cjs46kb830005e8snaezhiq1q" class="article-share-link">Share</a>
+      <a data-url="https://snmaddula.github.io/decode-jwt-payload/" data-id="cjs5uqkpv0001scsn5h0hr310" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JWT/">JWT</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/">Java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Quick-Trick/">Quick Trick</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Security/">Security</a></li></ul>
@@ -164,7 +262,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://snmaddula.github.io/resultset-to-excel/" data-id="cjs46kb8h000ge8snp4gnj72c" class="article-share-link">Share</a>
+      <a data-url="https://snmaddula.github.io/resultset-to-excel/" data-id="cjs5uqkrq002gscsnsexf3fx3" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Apache-POI/">Apache POI</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JDBC/">JDBC</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/">Java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Quick-Trick/">Quick Trick</a></li></ul>
@@ -217,7 +315,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://snmaddula.github.io/tuning-jacoco-for-powermock/" data-id="cjs46kb8c000ce8snao50vyo3" class="article-share-link">Share</a>
+      <a data-url="https://snmaddula.github.io/tuning-jacoco-for-powermock/" data-id="cjs5uqkqi000gscsnpl02dv8m" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JUnit/">JUnit</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JaCoCo/">JaCoCo</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/PowerMock/">PowerMock</a></li></ul>
@@ -291,7 +389,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://snmaddula.github.io/git-basics-01/" data-id="cjs46kb880009e8sn0wyparm1" class="article-share-link">Share</a>
+      <a data-url="https://snmaddula.github.io/git-basics-01/" data-id="cjs5uqkqa000ascsnwe1hhoez" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Git/">Git</a></li></ul>
@@ -352,7 +450,7 @@ password : password
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://snmaddula.github.io/ansible-awx-magic-lab-setup/" data-id="cjs46kb7t0000e8snlqph92ng" class="article-share-link">Share</a>
+      <a data-url="https://snmaddula.github.io/ansible-awx-magic-lab-setup/" data-id="cjs5uqkq40005scsno9p4g873" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/AWX/">AWX</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Ansible/">Ansible</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Powershell/">Powershell</a></li></ul>
@@ -393,7 +491,7 @@ password : password
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://snmaddula.github.io/ansible-winrm-windows/" data-id="cjs46kb7y0002e8snc1pzpwhm" class="article-share-link">Share</a>
+      <a data-url="https://snmaddula.github.io/ansible-winrm-windows/" data-id="cjs5uqkqj000iscsnqmptaf0z" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Ansible/">Ansible</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/PowerShell/">PowerShell</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/WinRm/">WinRm</a></li></ul>
@@ -441,7 +539,7 @@ password : password
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://snmaddula.github.io/open-port-firewall-cmd/" data-id="cjs46kb8a000be8snvy2nxmbp" class="article-share-link">Share</a>
+      <a data-url="https://snmaddula.github.io/open-port-firewall-cmd/" data-id="cjs5uqkq70007scsnnrd3d00o" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Firewall/">Firewall</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/">Linux</a></li></ul>
@@ -488,93 +586,10 @@ password : password
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://snmaddula.github.io/git-and-ssh-client-setup-windows/" data-id="cjs46kb850006e8snuiy1zlvs" class="article-share-link">Share</a>
+      <a data-url="https://snmaddula.github.io/git-and-ssh-client-setup-windows/" data-id="cjs5uqkq00003scsnlje32opo" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Git/">Git</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/SSH/">SSH</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Windows/">Windows</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-oc-login" class="article article-type-post" itemscope="" itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/oc-login/" class="article-date">
-  <time datetime="2018-12-09T10:24:52.000Z" itemprop="datePublished">2018-Dec-09</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/oc-login/">Login to OpenShift Origin</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>There are quite a few ways to login into openshift through the <code>oc</code> cli. Let us explore them one by one.</p>
-<h4 id="1-Interactive-Login-with-Credentials"><a href="#1-Interactive-Login-with-Credentials" class="headerlink" title="1. Interactive Login with Credentials"></a>1. Interactive Login with Credentials</h4><p>To Simply login use <b>oc login</b>. This will prompt for <i>username</i> and <i>password</i>, providing which it will authenticate and log you in.<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$ oc login</span><br><span class="line">Server[https://localhost:8443]:</span><br><span class="line">username: snmaddula</span><br><span class="line">password:</span><br><span class="line"></span><br><span class="line">Login Successful.</span><br></pre></td></tr></table></figure></p>
-<p>You can specify the Server URL in-line:<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ oc login https://localhost:8443</span><br></pre></td></tr></table></figure></p>
-<h4 id="2-Non-Interactive-Login-with-Credentials-a-k-a-one-liner"><a href="#2-Non-Interactive-Login-with-Credentials-a-k-a-one-liner" class="headerlink" title="2. Non-Interactive Login with Credentials (a.k.a one-liner)"></a>2. Non-Interactive Login with Credentials (a.k.a one-liner)</h4><p>To login by providing username and password in-line :<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">oc login -u=snmaddula -p=secret</span><br></pre></td></tr></table></figure></p>
-<p>To instantly switch to a particular namespace / project on successful login :<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">oc login -u=snmaddula -p=secret -n=project1</span><br></pre></td></tr></table></figure></p>
-<p>In the above examples, <code>-u</code> is short for <code>--username</code> as <code>-p</code> is for <code>--password</code> and <code>-n</code> for <code>--namespace</code></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://snmaddula.github.io/oc-login/" data-id="cjs46kb820004e8sn3q7fj97t" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/oc/">oc</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/openshift/">openshift</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-json-schema-avro" class="article article-type-post" itemscope="" itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/json-schema-avro/" class="article-date">
-  <time datetime="2018-10-01T00:49:33.000Z" itemprop="datePublished">2018-Oct-01</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/json-schema-avro/">JSON Schema enforcement using AVRO</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>To be added…</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://snmaddula.github.io/json-schema-avro/" data-id="cjs46kb870008e8sn2geculdv" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/AVRO/">AVRO</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JSON/">JSON</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Kafka/">Kafka</a></li></ul>
 
     </footer>
   </div>
@@ -615,7 +630,7 @@ password : password
     <h3 class="widget-title">&nbsp;</h3>
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="/tags/AVRO/" style="font-size: 10px;">AVRO</a> <a href="/tags/AWX/" style="font-size: 10px;">AWX</a> <a href="/tags/Angular/" style="font-size: 10px;">Angular</a> <a href="/tags/Ansible/" style="font-size: 20px;">Ansible</a> <a href="/tags/Apache-POI/" style="font-size: 10px;">Apache POI</a> <a href="/tags/Camunda/" style="font-size: 10px;">Camunda</a> <a href="/tags/Firewall/" style="font-size: 10px;">Firewall</a> <a href="/tags/Git/" style="font-size: 20px;">Git</a> <a href="/tags/JDBC/" style="font-size: 10px;">JDBC</a> <a href="/tags/JSON/" style="font-size: 10px;">JSON</a> <a href="/tags/JUnit/" style="font-size: 10px;">JUnit</a> <a href="/tags/JWT/" style="font-size: 10px;">JWT</a> <a href="/tags/JaCoCo/" style="font-size: 10px;">JaCoCo</a> <a href="/tags/Java/" style="font-size: 20px;">Java</a> <a href="/tags/Kafka/" style="font-size: 10px;">Kafka</a> <a href="/tags/Linux/" style="font-size: 10px;">Linux</a> <a href="/tags/Microservices/" style="font-size: 10px;">Microservices</a> <a href="/tags/Orchestration/" style="font-size: 10px;">Orchestration</a> <a href="/tags/PowerMock/" style="font-size: 10px;">PowerMock</a> <a href="/tags/PowerShell/" style="font-size: 10px;">PowerShell</a> <a href="/tags/Powershell/" style="font-size: 10px;">Powershell</a> <a href="/tags/Quick-Trick/" style="font-size: 20px;">Quick Trick</a> <a href="/tags/SSH/" style="font-size: 10px;">SSH</a> <a href="/tags/Security/" style="font-size: 10px;">Security</a> <a href="/tags/Spring-Boot/" style="font-size: 20px;">Spring Boot</a> <a href="/tags/WinRm/" style="font-size: 10px;">WinRm</a> <a href="/tags/Windows/" style="font-size: 10px;">Windows</a> <a href="/tags/oc/" style="font-size: 10px;">oc</a> <a href="/tags/openshift/" style="font-size: 10px;">openshift</a>
+      <a href="/tags/AVRO/" style="font-size: 10px;">AVRO</a> <a href="/tags/AWX/" style="font-size: 10px;">AWX</a> <a href="/tags/Angular/" style="font-size: 15px;">Angular</a> <a href="/tags/Ansible/" style="font-size: 15px;">Ansible</a> <a href="/tags/Apache-POI/" style="font-size: 10px;">Apache POI</a> <a href="/tags/Camunda/" style="font-size: 10px;">Camunda</a> <a href="/tags/Firewall/" style="font-size: 10px;">Firewall</a> <a href="/tags/Git/" style="font-size: 15px;">Git</a> <a href="/tags/JDBC/" style="font-size: 10px;">JDBC</a> <a href="/tags/JSON/" style="font-size: 10px;">JSON</a> <a href="/tags/JUnit/" style="font-size: 10px;">JUnit</a> <a href="/tags/JWT/" style="font-size: 10px;">JWT</a> <a href="/tags/JaCoCo/" style="font-size: 10px;">JaCoCo</a> <a href="/tags/Java/" style="font-size: 15px;">Java</a> <a href="/tags/Kafka/" style="font-size: 10px;">Kafka</a> <a href="/tags/Linux/" style="font-size: 10px;">Linux</a> <a href="/tags/Microservices/" style="font-size: 10px;">Microservices</a> <a href="/tags/OKTA/" style="font-size: 10px;">OKTA</a> <a href="/tags/Orchestration/" style="font-size: 10px;">Orchestration</a> <a href="/tags/PowerMock/" style="font-size: 10px;">PowerMock</a> <a href="/tags/PowerShell/" style="font-size: 10px;">PowerShell</a> <a href="/tags/Powershell/" style="font-size: 10px;">Powershell</a> <a href="/tags/Quick-Trick/" style="font-size: 15px;">Quick Trick</a> <a href="/tags/SAML2/" style="font-size: 10px;">SAML2</a> <a href="/tags/SSH/" style="font-size: 10px;">SSH</a> <a href="/tags/Security/" style="font-size: 10px;">Security</a> <a href="/tags/Spring-Boot/" style="font-size: 20px;">Spring Boot</a> <a href="/tags/Spring-Security/" style="font-size: 10px;">Spring Security</a> <a href="/tags/WinRm/" style="font-size: 10px;">WinRm</a> <a href="/tags/Windows/" style="font-size: 10px;">Windows</a> <a href="/tags/oc/" style="font-size: 10px;">oc</a> <a href="/tags/openshift/" style="font-size: 10px;">openshift</a>
     </div>
   </div>
 
@@ -638,6 +653,14 @@ password : password
       <ul>
         
           <li>
+            <a href="/spring-boot-file-download-via-angular-service/">Spring Boot File Download via Angular Service</a>
+          </li>
+        
+          <li>
+            <a href="/spring-boot-okta-saml/">Spring Boot SAML 2.0 with OKTA</a>
+          </li>
+        
+          <li>
             <a href="/decode-jwt-payload/">Java Quick Trick - Decode JWT Payload</a>
           </li>
         
@@ -647,14 +670,6 @@ password : password
         
           <li>
             <a href="/tuning-jacoco-for-powermock/">Tuning JaCoCo for PowerMock Coverage</a>
-          </li>
-        
-          <li>
-            <a href="/git-basics-01/">Git basics for day to day work</a>
-          </li>
-        
-          <li>
-            <a href="/ansible-awx-magic-lab-setup/">Ansible &amp; Ansible Tower (AWX) Lab Setup (PowerShell)</a>
           </li>
         
       </ul>
