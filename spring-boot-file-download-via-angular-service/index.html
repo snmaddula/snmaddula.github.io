@@ -7,20 +7,20 @@
   
   <title>Spring Boot File Download via Angular Service | snmaddula</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="I. Create a Simple Spring Boot App.As a pre-requisite, we need to implement a service with file download feature. So I composed the below class, which is a complete spring boot application, with file">
-<meta name="keywords" content="Spring Boot,Angular">
+  <meta name="description" content="I. Create a Simple Spring Boot App.As a pre-requisite, we need to implement a service with file download feature. Video guide of the spring-boot process     &amp;nbsp;So I composed the below class, which">
+<meta name="keywords" content="Angular,Spring Boot">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Spring Boot File Download via Angular Service">
 <meta property="og:url" content="https://snmaddula.github.io/spring-boot-file-download-via-angular-service/index.html">
 <meta property="og:site_name" content="snmaddula">
-<meta property="og:description" content="I. Create a Simple Spring Boot App.As a pre-requisite, we need to implement a service with file download feature. So I composed the below class, which is a complete spring boot application, with file">
+<meta property="og:description" content="I. Create a Simple Spring Boot App.As a pre-requisite, we need to implement a service with file download feature. Video guide of the spring-boot process     &amp;nbsp;So I composed the below class, which">
 <meta property="og:locale" content="default">
 <meta property="og:image" content="https://snmaddula.github.io/images/p4/ng-file-download.png">
 <meta property="og:image" content="https://snmaddula.github.io/images/p5/02.png">
-<meta property="og:updated_time" content="2019-02-18T17:45:46.637Z">
+<meta property="og:updated_time" content="2019-02-25T17:40:28.427Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Spring Boot File Download via Angular Service">
-<meta name="twitter:description" content="I. Create a Simple Spring Boot App.As a pre-requisite, we need to implement a service with file download feature. So I composed the below class, which is a complete spring boot application, with file">
+<meta name="twitter:description" content="I. Create a Simple Spring Boot App.As a pre-requisite, we need to implement a service with file download feature. Video guide of the spring-boot process     &amp;nbsp;So I composed the below class, which">
 <meta name="twitter:image" content="https://snmaddula.github.io/images/p4/ng-file-download.png">
   
     <link rel="alternate" href="/atom.xml" title="snmaddula" type="application/atom+xml">
@@ -96,7 +96,9 @@
       
         <p><br></p>
 <h3 id="I-Create-a-Simple-Spring-Boot-App"><a href="#I-Create-a-Simple-Spring-Boot-App" class="headerlink" title="I. Create a Simple Spring Boot App."></a>I. Create a Simple Spring Boot App.</h3><p>As a pre-requisite, we need to implement a service with file download feature.</p>
-<p>So I composed the below class, which is a complete spring boot application, with file download functionality at its simplest form.</p>
+<h4 id="Video-guide-of-the-spring-boot-process"><a href="#Video-guide-of-the-spring-boot-process" class="headerlink" title="Video guide of the spring-boot process"></a>Video guide of the spring-boot process</h4><div class="iframe_container"><br>  <iframe src="https://www.youtube.com/embed/xXASGlVZX-w" frameborder="0" allowfullscreen="allowfullscreen"> </iframe><br></div>
+
+<h6 id="nbsp"><a href="#nbsp" class="headerlink" title="&nbsp;"></a>&nbsp;</h6><p>So I composed the below class, which is a complete spring boot application, with file download functionality at its simplest form.</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> snmaddula.quicktrick.ng;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="keyword">static</span> java.nio.file.Files.readAllBytes;</span><br><span class="line"><span class="keyword">import</span> <span class="keyword">static</span> java.nio.file.Paths.get;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> javax.servlet.http.HttpServletResponse;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.springframework.boot.SpringApplication;</span><br><span class="line"><span class="keyword">import</span> org.springframework.boot.autoconfigure.SpringBootApplication;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.bind.annotation.GetMapping;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.bind.annotation.RestController;</span><br><span class="line"></span><br><span class="line"><span class="meta">@RestController</span></span><br><span class="line"><span class="meta">@SpringBootApplication</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">FileDownloadApp</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">  <span class="meta">@GetMapping</span>(<span class="string">"/download"</span>)</span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">downloadFile</span><span class="params">(String fileName, HttpServletResponse res)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">    res.setHeader(<span class="string">"Content-Disposition"</span>, <span class="string">"attachment; filename="</span> + fileName);</span><br><span class="line">    res.getOutputStream().write(contentOf(fileName));</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">private</span> <span class="keyword">byte</span>[] contentOf(String fileName) <span class="keyword">throws</span> Exception &#123;</span><br><span class="line">    <span class="keyword">return</span> readAllBytes(get(getClass().getClassLoader().getResource(fileName).toURI()));</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">    SpringApplication.run(FileDownloadApp.class, args);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>The only dependency that is needed for this boot application is <code>spring-boot-starter-web</code>, add it to your pom.xml</p>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-web<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
@@ -121,7 +123,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://snmaddula.github.io/spring-boot-file-download-via-angular-service/" data-id="cjsb30lch000ng8sn80rd1clh" class="article-share-link">Share</a>
+      <a data-url="https://snmaddula.github.io/spring-boot-file-download-via-angular-service/" data-id="cjskmtd03000gawsnzhn5gi85" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Angular/">Angular</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Spring-Boot/">Spring Boot</a></li></ul>
@@ -131,15 +133,6 @@
   
     
 <nav id="article-nav">
-  
-    <a href="/spring-boot-cache/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Newer</strong>
-      <div class="article-nav-title">
-        
-          Caching in Spring Boot
-        
-      </div>
-    </a>
   
   
     <a href="/spring-boot-okta-saml/" id="article-nav-older" class="article-nav-link-wrap">
@@ -177,7 +170,7 @@
     <h3 class="widget-title">&nbsp;</h3>
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="/tags/AVRO/" style="font-size: 10px;">AVRO</a> <a href="/tags/AWX/" style="font-size: 10px;">AWX</a> <a href="/tags/Angular/" style="font-size: 15px;">Angular</a> <a href="/tags/Ansible/" style="font-size: 15px;">Ansible</a> <a href="/tags/Apache-POI/" style="font-size: 10px;">Apache POI</a> <a href="/tags/Caching/" style="font-size: 15px;">Caching</a> <a href="/tags/Camunda/" style="font-size: 10px;">Camunda</a> <a href="/tags/Firewall/" style="font-size: 10px;">Firewall</a> <a href="/tags/Git/" style="font-size: 15px;">Git</a> <a href="/tags/JDBC/" style="font-size: 10px;">JDBC</a> <a href="/tags/JSON/" style="font-size: 10px;">JSON</a> <a href="/tags/JUnit/" style="font-size: 10px;">JUnit</a> <a href="/tags/JWT/" style="font-size: 10px;">JWT</a> <a href="/tags/JaCoCo/" style="font-size: 10px;">JaCoCo</a> <a href="/tags/Java/" style="font-size: 15px;">Java</a> <a href="/tags/Kafka/" style="font-size: 10px;">Kafka</a> <a href="/tags/Linux/" style="font-size: 10px;">Linux</a> <a href="/tags/Microservices/" style="font-size: 10px;">Microservices</a> <a href="/tags/OKTA/" style="font-size: 10px;">OKTA</a> <a href="/tags/Orchestration/" style="font-size: 10px;">Orchestration</a> <a href="/tags/PowerMock/" style="font-size: 10px;">PowerMock</a> <a href="/tags/PowerShell/" style="font-size: 10px;">PowerShell</a> <a href="/tags/Powershell/" style="font-size: 10px;">Powershell</a> <a href="/tags/Quick-Trick/" style="font-size: 15px;">Quick Trick</a> <a href="/tags/Redis/" style="font-size: 10px;">Redis</a> <a href="/tags/SAML2/" style="font-size: 10px;">SAML2</a> <a href="/tags/SSH/" style="font-size: 10px;">SSH</a> <a href="/tags/Security/" style="font-size: 10px;">Security</a> <a href="/tags/Spring-Boot/" style="font-size: 20px;">Spring Boot</a> <a href="/tags/Spring-Security/" style="font-size: 10px;">Spring Security</a> <a href="/tags/WinRm/" style="font-size: 10px;">WinRm</a> <a href="/tags/Windows/" style="font-size: 10px;">Windows</a> <a href="/tags/oc/" style="font-size: 10px;">oc</a> <a href="/tags/openshift/" style="font-size: 10px;">openshift</a>
+      <a href="/tags/AVRO/" style="font-size: 10px;">AVRO</a> <a href="/tags/AWX/" style="font-size: 10px;">AWX</a> <a href="/tags/Angular/" style="font-size: 15px;">Angular</a> <a href="/tags/Ansible/" style="font-size: 15px;">Ansible</a> <a href="/tags/Apache-POI/" style="font-size: 10px;">Apache POI</a> <a href="/tags/Camunda/" style="font-size: 10px;">Camunda</a> <a href="/tags/Firewall/" style="font-size: 10px;">Firewall</a> <a href="/tags/Git/" style="font-size: 15px;">Git</a> <a href="/tags/JDBC/" style="font-size: 10px;">JDBC</a> <a href="/tags/JSON/" style="font-size: 10px;">JSON</a> <a href="/tags/JUnit/" style="font-size: 10px;">JUnit</a> <a href="/tags/JWT/" style="font-size: 10px;">JWT</a> <a href="/tags/JaCoCo/" style="font-size: 10px;">JaCoCo</a> <a href="/tags/Java/" style="font-size: 15px;">Java</a> <a href="/tags/Kafka/" style="font-size: 10px;">Kafka</a> <a href="/tags/Linux/" style="font-size: 10px;">Linux</a> <a href="/tags/Microservices/" style="font-size: 10px;">Microservices</a> <a href="/tags/OKTA/" style="font-size: 10px;">OKTA</a> <a href="/tags/Orchestration/" style="font-size: 10px;">Orchestration</a> <a href="/tags/PowerMock/" style="font-size: 10px;">PowerMock</a> <a href="/tags/PowerShell/" style="font-size: 10px;">PowerShell</a> <a href="/tags/Powershell/" style="font-size: 10px;">Powershell</a> <a href="/tags/Quick-Trick/" style="font-size: 15px;">Quick Trick</a> <a href="/tags/SAML2/" style="font-size: 10px;">SAML2</a> <a href="/tags/SSH/" style="font-size: 10px;">SSH</a> <a href="/tags/Security/" style="font-size: 10px;">Security</a> <a href="/tags/Spring-Boot/" style="font-size: 20px;">Spring Boot</a> <a href="/tags/Spring-Security/" style="font-size: 10px;">Spring Security</a> <a href="/tags/WinRm/" style="font-size: 10px;">WinRm</a> <a href="/tags/Windows/" style="font-size: 10px;">Windows</a> <a href="/tags/oc/" style="font-size: 10px;">oc</a> <a href="/tags/openshift/" style="font-size: 10px;">openshift</a>
     </div>
   </div>
 
@@ -200,14 +193,6 @@
       <ul>
         
           <li>
-            <a href="/spring-boot-redis-cache/">Redis Caching in Spring Boot</a>
-          </li>
-        
-          <li>
-            <a href="/spring-boot-cache/">Caching in Spring Boot</a>
-          </li>
-        
-          <li>
             <a href="/spring-boot-file-download-via-angular-service/">Spring Boot File Download via Angular Service</a>
           </li>
         
@@ -217,6 +202,14 @@
         
           <li>
             <a href="/decode-jwt-payload/">Java Quick Trick - Decode JWT Payload</a>
+          </li>
+        
+          <li>
+            <a href="/resultset-to-excel/">Java Quick Trick - Transform JDBC ResultSet to Excel WorkBook</a>
+          </li>
+        
+          <li>
+            <a href="/tuning-jacoco-for-powermock/">Tuning JaCoCo for PowerMock Coverage</a>
           </li>
         
       </ul>
