@@ -106,6 +106,8 @@
 <h5 id="2-Add-File-Saver-dependency"><a href="#2-Add-File-Saver-dependency" class="headerlink" title="2. Add File Saver dependency"></a>2. Add File Saver dependency</h5><p>Add <code>file-saver</code> dependency to enable saving files to the file-system on the client side.<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm i -s file-saver</span><br></pre></td></tr></table></figure></p>
 <h5 id="3-Create-File-Download-Service"><a href="#3-Create-File-Download-Service" class="headerlink" title="3. Create File Download Service"></a>3. Create File Download Service</h5><p>Use the below command to generate file download service.<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ng g s service/file-download</span><br></pre></td></tr></table></figure></p>
 <h5 id="4-Create-File-Download-Component"><a href="#4-Create-File-Download-Component" class="headerlink" title="4. Create File Download Component"></a>4. Create File Download Component</h5><p>Use the below command to generate file download component.<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ng g c component/file-download</span><br></pre></td></tr></table></figure></p>
+<h5 id="5-Add-HttpClientModule-to-the-application"><a href="#5-Add-HttpClientModule-to-the-application" class="headerlink" title="5. Add HttpClientModule to the application."></a>5. Add HttpClientModule to the application.</h5><p>To be able to use the HttpClient service within your components we first need to include the HttpClientModule in the Angular application.<br>First we need to import HttpClientModule in the application’s root module in the file <b>app.module.ts</b> by adding the below import statement.</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; HttpClientModule &#125; <span class="keyword">from</span> <span class="string">'@angular/common/http'</span>;</span><br></pre></td></tr></table></figure>
 <h5 id="5-Implement-File-Download-Service"><a href="#5-Implement-File-Download-Service" class="headerlink" title="5. Implement File Download Service"></a>5. Implement File Download Service</h5><p>Update <b>file-download.service.ts</b> with the below implementation.<br><figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; Injectable &#125; <span class="keyword">from</span> <span class="string">'@angular/core'</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; HttpClient, HttpParams &#125; <span class="keyword">from</span> <span class="string">'@angular/common/http'</span>;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Injectable</span>(&#123;</span><br><span class="line">  providedIn: <span class="string">'root'</span></span><br><span class="line">&#125;)</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">class</span> FileDownloadService &#123;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">constructor</span>(<span class="params"><span class="keyword">private</span> http:HttpClient</span>) &#123; &#125;</span><br><span class="line"></span><br><span class="line">  downloadFile(data) &#123;</span><br><span class="line">    <span class="keyword">const</span> REQUEST_PARAMS = <span class="keyword">new</span> HttpParams().set(<span class="string">'fileName'</span>, data.fileName);</span><br><span class="line">    <span class="keyword">const</span> REQUEST_URL = <span class="string">'/server/download'</span></span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">this</span>.http.get(REQUEST_URL, &#123;</span><br><span class="line">      params: REQUEST_PARAMS,</span><br><span class="line">      responseType: <span class="string">'arraybuffer'</span></span><br><span class="line">    &#125;);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <h5 id="6-Implement-File-Download-Component"><a href="#6-Implement-File-Download-Component" class="headerlink" title="6. Implement File Download Component"></a>6. Implement File Download Component</h5><p>&nbsp;&nbsp;&nbsp;&nbsp;<b>i.</b> Update <b>file-download.component.ts</b> with the below implementation.<br><figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; Component, OnInit &#125; <span class="keyword">from</span> <span class="string">'@angular/core'</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; FileDownloadService &#125; <span class="keyword">from</span> <span class="string">'../../service/file-download.service'</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; saveAs &#125; <span class="keyword">from</span> <span class="string">'file-saver'</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> MIME_TYPES = &#123;</span><br><span class="line">  xls  : <span class="string">'application/vnd.ms-excel'</span>,</span><br><span class="line">  xlsx : <span class="string">'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Component</span>(&#123;</span><br><span class="line">  selector: <span class="string">'app-file-download'</span>,</span><br><span class="line">  templateUrl: <span class="string">'./file-download.component.html'</span>,</span><br><span class="line">  styleUrls: [<span class="string">'./file-download.component.css'</span>]</span><br><span class="line">&#125;)</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">class</span> FileDownloadComponent <span class="keyword">implements</span> OnInit &#123;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">constructor</span>(<span class="params"><span class="keyword">private</span> service:FileDownloadService</span>) &#123; &#125;</span><br><span class="line"></span><br><span class="line">  ngOnInit() &#123;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  downloadFile(fileName) &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">"fileName : "</span> + fileName);</span><br><span class="line">    <span class="keyword">const</span> extension = fileName.substr(fileName.lastIndexOf(<span class="string">'.'</span>) + <span class="number">1</span>)</span><br><span class="line">    <span class="keyword">this</span>.service.downloadFile(&#123;<span class="string">'fileName'</span>: fileName&#125;)</span><br><span class="line">    .subscribe(<span class="function"><span class="params">data</span> =&gt;</span> &#123;</span><br><span class="line">      saveAs(<span class="keyword">new</span> Blob([data], &#123; <span class="keyword">type</span>: MIME_TYPES[extension] &#125;), fileName);</span><br><span class="line">    &#125;)</span><br><span class="line">  &#125;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <p>&nbsp;&nbsp;&nbsp;&nbsp;<b>ii.</b> Update <b>file-download.component.html</b> with the below implementation.</p>
@@ -119,7 +121,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://snmaddula.github.io/spring-boot-file-download-via-angular-service/" data-id="cjt1x1jr8000btwsnlwhj28da" class="article-share-link">Share</a>
+      <a data-url="https://snmaddula.github.io/spring-boot-file-download-via-angular-service/" data-id="cjt1xpsz3000eh0sngfbq5ti6" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Angular/">Angular</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Spring-Boot/">Spring Boot</a></li></ul>
@@ -157,7 +159,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://snmaddula.github.io/spring-boot-okta-saml/" data-id="cjt1x1jr8000etwsntikknopi" class="article-share-link">Share</a>
+      <a data-url="https://snmaddula.github.io/spring-boot-okta-saml/" data-id="cjt1xpsz8000jh0sn9001gdpb" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/OKTA/">OKTA</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/SAML2/">SAML2</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Spring-Boot/">Spring Boot</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Spring-Security/">Spring Security</a></li></ul>
@@ -213,7 +215,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://snmaddula.github.io/decode-jwt-payload/" data-id="cjt1x1jqs0000twsncatn20jo" class="article-share-link">Share</a>
+      <a data-url="https://snmaddula.github.io/decode-jwt-payload/" data-id="cjt1xpsyj0000h0sn9ayl7ek3" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JWT/">JWT</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/">Java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Quick-Trick/">Quick Trick</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Security/">Security</a></li></ul>
@@ -267,7 +269,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://snmaddula.github.io/resultset-to-excel/" data-id="cjt1x1jr8000ltwsnj1ipbp7w" class="article-share-link">Share</a>
+      <a data-url="https://snmaddula.github.io/resultset-to-excel/" data-id="cjt1xpsz5000gh0sn8f4r5jpl" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Apache-POI/">Apache POI</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JDBC/">JDBC</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/">Java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Quick-Trick/">Quick Trick</a></li></ul>
@@ -320,7 +322,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://snmaddula.github.io/tuning-jacoco-for-powermock/" data-id="cjt1x1jr8000gtwsnzz46t73q" class="article-share-link">Share</a>
+      <a data-url="https://snmaddula.github.io/tuning-jacoco-for-powermock/" data-id="cjt1xpsz6000hh0snmknom42z" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JUnit/">JUnit</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JaCoCo/">JaCoCo</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/PowerMock/">PowerMock</a></li></ul>
@@ -394,7 +396,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://snmaddula.github.io/git-basics-01/" data-id="cjt1x1jr30005twsnfze0afdc" class="article-share-link">Share</a>
+      <a data-url="https://snmaddula.github.io/git-basics-01/" data-id="cjt1xpsyu0005h0sndb8guksp" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Git/">Git</a></li></ul>
@@ -455,7 +457,7 @@ password : password
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://snmaddula.github.io/ansible-awx-magic-lab-setup/" data-id="cjt1x1jr8000dtwsnfig93eoa" class="article-share-link">Share</a>
+      <a data-url="https://snmaddula.github.io/ansible-awx-magic-lab-setup/" data-id="cjt1xpsyw0007h0sn1kideuy1" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/AWX/">AWX</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Ansible/">Ansible</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Powershell/">Powershell</a></li></ul>
@@ -496,7 +498,7 @@ password : password
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://snmaddula.github.io/ansible-winrm-windows/" data-id="cjt1x1jr8000atwsnc9a0cfhk" class="article-share-link">Share</a>
+      <a data-url="https://snmaddula.github.io/ansible-winrm-windows/" data-id="cjt1xpsyq0002h0sn35k0dp4u" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Ansible/">Ansible</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/PowerShell/">PowerShell</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/WinRm/">WinRm</a></li></ul>
@@ -544,7 +546,7 @@ password : password
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://snmaddula.github.io/open-port-firewall-cmd/" data-id="cjt1x1jr8000htwsnih4zrl90" class="article-share-link">Share</a>
+      <a data-url="https://snmaddula.github.io/open-port-firewall-cmd/" data-id="cjt1xpsz2000dh0snc8wl87z9" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Firewall/">Firewall</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/">Linux</a></li></ul>
@@ -591,7 +593,7 @@ password : password
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://snmaddula.github.io/git-and-ssh-client-setup-windows/" data-id="cjt1x1jqy0002twsngle5jrws" class="article-share-link">Share</a>
+      <a data-url="https://snmaddula.github.io/git-and-ssh-client-setup-windows/" data-id="cjt1xpsyx0008h0snf8z2eeq2" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Git/">Git</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/SSH/">SSH</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Windows/">Windows</a></li></ul>
