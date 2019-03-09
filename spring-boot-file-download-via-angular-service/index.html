@@ -8,7 +8,7 @@
   <title>Spring Boot File Download via Angular Service | snmaddula</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="I. Create a Simple Spring Boot App.As a pre-requisite, we need to implement a service with file download feature. Video guide of the spring-boot process     &amp;nbsp;So I composed the below class, which">
-<meta name="keywords" content="Angular,Spring Boot">
+<meta name="keywords" content="Spring Boot,Angular">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Spring Boot File Download via Angular Service">
 <meta property="og:url" content="https://snmaddula.github.io/spring-boot-file-download-via-angular-service/index.html">
@@ -17,7 +17,7 @@
 <meta property="og:locale" content="default">
 <meta property="og:image" content="https://snmaddula.github.io/images/p4/ng-file-download.png">
 <meta property="og:image" content="https://snmaddula.github.io/images/p5/02.png">
-<meta property="og:updated_time" content="2019-03-09T20:30:49.549Z">
+<meta property="og:updated_time" content="2019-03-09T20:55:58.564Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Spring Boot File Download via Angular Service">
 <meta name="twitter:description" content="I. Create a Simple Spring Boot App.As a pre-requisite, we need to implement a service with file download feature. Video guide of the spring-boot process     &amp;nbsp;So I composed the below class, which">
@@ -107,7 +107,7 @@
 <p>With this we are done with the server side / spring boot side of the application. Now, let us write the Angular side implementation.</p>
 <hr>
 
-<h3 id="II-Preparing-the-Angular-Client"><a href="#II-Preparing-the-Angular-Client" class="headerlink" title="II. Preparing the Angular Client"></a>II. Preparing the Angular Client</h3><h5 id="1-Create-Angular-App"><a href="#1-Create-Angular-App" class="headerlink" title="1. Create Angular App"></a>1. Create Angular App</h5><p>Use the below command to create a new angular app with name <code>client</code>.<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ng <span class="keyword">new</span> client --minimal --defaults</span><br></pre></td></tr></table></figure></p>
+<h3 id="II-Preparing-the-Angular-Client-Angular-7"><a href="#II-Preparing-the-Angular-Client-Angular-7" class="headerlink" title="II. Preparing the Angular Client (Angular 7)"></a>II. Preparing the Angular Client (Angular 7)</h3><h5 id="1-Create-Angular-App"><a href="#1-Create-Angular-App" class="headerlink" title="1. Create Angular App"></a>1. Create Angular App</h5><p>Use the below command to create a new angular app with name <code>client</code>.<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ng <span class="keyword">new</span> client --minimal=<span class="literal">true</span> --routing=<span class="literal">false</span> --style=css</span><br></pre></td></tr></table></figure></p>
 <p>In case if you see any vulnerabilities reported after the app was created, switch to the <code>client</code> directory and run the below command to let <code>npm</code> fix those issues.<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm audit fix</span><br></pre></td></tr></table></figure></p>
 <h5 id="2-Add-File-Saver-dependency"><a href="#2-Add-File-Saver-dependency" class="headerlink" title="2. Add File Saver dependency"></a>2. Add File Saver dependency</h5><p>Add <code>file-saver</code> dependency to enable saving files to the file-system on the client side.<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm i -s file-saver</span><br></pre></td></tr></table></figure></p>
 <h5 id="3-Create-File-Download-Service"><a href="#3-Create-File-Download-Service" class="headerlink" title="3. Create File Download Service"></a>3. Create File Download Service</h5><p>Use the below command to generate file download service.<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ng g s service/file-download</span><br></pre></td></tr></table></figure></p>
@@ -127,7 +127,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://snmaddula.github.io/spring-boot-file-download-via-angular-service/" data-id="cjt1y1stl001f4wsny6a6004e" class="article-share-link">Share</a>
+      <a data-url="https://snmaddula.github.io/spring-boot-file-download-via-angular-service/" data-id="cjt22ryjq000d9csnigkduaf9" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Angular/">Angular</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Spring-Boot/">Spring Boot</a></li></ul>
