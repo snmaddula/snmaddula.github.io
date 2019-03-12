@@ -66,10 +66,10 @@
       <div class="outer">
         <section id="main">
   
-    <article id="post-tuning-jacoco-for-powermock" class="article article-type-post" itemscope="" itemprop="blogPost">
+    <article id="post-git-and-ssh-client-setup-windows" class="article article-type-post" itemscope="" itemprop="blogPost">
   <div class="article-meta">
-    <a href="/tuning-jacoco-for-powermock/" class="article-date">
-  <time datetime="2019-01-05T21:07:55.000Z" itemprop="datePublished">2019-Jan-06</time>
+    <a href="/git-and-ssh-client-setup-windows/" class="article-date">
+  <time datetime="2018-12-11T10:31:14.000Z" itemprop="datePublished">2018-Dec-11</time>
 </a>
     
   </div>
@@ -80,7 +80,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/tuning-jacoco-for-powermock/">Tuning JaCoCo for PowerMock Coverage</a>
+      <a class="article-title" href="/git-and-ssh-client-setup-windows/">Git + SSH Client Setup</a>
     </h1>
   
 
@@ -88,29 +88,67 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>Jacoco is widely preferred for on-the-fly instrumentation, however it cannot extend the same support when it comes to <code>powermock</code>, as <code>powermock</code>does dynamic classfile transformation which conflicts with Jacoco.</p>
-<p>To overcome this issue, we can use an offline instrumentation i.e. the classes can be pre-instrumented with JaCoCo before powermock kicks in.</p>
-<h3 id="Configuration-Steps"><a href="#Configuration-Steps" class="headerlink" title="Configuration Steps"></a>Configuration Steps</h3><p>Here are the steps involved in configuring Offline Instrumentation of JaCoCo:</p>
-<h4 id="JaCoCo-Agent"><a href="#JaCoCo-Agent" class="headerlink" title="JaCoCo Agent"></a>JaCoCo Agent</h4><p>Unlike with on-the-fly instrumentation offline instrumented classes get a direct dependency on the JaCoCo runtime.</p>
-<p>Add <code>jacoco-agent</code> dependency to our pom.xml, so that it will be available on the classpath and accessible by the instrumented classes.</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.jacoco<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>org.jacoco.agent<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">version</span>&gt;</span>$&#123;jacoco.version&#125;<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">classifier</span>&gt;</span>runtime<span class="tag">&lt;/<span class="name">classifier</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<h4 id="JaCoCo-Maven-plugin"><a href="#JaCoCo-Maven-plugin" class="headerlink" title="JaCoCo Maven plugin"></a>JaCoCo Maven plugin</h4><p>Add the below plugin configuration to the plugins section of your pom.xml</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">plugin</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.jacoco<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>jacoco-maven-plugin<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">version</span>&gt;</span>$&#123;jacoco.version&#125;<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">executions</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">execution</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">id</span>&gt;</span>default-instrument<span class="tag">&lt;/<span class="name">id</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">goals</span>&gt;</span></span><br><span class="line">				<span class="tag">&lt;<span class="name">goal</span>&gt;</span>instrument<span class="tag">&lt;/<span class="name">goal</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;/<span class="name">goals</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;/<span class="name">execution</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">execution</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">id</span>&gt;</span>default-restore-instrumented-classes<span class="tag">&lt;/<span class="name">id</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">goals</span>&gt;</span></span><br><span class="line">				<span class="tag">&lt;<span class="name">goal</span>&gt;</span>restore-instrumented-classes<span class="tag">&lt;/<span class="name">goal</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;/<span class="name">goals</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;/<span class="name">execution</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">execution</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">id</span>&gt;</span>report<span class="tag">&lt;/<span class="name">id</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">phase</span>&gt;</span>prepare-package<span class="tag">&lt;/<span class="name">phase</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">goals</span>&gt;</span></span><br><span class="line">				<span class="tag">&lt;<span class="name">goal</span>&gt;</span>report<span class="tag">&lt;/<span class="name">goal</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;/<span class="name">goals</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">configuration</span>&gt;</span></span><br><span class="line">				<span class="tag">&lt;<span class="name">dataFile</span>&gt;</span>$&#123;project.build.directory&#125;/coverage.exec<span class="tag">&lt;/<span class="name">dataFile</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;/<span class="name">execution</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">executions</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">configuration</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">excludes</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">exclude</span>&gt;</span>com/somepack/subpack/**/*<span class="tag">&lt;/<span class="name">exclude</span>&gt;</span> <span class="comment">&lt;!-- to exclude any package --&gt;</span></span><br><span class="line">		<span class="tag">&lt;/<span class="name">excludes</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">plugin</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<h4 id="Surefire-Maven-plugin"><a href="#Surefire-Maven-plugin" class="headerlink" title="Surefire Maven plugin"></a>Surefire Maven plugin</h4><p>Add the below configuration to provide coverage information to surefire.</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">plugin</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.apache.maven.plugins<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>maven-surefire-plugin<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">version</span>&gt;</span>2.19.1<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">configuration</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">systemPropertyVariables</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">jacoco-agent.destfile</span>&gt;</span>$&#123;project.build.directory&#125;/coverage.exec<span class="tag">&lt;/<span class="name">jacoco-agent.destfile</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">systemPropertyVariables</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">plugin</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<h4 id="PowerMock-Dependencies"><a href="#PowerMock-Dependencies" class="headerlink" title="PowerMock Dependencies"></a>PowerMock Dependencies</h4><p>Add the below powermock dependencies to your pom</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.powermock<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>powermock-api-mockito<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">version</span>&gt;</span>$&#123;powermock.version&#125;<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.powermock<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>powermock-core<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">version</span>&gt;</span>$&#123;powermock.version&#125;<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.powermock<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>powermock-module-junit4<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">version</span>&gt;</span>$&#123;powermock.version&#125;<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<h4 id="Version-Compatibility"><a href="#Version-Compatibility" class="headerlink" title="Version Compatibility"></a>Version Compatibility</h4><p>One last thing is version Compatibility. Make sure you use compatible versions.</p>
-<p>For Jacoco Offline Instrumentation, use powermock 1.6.6 or greater.</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">jacoco.version</span>&gt;</span>0.7.7.201606060606<span class="tag">&lt;/<span class="name">jacoco.version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">powermock.version</span>&gt;</span>1.7.1<span class="tag">&lt;/<span class="name">powermock.version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">junit.version</span>&gt;</span>4.12<span class="tag">&lt;/<span class="name">junit.version</span>&gt;</span></span><br></pre></td></tr></table></figure>
+        <p>In this article, we shall setup SSH client on Windows machine.</p>
+<h5 id="What-we-need"><a href="#What-we-need" class="headerlink" title="What we need ?"></a>What we need ?</h5><ul>
+<li>Git</li>
+<li>PowerShell (Optional)</li>
+<li>Command Prompt (Optional)</li>
+</ul>
+<p>Let us get started with the setup.</p>
+<h3 id="Silent-UnAttended-Install-Using-PowerShell"><a href="#Silent-UnAttended-Install-Using-PowerShell" class="headerlink" title="Silent / UnAttended Install :: Using PowerShell"></a>Silent / UnAttended Install :: Using PowerShell</h3><p>To download &amp; install <code>git</code> in silent / un-attended mode, execute the below commands<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12</span><br><span class="line">Invoke-WebRequest -Uri https://github.com/git-for-windows/git/releases/download/v2.20.0.windows.1/Git-2.20.0-64-bit.exe -OutFile gitbin.exe</span><br><span class="line">cmd &quot;/C .\gitbin.exe /SP- /SILENT /NOCANCEL /NORESTART /COMPONENTS=icons,ext\reg\shellhere,assoc,assoc_sh&quot;</span><br></pre></td></tr></table></figure></p>
+<p>Add git &amp; ssh to your path without closing and re-launching PowerShell.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$env:Path=&quot;$env:Path;C:\Program Files\Git\bin\;&quot;</span><br><span class="line">$env:Path=&quot;$env:Path;C:\Program Files\Git\usr\bin\;&quot;</span><br></pre></td></tr></table></figure></p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://snmaddula.github.io/tuning-jacoco-for-powermock/" data-id="cjt5r5ppc001jk8snig1fp24c" class="article-share-link">Share</a>
+      <a data-url="https://snmaddula.github.io/git-and-ssh-client-setup-windows/" data-id="cjt5rp9s2000314snib9avinv" class="article-share-link">Share</a>
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JUnit/">JUnit</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JaCoCo/">JaCoCo</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/PowerMock/">PowerMock</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Git/">Git</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/SSH/">SSH</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Windows/">Windows</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-oc-login" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/oc-login/" class="article-date">
+  <time datetime="2018-12-09T10:24:52.000Z" itemprop="datePublished">2018-Dec-09</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/oc-login/">Login to OpenShift Origin</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>There are quite a few ways to login into openshift through the <code>oc</code> cli. Let us explore them one by one.</p>
+<h4 id="1-Interactive-Login-with-Credentials"><a href="#1-Interactive-Login-with-Credentials" class="headerlink" title="1. Interactive Login with Credentials"></a>1. Interactive Login with Credentials</h4><p>To Simply login use <b>oc login</b>. This will prompt for <i>username</i> and <i>password</i>, providing which it will authenticate and log you in.<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$ oc login</span><br><span class="line">Server[https://localhost:8443]:</span><br><span class="line">username: snmaddula</span><br><span class="line">password:</span><br><span class="line"></span><br><span class="line">Login Successful.</span><br></pre></td></tr></table></figure></p>
+<p>You can specify the Server URL in-line:<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ oc login https://localhost:8443</span><br></pre></td></tr></table></figure></p>
+<h4 id="2-Non-Interactive-Login-with-Credentials-a-k-a-one-liner"><a href="#2-Non-Interactive-Login-with-Credentials-a-k-a-one-liner" class="headerlink" title="2. Non-Interactive Login with Credentials (a.k.a one-liner)"></a>2. Non-Interactive Login with Credentials (a.k.a one-liner)</h4><p>To login by providing username and password in-line :<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">oc login -u=snmaddula -p=secret</span><br></pre></td></tr></table></figure></p>
+<p>To instantly switch to a particular namespace / project on successful login :<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">oc login -u=snmaddula -p=secret -n=project1</span><br></pre></td></tr></table></figure></p>
+<p>In the above examples, <code>-u</code> is short for <code>--username</code> as <code>-p</code> is for <code>--password</code> and <code>-n</code> for <code>--namespace</code></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://snmaddula.github.io/oc-login/" data-id="cjt5rp9s6000514sn7sh8oe0x" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/oc/">oc</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/openshift/">openshift</a></li></ul>
 
     </footer>
   </div>
@@ -123,7 +161,7 @@
 
   <nav id="page-nav">
     
-    <a class="extend prev" rel="prev" href="/page/5/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><span class="page-number current">6</span><a class="page-number" href="/page/7/">7</a><a class="page-number" href="/page/8/">8</a><span class="space">&hellip;</span><a class="page-number" href="/page/14/">14</a><a class="extend next" rel="next" href="/page/7/">Next &raquo;</a>
+    <a class="extend prev" rel="prev" href="/page/5/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><span class="page-number current">6</span><a class="page-number" href="/page/7/">7</a><a class="extend next" rel="next" href="/page/7/">Next &raquo;</a>
   </nav>
 
 </section>
@@ -138,7 +176,9 @@
     <h3 class="widget-title">Author</h3>
     <div class="widget">
           <div class="textwidget custom-html-widget" align="center">
+            <a href="https://www.linkedin.com/in/snmaddula" target="_blank">
               <img style="display: inline-block;width: 150px;height: 150px;border-radius: 50%;object-fit: cover;" src="/css/images/7snmaddula.jpg" class="user">
+            </a>
           </div>
     <p style="color: black; font-size: 14px;">I am motivated to write articles about <b>"how something works"</b> as and when I come across something in my practice.</p>
     <br>

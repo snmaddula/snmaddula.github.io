@@ -66,10 +66,10 @@
       <div class="outer">
         <section id="main">
   
-    <article id="post-resultset-to-excel" class="article article-type-post" itemscope="" itemprop="blogPost">
+    <article id="post-ansible-winrm-windows" class="article article-type-post" itemscope="" itemprop="blogPost">
   <div class="article-meta">
-    <a href="/resultset-to-excel/" class="article-date">
-  <time datetime="2019-02-08T08:01:51.000Z" itemprop="datePublished">2019-Feb-08</time>
+    <a href="/ansible-winrm-windows/" class="article-date">
+  <time datetime="2018-12-13T00:57:50.000Z" itemprop="datePublished">2018-Dec-13</time>
 </a>
     
   </div>
@@ -80,7 +80,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/resultset-to-excel/">Java Quick Trick - Transform JDBC ResultSet to Excel WorkBook</a>
+      <a class="article-title" href="/ansible-winrm-windows/">PowerShell : Enable WinRm on Windows</a>
     </h1>
   
 
@@ -88,30 +88,65 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>A quick guide on generating an excel workbook with the output from an SQL query.</p>
-<h3 id="Video-guide-of-the-process"><a href="#Video-guide-of-the-process" class="headerlink" title="Video guide of the process"></a>Video guide of the process</h3><div class="iframe_container"><br>  <iframe src="https://www.youtube.com/embed/mXOeGJuXijc" frameborder="0" allowfullscreen="allowfullscreen"> </iframe><br></div>
-
-<h6 id="nbsp"><a href="#nbsp" class="headerlink" title="&nbsp;"></a>&nbsp;</h6><h3 id="Follow-the-below-steps"><a href="#Follow-the-below-steps" class="headerlink" title="Follow the below steps"></a>Follow the below steps</h3><p>Add <a href="https://poi.apache.org/" target="_blank" rel="noopener">Apache POI</a> dependencies to your pom.xml</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.apache.poi<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>poi<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">version</span>&gt;</span>4.0.1<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.apache.poi<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>poi-ooxml<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">version</span>&gt;</span>4.0.1<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<p>Create a workbook and add the header row.<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">try</span> (Workbook book = <span class="keyword">new</span> XSSFWorkbook()) &#123;</span><br><span class="line">  Sheet sheet = book.createSheet();</span><br><span class="line">  Row header = sheet.createRow(<span class="number">0</span>);  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>Extract columns from the ResultSet.</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">ResultSetMetaData rsmd = rs.getMetaData();</span><br><span class="line">List&lt;String&gt; columns = <span class="keyword">new</span> ArrayList&lt;String&gt;() &#123;&#123;</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= rsmd.getColumnCount(); i++)</span><br><span class="line">      add(rsmd.getColumnLabel(i));</span><br><span class="line">&#125;&#125;;</span><br></pre></td></tr></table></figure>
-<p>Populate the header row with the extracted column names.<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; columns.size(); i++) &#123;</span><br><span class="line">  Cell cell = header.createCell(i);</span><br><span class="line">  cell.setCellValue(columns.get(i));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>Extract the rows from the <code>ResultSet</code> and populate the workbook.</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> rowIndex = <span class="number">0</span>;</span><br><span class="line"><span class="keyword">while</span> (rs.next()) &#123;</span><br><span class="line">  Row row = sheet.createRow(++rowIndex);</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; columns.size(); i++) &#123;</span><br><span class="line">    Cell cell = row.createCell(i);</span><br><span class="line">    <span class="comment">// if you have complex values like Date, then use cell formatter.</span></span><br><span class="line">    cell.setCellValue(Objects.toString(rs.getObject(columns.get(i)), <span class="string">""</span>));</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>Writing the excel workbook to filesystem.</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">try</span> (FileOutputStream fos = <span class="keyword">new</span> FileOutputStream(<span class="string">"FILE_PATH"</span>)) &#123;</span><br><span class="line">  book.write(fos);  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>You can download this entire class - <a href="/pf/ResultSetToExcel.java" target="_blank">ResultSetToExcel.java</a>, which is readily usable.</p>
-<p>That’s all.</p>
-<p>If you have any queries, please do reach out to me via email / phone.</p>
+        <h4 id="Step-01"><a href="#Step-01" class="headerlink" title="Step 01"></a>Step 01</h4><p>Download the PowerShell script provided by Ansible here: <a href="/pf/ConfigureRemotingForAnsible.ps1">ConfigureRemotingForAnsible.ps1</a></p>
+<h5 id="Note-To-execute-the-script-Administrator-access-is-required"><a href="#Note-To-execute-the-script-Administrator-access-is-required" class="headerlink" title="Note: To execute the script, Administrator access is required."></a>Note: To execute the script, Administrator access is required.</h5><h4 id="Step-02"><a href="#Step-02" class="headerlink" title="Step 02"></a>Step 02</h4><p>Now, go to the script download location and open the Command Prompt as an ‘Administrator’ and run the following command:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">powershell.exe -ExecutionPolicy Bypass -File ConfigureRemotingForAnsible.ps1 -CertValidityDays 100</span><br></pre></td></tr></table></figure></p>
+<h5 id="Note-Ensure-that-port-5986-is-open-in-firewall-rules"><a href="#Note-Ensure-that-port-5986-is-open-in-firewall-rules" class="headerlink" title="Note: Ensure that port 5986 is open in firewall rules."></a>Note: Ensure that port 5986 is open in firewall rules.</h5><p>That’s all you need, to enable WinRm on windows!</p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://snmaddula.github.io/resultset-to-excel/" data-id="cjt5r5pp3001ek8snew1i5qtf" class="article-share-link">Share</a>
+      <a data-url="https://snmaddula.github.io/ansible-winrm-windows/" data-id="cjt5rp9rq000014snhq58c7p6" class="article-share-link">Share</a>
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Apache-POI/">Apache POI</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JDBC/">JDBC</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/">Java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Quick-Trick/">Quick Trick</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Ansible/">Ansible</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/PowerShell/">PowerShell</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/WinRm/">WinRm</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-open-port-firewall-cmd" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/open-port-firewall-cmd/" class="article-date">
+  <time datetime="2018-12-12T09:23:55.000Z" itemprop="datePublished">2018-Dec-12</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/open-port-firewall-cmd/">Enable / Disable TCP Ports</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>To enable / disable port accessibility on a machine, we can use the <code>firewall-cmd</code> utility.</p>
+<p><b>Note</b>: You need Administrator / sudo access to play around with this utility.</p>
+<p><b> Switch to Root Account.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo su</span><br></pre></td></tr></table></figure></b></p>
+<h4 id="To-Install-firewalld"><a href="#To-Install-firewalld" class="headerlink" title="To Install firewalld"></a>To Install <code>firewalld</code></h4><p>If you already have <b>firewall daemon</b> available on your machine, you can skip this.</p>
+<p>Execute the below command to install <b>firewall daemon</b><br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install -y firewalld</span><br></pre></td></tr></table></figure></p>
+<h4 id="To-check-status-of-firewall-daemon"><a href="#To-check-status-of-firewall-daemon" class="headerlink" title="To check status of firewall daemon"></a>To check status of firewall daemon</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">firewall-cmd --state</span><br></pre></td></tr></table></figure>
+<p>You should see <i>running</i> as the result for the above command.</p>
+<h4 id="Enable-TCP-Ports"><a href="#Enable-TCP-Ports" class="headerlink" title="Enable TCP Ports"></a>Enable TCP Ports</h4><p>To enable any tcp port say 9090 for example, the command you need to execute is :<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">firewall-cmd --zone=public --permanent --add-port=9090/tcp</span><br><span class="line">firewall-cmd --reload</span><br></pre></td></tr></table></figure></p>
+<h4 id="Enable-TCP-Ports-1"><a href="#Enable-TCP-Ports-1" class="headerlink" title="Enable TCP Ports"></a>Enable TCP Ports</h4><p>To disable any tcp port say 8090 for example, the command you need to execute is :<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">firewall-cmd --zone=public --permanent --remove-port=8090/tcp</span><br><span class="line">firewall-cmd --reload</span><br></pre></td></tr></table></figure></p>
+<h4 id="List-open-ports"><a href="#List-open-ports" class="headerlink" title="List open ports"></a>List open ports</h4><p>To list publicly accessible ports on the machine, use the below command.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ firewall-cmd --zone=public --list-ports</span><br><span class="line">9090/tcp</span><br></pre></td></tr></table></figure></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://snmaddula.github.io/open-port-firewall-cmd/" data-id="cjt5rp9sb000814snumnvb1zv" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Firewall/">Firewall</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/">Linux</a></li></ul>
 
     </footer>
   </div>
@@ -124,7 +159,7 @@
 
   <nav id="page-nav">
     
-    <a class="extend prev" rel="prev" href="/page/4/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><span class="page-number current">5</span><a class="page-number" href="/page/6/">6</a><a class="page-number" href="/page/7/">7</a><span class="space">&hellip;</span><a class="page-number" href="/page/14/">14</a><a class="extend next" rel="next" href="/page/6/">Next &raquo;</a>
+    <a class="extend prev" rel="prev" href="/page/4/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><span class="page-number current">5</span><a class="page-number" href="/page/6/">6</a><a class="page-number" href="/page/7/">7</a><a class="extend next" rel="next" href="/page/6/">Next &raquo;</a>
   </nav>
 
 </section>
@@ -139,7 +174,9 @@
     <h3 class="widget-title">Author</h3>
     <div class="widget">
           <div class="textwidget custom-html-widget" align="center">
+            <a href="https://www.linkedin.com/in/snmaddula" target="_blank">
               <img style="display: inline-block;width: 150px;height: 150px;border-radius: 50%;object-fit: cover;" src="/css/images/7snmaddula.jpg" class="user">
+            </a>
           </div>
     <p style="color: black; font-size: 14px;">I am motivated to write articles about <b>"how something works"</b> as and when I come across something in my practice.</p>
     <br>
