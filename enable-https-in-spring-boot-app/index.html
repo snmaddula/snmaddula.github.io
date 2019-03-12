@@ -5,15 +5,20 @@
   
 
   
-  <title>Tag: Firewall | snmaddula</title>
+  <title>Enable HTTPS in Spring Boot Application | snmaddula</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="snmaddula">
-<meta property="og:url" content="https://snmaddula.github.io/tags/Firewall/index.html">
+  <meta name="description" content="Video guide of the process     Step 1 : Generate SSL CertificateTo enable HTTPS, we would require a SSL certificate. This certificate can be obtained from a Certificate Authority.Also, we can generate">
+<meta name="keywords" content="SSL,TLS,HTTPS,Spring Boot">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Enable HTTPS in Spring Boot Application">
+<meta property="og:url" content="https://snmaddula.github.io/enable-https-in-spring-boot-app/index.html">
 <meta property="og:site_name" content="snmaddula">
+<meta property="og:description" content="Video guide of the process     Step 1 : Generate SSL CertificateTo enable HTTPS, we would require a SSL certificate. This certificate can be obtained from a Certificate Authority.Also, we can generate">
 <meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2019-03-12T09:15:08.233Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="snmaddula">
+<meta name="twitter:title" content="Enable HTTPS in Spring Boot Application">
+<meta name="twitter:description" content="Video guide of the process     Step 1 : Generate SSL CertificateTo enable HTTPS, we would require a SSL certificate. This certificate can be obtained from a Certificate Authority.Also, we can generate">
   
     <link rel="alternate" href="/atom.xml" title="snmaddula" type="application/atom+xml">
   
@@ -64,40 +69,63 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main">
-  
-  
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2018" class="archive-year">2018</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/open-port-firewall-cmd/" class="archive-article-date">
-  <time datetime="2018-12-12T09:23:55.000Z" itemprop="datePublished">Dec 12</time>
+        <section id="main"><article id="post-enable-https-in-spring-boot-app" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/enable-https-in-spring-boot-app/" class="article-date">
+  <time datetime="2019-03-11T08:38:36.000Z" itemprop="datePublished">2019-Mar-11</time>
 </a>
-      
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/open-port-firewall-cmd/">Enable / Disable TCP Ports</a>
+    <h1 class="article-title" itemprop="name">
+      Enable HTTPS in Spring Boot Application
     </h1>
   
 
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="Video-guide-of-the-process"><a href="#Video-guide-of-the-process" class="headerlink" title="Video guide of the process"></a>Video guide of the process</h3><div class="iframe_container"><br>  <iframe src="https://www.youtube.com/embed/H-pn7NrEssM" frameborder="0" allowfullscreen="allowfullscreen"> </iframe><br></div>
 
+<h4 id="Step-1-Generate-SSL-Certificate"><a href="#Step-1-Generate-SSL-Certificate" class="headerlink" title="Step 1 : Generate SSL Certificate"></a>Step 1 : Generate SSL Certificate</h4><p>To enable HTTPS, we would require a SSL certificate. This certificate can be obtained from a Certificate Authority.<br>Also, we can generate a self-signed certificate using java <code>keytool</code> utility.</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">keytool -genkey -noprompt -<span class="built_in">alias</span> chocolate \</span><br><span class="line">-storetype PKCS12 -keyalg RSA -keysize 2048 -validity 365 \</span><br><span class="line">-keystore chocolate.p12 -keypass chocolate -storepass chocolate \</span><br><span class="line">-dname <span class="string">"CN=snmaddula, OU=security, O=snmaddula, L=waverock, S=Hyderabad, C=IN"</span></span><br></pre></td></tr></table></figure>
+<p>This will generate a PKCS12 <code>keystore</code> file as <b>chocolate.p12</b> with the newly generated certificate.</p>
+<h4 id="Step-2-Configure-SSL-connector-for-Server"><a href="#Step-2-Configure-SSL-connector-for-Server" class="headerlink" title="Step 2 : Configure SSL connector for Server"></a>Step 2 : Configure SSL connector for Server</h4><p>To enable HTTPS in our application, we need to configure few ssl properties binding the application server with the keystore that was generated in the previous step.</p>
+<p>Add the below configuration to your <code>application.yml</code><br><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">server:</span></span><br><span class="line"><span class="attr">  port:</span> <span class="number">8443</span></span><br><span class="line"></span><br><span class="line"><span class="attr">  ssl:</span></span><br><span class="line"><span class="attr">    key-store:</span> <span class="attr">classpath:chocolate.p12</span></span><br><span class="line"><span class="attr">    key-alias:</span> <span class="string">chocolate</span></span><br><span class="line"><span class="attr">    key-store-password:</span> <span class="string">chocolate</span></span><br><span class="line"><span class="attr">    key-store-type:</span> <span class="string">PKCS12</span></span><br></pre></td></tr></table></figure></p>
+<p>That’s all you need to enable HTTPS in a spring boot application.</p>
+<p>You can now access the application with the endpoint: <a href="https://localhost:8443" target="_blank" rel="noopener">https://localhost:8443</a></p>
+<p>You would need to add the Security Certificate Exception in this was a self-signed certificate.</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://snmaddula.github.io/enable-https-in-spring-boot-app/" data-id="cjt5kgeiw000afksnu2bwtr6t" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/HTTPS/">HTTPS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/SSL/">SSL</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Spring-Boot/">Spring Boot</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/TLS/">TLS</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/spring-boot-file-download-via-angular-service-02/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Spring Boot File Download via Angular7 PART 02</div>
+    </a>
+  
+</nav>
+
+  
+</article>
 
 </section>
         
