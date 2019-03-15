@@ -66,54 +66,6 @@
       <div class="outer">
         <section id="main">
   
-    <article id="post-enable-https-in-spring-boot-app" class="article article-type-post" itemscope="" itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/enable-https-in-spring-boot-app/" class="article-date">
-  <time datetime="2019-03-11T08:38:36.000Z" itemprop="datePublished">2019-Mar-11</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/enable-https-in-spring-boot-app/">Enable HTTPS in Spring Boot Application</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="Video-guide-of-the-process"><a href="#Video-guide-of-the-process" class="headerlink" title="Video guide of the process"></a>Video guide of the process</h3><div class="iframe_container"><br>  <iframe src="https://www.youtube.com/embed/H-pn7NrEssM" frameborder="0" allowfullscreen="allowfullscreen"> </iframe><br></div>
-
-<h4 id="Step-1-Generate-SSL-Certificate"><a href="#Step-1-Generate-SSL-Certificate" class="headerlink" title="Step 1 : Generate SSL Certificate"></a>Step 1 : Generate SSL Certificate</h4><p>To enable HTTPS, we would require a SSL certificate. This certificate can be obtained from a Certificate Authority.<br>Also, we can generate a self-signed certificate using java <code>keytool</code> utility.</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">keytool -genkey -noprompt -<span class="built_in">alias</span> chocolate \</span><br><span class="line">-storetype PKCS12 -keyalg RSA -keysize 2048 -validity 365 \</span><br><span class="line">-keystore chocolate.p12 -keypass chocolate -storepass chocolate \</span><br><span class="line">-dname <span class="string">"CN=snmaddula, OU=security, O=snmaddula, L=waverock, S=Hyderabad, C=IN"</span></span><br></pre></td></tr></table></figure>
-<p>This will generate a PKCS12 <code>keystore</code> file as <b>chocolate.p12</b> with the newly generated certificate.</p>
-<h4 id="Step-2-Configure-SSL-connector-for-Server"><a href="#Step-2-Configure-SSL-connector-for-Server" class="headerlink" title="Step 2 : Configure SSL connector for Server"></a>Step 2 : Configure SSL connector for Server</h4><p>To enable HTTPS in our application, we need to configure few ssl properties binding the application server with the keystore that was generated in the previous step.</p>
-<p>Add the below configuration to your <code>application.yml</code><br><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">server:</span></span><br><span class="line"><span class="attr">  port:</span> <span class="number">8443</span></span><br><span class="line"></span><br><span class="line"><span class="attr">  ssl:</span></span><br><span class="line"><span class="attr">    key-store:</span> <span class="attr">classpath:chocolate.p12</span></span><br><span class="line"><span class="attr">    key-alias:</span> <span class="string">chocolate</span></span><br><span class="line"><span class="attr">    key-store-password:</span> <span class="string">chocolate</span></span><br><span class="line"><span class="attr">    key-store-type:</span> <span class="string">PKCS12</span></span><br></pre></td></tr></table></figure></p>
-<p>That’s all you need to enable HTTPS in a spring boot application.</p>
-<p>You can now access the application with the endpoint: <a href="https://localhost:8443" target="_blank" rel="noopener">https://localhost:8443</a></p>
-<p>You would need to add the Security Certificate Exception in this was a self-signed certificate.</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://snmaddula.github.io/enable-https-in-spring-boot-app/" data-id="cjt9khnf60005rksni77eddef" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/HTTPS/">HTTPS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/SSL/">SSL</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Spring-Boot/">Spring Boot</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/TLS/">TLS</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
     <article id="post-spring-boot-file-download-via-angular-service-02" class="article article-type-post" itemscope="" itemprop="blogPost">
   <div class="article-meta">
     <a href="/spring-boot-file-download-via-angular-service-02/" class="article-date">
@@ -159,7 +111,55 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://snmaddula.github.io/spring-boot-file-download-via-angular-service-02/" data-id="cjt9khnfy000drksnk8j8qgrd" class="article-share-link">Share</a>
+      <a data-url="https://snmaddula.github.io/spring-boot-file-download-via-angular-service-02/" data-id="cjt9l1kbf000g7osniqsn489g" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Angular/">Angular</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Spring-Boot/">Spring Boot</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-spring-boot-file-download-via-angular-service-01" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/spring-boot-file-download-via-angular-service-01/" class="article-date">
+  <time datetime="2019-02-18T06:50:57.000Z" itemprop="datePublished">2019-Feb-18</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/spring-boot-file-download-via-angular-service-01/">Spring Boot File Download via Angular7 PART 01</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="Create-a-Simple-Spring-Boot-App"><a href="#Create-a-Simple-Spring-Boot-App" class="headerlink" title="Create a Simple Spring Boot App."></a>Create a Simple Spring Boot App.</h3><p>As a pre-requisite, we need to implement a service with file download feature.</p>
+<h4 id="Video-guide-of-the-spring-boot-process"><a href="#Video-guide-of-the-spring-boot-process" class="headerlink" title="Video guide of the spring-boot process"></a>Video guide of the spring-boot process</h4><div class="iframe_container"><br>  <iframe src="https://www.youtube.com/embed/xXASGlVZX-w" frameborder="0" allowfullscreen="allowfullscreen"> </iframe><br></div>
+
+<h6 id="nbsp"><a href="#nbsp" class="headerlink" title="&nbsp;"></a>&nbsp;</h6><p>So I composed the below class, which is a complete spring boot application, with file download functionality at its simplest form.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> snmaddula.quicktrick.ng;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="keyword">static</span> java.nio.file.Files.readAllBytes;</span><br><span class="line"><span class="keyword">import</span> <span class="keyword">static</span> java.nio.file.Paths.get;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> javax.servlet.http.HttpServletResponse;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.springframework.boot.SpringApplication;</span><br><span class="line"><span class="keyword">import</span> org.springframework.boot.autoconfigure.SpringBootApplication;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.bind.annotation.GetMapping;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.bind.annotation.RestController;</span><br><span class="line"></span><br><span class="line"><span class="meta">@RestController</span></span><br><span class="line"><span class="meta">@SpringBootApplication</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">FileDownloadApp</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">  <span class="meta">@GetMapping</span>(<span class="string">"/download"</span>)</span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">downloadFile</span><span class="params">(String fileName, HttpServletResponse res)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">    res.setHeader(<span class="string">"Content-Disposition"</span>, <span class="string">"attachment; filename="</span> + fileName);</span><br><span class="line">    res.getOutputStream().write(contentOf(fileName));</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">private</span> <span class="keyword">byte</span>[] contentOf(String fileName) <span class="keyword">throws</span> Exception &#123;</span><br><span class="line">    <span class="keyword">return</span> readAllBytes(get(getClass().getClassLoader().getResource(fileName).toURI()));</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">    SpringApplication.run(FileDownloadApp.class, args);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>The only dependency that is needed for this boot application is <code>spring-boot-starter-web</code>, add it to your pom.xml</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-web<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>For testing purpose, we need some files to be available for download.<br>So place some files in your application classpath under <code>src/main/resources</code> like below: (.xls, .xlsx, .pdf, etc)</p>
+<p><img src="/images/p4/ng-file-download.png" alt=""></p>
+<p>With this we are done with the server side / spring boot side of the application. Now, let us write the Angular side implementation.</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://snmaddula.github.io/spring-boot-file-download-via-angular-service-01/" data-id="cjt9l1kb7000b7osnoqgqy1tb" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Angular/">Angular</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Spring-Boot/">Spring Boot</a></li></ul>
@@ -220,7 +220,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">February 2019</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">January 2019</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">December 2018</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">September 2018</a><span class="archive-list-count">2</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">February 2019</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">January 2019</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">December 2018</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">September 2018</a><span class="archive-list-count">2</span></li></ul>
     </div>
   </div>
 
@@ -231,10 +231,6 @@
     <h3 class="widget-title">Recent Posts</h3>
     <div class="widget">
       <ul>
-        
-          <li>
-            <a href="/spring-boot-quick-crud-ng/">spring-boot-quick-crud-ng</a>
-          </li>
         
           <li>
             <a href="/spring-boot-quick-crud/">Spring Boot CRUD Web App (Quick &amp; Brisk)</a>
@@ -250,6 +246,10 @@
         
           <li>
             <a href="/spring-boot-file-download-via-angular-service-01/">Spring Boot File Download via Angular7 PART 01</a>
+          </li>
+        
+          <li>
+            <a href="/decode-jwt-payload/">Java Quick Trick - Decode JWT Payload</a>
           </li>
         
       </ul>
