@@ -66,10 +66,10 @@
       <div class="outer">
         <section id="main">
   
-    <article id="post-open-port-firewall-cmd" class="article article-type-post" itemscope="" itemprop="blogPost">
+    <article id="post-ansible-awx-magic-lab-setup" class="article article-type-post" itemscope="" itemprop="blogPost">
   <div class="article-meta">
-    <a href="/open-port-firewall-cmd/" class="article-date">
-  <time datetime="2018-12-12T09:23:55.000Z" itemprop="datePublished">2018-Dec-12</time>
+    <a href="/ansible-awx-magic-lab-setup/" class="article-date">
+  <time datetime="2018-12-14T17:19:49.000Z" itemprop="datePublished">2018-Dec-14</time>
 </a>
     
   </div>
@@ -80,7 +80,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/open-port-firewall-cmd/">Enable / Disable TCP Ports</a>
+      <a class="article-title" href="/ansible-awx-magic-lab-setup/">Ansible &amp; Ansible Tower (AWX) Lab Setup (PowerShell)</a>
     </h1>
   
 
@@ -88,24 +88,37 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>To enable / disable port accessibility on a machine, we can use the <code>firewall-cmd</code> utility.</p>
-<p><b>Note</b>: You need Administrator / sudo access to play around with this utility.</p>
-<p><b> Switch to Root Account.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo su</span><br></pre></td></tr></table></figure></b></p>
-<h4 id="To-Install-firewalld"><a href="#To-Install-firewalld" class="headerlink" title="To Install firewalld"></a>To Install <code>firewalld</code></h4><p>If you already have <b>firewall daemon</b> available on your machine, you can skip this.</p>
-<p>Execute the below command to install <b>firewall daemon</b><br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install -y firewalld</span><br></pre></td></tr></table></figure></p>
-<h4 id="To-check-status-of-firewall-daemon"><a href="#To-check-status-of-firewall-daemon" class="headerlink" title="To check status of firewall daemon"></a>To check status of firewall daemon</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">firewall-cmd --state</span><br></pre></td></tr></table></figure>
-<p>You should see <i>running</i> as the result for the above command.</p>
-<h4 id="Enable-TCP-Ports"><a href="#Enable-TCP-Ports" class="headerlink" title="Enable TCP Ports"></a>Enable TCP Ports</h4><p>To enable any tcp port say 9090 for example, the command you need to execute is :<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">firewall-cmd --zone=public --permanent --add-port=9090/tcp</span><br><span class="line">firewall-cmd --reload</span><br></pre></td></tr></table></figure></p>
-<h4 id="Enable-TCP-Ports-1"><a href="#Enable-TCP-Ports-1" class="headerlink" title="Enable TCP Ports"></a>Enable TCP Ports</h4><p>To disable any tcp port say 8090 for example, the command you need to execute is :<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">firewall-cmd --zone=public --permanent --remove-port=8090/tcp</span><br><span class="line">firewall-cmd --reload</span><br></pre></td></tr></table></figure></p>
-<h4 id="List-open-ports"><a href="#List-open-ports" class="headerlink" title="List open ports"></a>List open ports</h4><p>To list publicly accessible ports on the machine, use the below command.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ firewall-cmd --zone=public --list-ports</span><br><span class="line">9090/tcp</span><br></pre></td></tr></table></figure></p>
+        <p>Magic scripts to setup <b>Ansible &amp; Ansible Tower (AWX) Learner’s Lab</b> environment on a personal computer.</p>
+<h2 id="GOAL-Automate-Setup-of-AWX-learner’s-lab-setup"><a href="#GOAL-Automate-Setup-of-AWX-learner’s-lab-setup" class="headerlink" title="GOAL : Automate Setup of AWX learner’s lab setup."></a>GOAL : Automate Setup of AWX learner’s lab setup.</h2><h3 id="Tool-Stack"><a href="#Tool-Stack" class="headerlink" title="Tool Stack"></a>Tool Stack</h3><ul>
+<li><h5 id="Git-with-SSH-Linux-Utilities"><a href="#Git-with-SSH-Linux-Utilities" class="headerlink" title="Git ( with SSH + Linux Utilities)"></a>Git ( with SSH + Linux Utilities)</h5></li>
+<li><h5 id="VirtualBox-for-spinning-up-virtual-instances"><a href="#VirtualBox-for-spinning-up-virtual-instances" class="headerlink" title="VirtualBox ( for spinning up virtual instances)"></a>VirtualBox ( for spinning up virtual instances)</h5></li>
+<li><h5 id="Vagrant-for-provisioning-virtual-instances-using-boxes"><a href="#Vagrant-for-provisioning-virtual-instances-using-boxes" class="headerlink" title="Vagrant ( for provisioning virtual instances using boxes )"></a>Vagrant ( for provisioning virtual instances using boxes )</h5></li>
+<li><h5 id="Docker-for-running-containers-needed-by-AWX"><a href="#Docker-for-running-containers-needed-by-AWX" class="headerlink" title="Docker ( for running containers needed by AWX )"></a>Docker ( for running containers needed by AWX )</h5></li>
+</ul>
+<h3 id="Approach"><a href="#Approach" class="headerlink" title="Approach"></a>Approach</h3><p>The series of steps involved in the script are illustrated in the below flow chart.</p>
+<p><img src="/images/awx/AWX-SETUP-1.JPG" alt=""></p>
+<h3 id="Get-Started"><a href="#Get-Started" class="headerlink" title="Get Started"></a>Get Started</h3><p>To get started with the setup, download the below steps.</p>
+<p><a href="/pf/AnsibleMagicLab_Pre_Reboot.ps1">AnsibleMagicLab_Pre_Reboot.ps1</a></p>
+<p><a href="/pf/AnsibleMagicLab_Post_Reboot.ps1">AnsibleMagicLab_Post_Reboot.ps1</a></p>
+<h3 id="Launch-Sequence"><a href="#Launch-Sequence" class="headerlink" title="Launch Sequence"></a>Launch Sequence</h3><p>Open Command Prompt in ‘Administrator’ mode.<br>Go to the scripts download location and execute the below command.</p>
+<h3 id="1-Pre-Reboot-Setup"><a href="#1-Pre-Reboot-Setup" class="headerlink" title="[1] Pre-Reboot Setup"></a>[1] Pre-Reboot Setup</h3><pre><code>powershell.exe -ExecutionPolicy Bypass -File AnsibleMagicLab_Pre_Reboot.ps1
+</code></pre><h6 id="On-Successful-installation-of-Vagrant-the-machine-should-reboot"><a href="#On-Successful-installation-of-Vagrant-the-machine-should-reboot" class="headerlink" title="On Successful installation of Vagrant, the machine should reboot."></a>On Successful installation of Vagrant, the machine should reboot.</h6><p>Once the machine is up, Open Command Prompt in ‘Administrator’ mode, go to the scripts download location and execute the below command.</p>
+<h3 id="1-Post-Reboot-Setup"><a href="#1-Post-Reboot-Setup" class="headerlink" title="[1] Post-Reboot Setup"></a>[1] Post-Reboot Setup</h3><pre><code>powershell.exe -ExecutionPolicy Bypass -File AnsibleMagicLab_Post_Reboot.ps1
+</code></pre><p>Done that ?<br>Now you’ll be able to access your Ansible Tower (AWX) web interface using the Ip of the Vagrant machine.</p>
+<p> Open up a browser and provide the IP <code>&lt;IP of AWX Instance&gt;</code> and hit Enter. You’ll get to see a page like below.</p>
+<p><img src="/images/awx/AWX_LOGIN.PNG" alt="AWX Web Interface Login Screen"></p>
+<h4 id="CREDENTIALS-for-AWX-Login"><a href="#CREDENTIALS-for-AWX-Login" class="headerlink" title="CREDENTIALS for AWX Login"></a>CREDENTIALS for AWX Login</h4><pre><code>username : admin
+password : password
+</code></pre><p>On successful login, you’ll see a dashboard similar to the below one.</p>
+<p><img src="/images/awx/AWX_DASHBOARD.PNG" alt="AWX Web Interface Fresh Dashboard"></p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://snmaddula.github.io/open-port-firewall-cmd/" data-id="cjt9l1kbb000d7osnxj9g0yxb" class="article-share-link">Share</a>
+      <a data-url="https://snmaddula.github.io/ansible-awx-magic-lab-setup/" data-id="cjtbarffc0002xosn49as0wjj" class="article-share-link">Share</a>
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Firewall/">Firewall</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/">Linux</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/AWX/">AWX</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Ansible/">Ansible</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Powershell/">Powershell</a></li></ul>
 
     </footer>
   </div>
@@ -114,10 +127,10 @@
 
 
   
-    <article id="post-git-and-ssh-client-setup-windows" class="article article-type-post" itemscope="" itemprop="blogPost">
+    <article id="post-ansible-winrm-windows" class="article article-type-post" itemscope="" itemprop="blogPost">
   <div class="article-meta">
-    <a href="/git-and-ssh-client-setup-windows/" class="article-date">
-  <time datetime="2018-12-11T10:31:14.000Z" itemprop="datePublished">2018-Dec-11</time>
+    <a href="/ansible-winrm-windows/" class="article-date">
+  <time datetime="2018-12-13T00:57:50.000Z" itemprop="datePublished">2018-Dec-13</time>
 </a>
     
   </div>
@@ -128,7 +141,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/git-and-ssh-client-setup-windows/">Git + SSH Client Setup</a>
+      <a class="article-title" href="/ansible-winrm-windows/">PowerShell : Enable WinRm on Windows</a>
     </h1>
   
 
@@ -136,23 +149,17 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>In this article, we shall setup SSH client on Windows machine.</p>
-<h5 id="What-we-need"><a href="#What-we-need" class="headerlink" title="What we need ?"></a>What we need ?</h5><ul>
-<li>Git</li>
-<li>PowerShell (Optional)</li>
-<li>Command Prompt (Optional)</li>
-</ul>
-<p>Let us get started with the setup.</p>
-<h3 id="Silent-UnAttended-Install-Using-PowerShell"><a href="#Silent-UnAttended-Install-Using-PowerShell" class="headerlink" title="Silent / UnAttended Install :: Using PowerShell"></a>Silent / UnAttended Install :: Using PowerShell</h3><p>To download &amp; install <code>git</code> in silent / un-attended mode, execute the below commands<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12</span><br><span class="line">Invoke-WebRequest -Uri https://github.com/git-for-windows/git/releases/download/v2.20.0.windows.1/Git-2.20.0-64-bit.exe -OutFile gitbin.exe</span><br><span class="line">cmd &quot;/C .\gitbin.exe /SP- /SILENT /NOCANCEL /NORESTART /COMPONENTS=icons,ext\reg\shellhere,assoc,assoc_sh&quot;</span><br></pre></td></tr></table></figure></p>
-<p>Add git &amp; ssh to your path without closing and re-launching PowerShell.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$env:Path=&quot;$env:Path;C:\Program Files\Git\bin\;&quot;</span><br><span class="line">$env:Path=&quot;$env:Path;C:\Program Files\Git\usr\bin\;&quot;</span><br></pre></td></tr></table></figure></p>
+        <h4 id="Step-01"><a href="#Step-01" class="headerlink" title="Step 01"></a>Step 01</h4><p>Download the PowerShell script provided by Ansible here: <a href="/pf/ConfigureRemotingForAnsible.ps1">ConfigureRemotingForAnsible.ps1</a></p>
+<h5 id="Note-To-execute-the-script-Administrator-access-is-required"><a href="#Note-To-execute-the-script-Administrator-access-is-required" class="headerlink" title="Note: To execute the script, Administrator access is required."></a>Note: To execute the script, Administrator access is required.</h5><h4 id="Step-02"><a href="#Step-02" class="headerlink" title="Step 02"></a>Step 02</h4><p>Now, go to the script download location and open the Command Prompt as an ‘Administrator’ and run the following command:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">powershell.exe -ExecutionPolicy Bypass -File ConfigureRemotingForAnsible.ps1 -CertValidityDays 100</span><br></pre></td></tr></table></figure></p>
+<h5 id="Note-Ensure-that-port-5986-is-open-in-firewall-rules"><a href="#Note-Ensure-that-port-5986-is-open-in-firewall-rules" class="headerlink" title="Note: Ensure that port 5986 is open in firewall rules."></a>Note: Ensure that port 5986 is open in firewall rules.</h5><p>That’s all you need, to enable WinRm on windows!</p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://snmaddula.github.io/git-and-ssh-client-setup-windows/" data-id="cjt9l1kb000087osnzaytp6j1" class="article-share-link">Share</a>
+      <a data-url="https://snmaddula.github.io/ansible-winrm-windows/" data-id="cjtbarff30000xosnj8cr5auv" class="article-share-link">Share</a>
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Git/">Git</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/SSH/">SSH</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Windows/">Windows</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Ansible/">Ansible</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/PowerShell/">PowerShell</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/WinRm/">WinRm</a></li></ul>
 
     </footer>
   </div>
@@ -165,7 +172,7 @@
 
   <nav id="page-nav">
     
-    <a class="extend prev" rel="prev" href="/page/5/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><span class="page-number current">6</span><a class="page-number" href="/page/7/">7</a><a class="page-number" href="/page/8/">8</a><a class="extend next" rel="next" href="/page/7/">Next &raquo;</a>
+    <a class="extend prev" rel="prev" href="/page/5/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><span class="page-number current">6</span><a class="page-number" href="/page/7/">7</a><a class="page-number" href="/page/8/">8</a><a class="page-number" href="/page/9/">9</a><a class="extend next" rel="next" href="/page/7/">Next &raquo;</a>
   </nav>
 
 </section>
@@ -200,7 +207,7 @@
     <h3 class="widget-title">&nbsp;</h3>
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="/tags/AWX/" style="font-size: 10px;">AWX</a> <a href="/tags/Angular/" style="font-size: 16.67px;">Angular</a> <a href="/tags/Ansible/" style="font-size: 13.33px;">Ansible</a> <a href="/tags/Apache-POI/" style="font-size: 10px;">Apache POI</a> <a href="/tags/CRUD/" style="font-size: 10px;">CRUD</a> <a href="/tags/Camunda/" style="font-size: 10px;">Camunda</a> <a href="/tags/Firewall/" style="font-size: 10px;">Firewall</a> <a href="/tags/Git/" style="font-size: 13.33px;">Git</a> <a href="/tags/HTTPS/" style="font-size: 10px;">HTTPS</a> <a href="/tags/JDBC/" style="font-size: 10px;">JDBC</a> <a href="/tags/JPA/" style="font-size: 10px;">JPA</a> <a href="/tags/JUnit/" style="font-size: 10px;">JUnit</a> <a href="/tags/JWT/" style="font-size: 10px;">JWT</a> <a href="/tags/JaCoCo/" style="font-size: 10px;">JaCoCo</a> <a href="/tags/Java/" style="font-size: 13.33px;">Java</a> <a href="/tags/Linux/" style="font-size: 10px;">Linux</a> <a href="/tags/Microservices/" style="font-size: 10px;">Microservices</a> <a href="/tags/Orchestration/" style="font-size: 10px;">Orchestration</a> <a href="/tags/PowerMock/" style="font-size: 10px;">PowerMock</a> <a href="/tags/PowerShell/" style="font-size: 10px;">PowerShell</a> <a href="/tags/Powershell/" style="font-size: 10px;">Powershell</a> <a href="/tags/Quick-Trick/" style="font-size: 13.33px;">Quick Trick</a> <a href="/tags/SSH/" style="font-size: 10px;">SSH</a> <a href="/tags/SSL/" style="font-size: 10px;">SSL</a> <a href="/tags/Security/" style="font-size: 10px;">Security</a> <a href="/tags/Spring-Boot/" style="font-size: 20px;">Spring Boot</a> <a href="/tags/TLS/" style="font-size: 10px;">TLS</a> <a href="/tags/WinRm/" style="font-size: 10px;">WinRm</a> <a href="/tags/Windows/" style="font-size: 10px;">Windows</a> <a href="/tags/oc/" style="font-size: 10px;">oc</a> <a href="/tags/openshift/" style="font-size: 10px;">openshift</a>
+      <a href="/tags/AWX/" style="font-size: 10px;">AWX</a> <a href="/tags/Angular/" style="font-size: 16.67px;">Angular</a> <a href="/tags/Ansible/" style="font-size: 13.33px;">Ansible</a> <a href="/tags/Apache-POI/" style="font-size: 10px;">Apache POI</a> <a href="/tags/CRUD/" style="font-size: 13.33px;">CRUD</a> <a href="/tags/Camunda/" style="font-size: 10px;">Camunda</a> <a href="/tags/Firewall/" style="font-size: 10px;">Firewall</a> <a href="/tags/Git/" style="font-size: 13.33px;">Git</a> <a href="/tags/HTTPS/" style="font-size: 13.33px;">HTTPS</a> <a href="/tags/JDBC/" style="font-size: 13.33px;">JDBC</a> <a href="/tags/JPA/" style="font-size: 10px;">JPA</a> <a href="/tags/JUnit/" style="font-size: 10px;">JUnit</a> <a href="/tags/JWT/" style="font-size: 10px;">JWT</a> <a href="/tags/JaCoCo/" style="font-size: 10px;">JaCoCo</a> <a href="/tags/Java/" style="font-size: 13.33px;">Java</a> <a href="/tags/Linux/" style="font-size: 10px;">Linux</a> <a href="/tags/Microservices/" style="font-size: 10px;">Microservices</a> <a href="/tags/Orchestration/" style="font-size: 10px;">Orchestration</a> <a href="/tags/PowerMock/" style="font-size: 10px;">PowerMock</a> <a href="/tags/PowerShell/" style="font-size: 10px;">PowerShell</a> <a href="/tags/Powershell/" style="font-size: 10px;">Powershell</a> <a href="/tags/Quick-Trick/" style="font-size: 13.33px;">Quick Trick</a> <a href="/tags/SSH/" style="font-size: 10px;">SSH</a> <a href="/tags/SSL/" style="font-size: 13.33px;">SSL</a> <a href="/tags/Security/" style="font-size: 10px;">Security</a> <a href="/tags/Spring-Boot/" style="font-size: 20px;">Spring Boot</a> <a href="/tags/TLS/" style="font-size: 13.33px;">TLS</a> <a href="/tags/WinRm/" style="font-size: 10px;">WinRm</a> <a href="/tags/Windows/" style="font-size: 10px;">Windows</a> <a href="/tags/oc/" style="font-size: 10px;">oc</a> <a href="/tags/openshift/" style="font-size: 10px;">openshift</a>
     </div>
   </div>
 
@@ -210,7 +217,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">February 2019</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">January 2019</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">December 2018</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">September 2018</a><span class="archive-list-count">2</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">February 2019</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">January 2019</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">December 2018</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">September 2018</a><span class="archive-list-count">2</span></li></ul>
     </div>
   </div>
 
@@ -223,7 +230,15 @@
       <ul>
         
           <li>
-            <a href="/spring-boot-quick-crud/">Spring Boot CRUD Web App (Quick &amp; Brisk)</a>
+            <a href="/spring-boot-data-jdbc-crud/">Spring Boot DATA JDBC CRUD Web App</a>
+          </li>
+        
+          <li>
+            <a href="/configure-https-redirect-connector-spring-boot/">Configure HTTP to HTTPS Redirect in Spring Boot</a>
+          </li>
+        
+          <li>
+            <a href="/spring-boot-data-jpa-crud/">Spring Boot DATA JPA CRUD Web App</a>
           </li>
         
           <li>
@@ -232,14 +247,6 @@
         
           <li>
             <a href="/spring-boot-file-download-via-angular-service-02/">Spring Boot File Download via Angular7 PART 02</a>
-          </li>
-        
-          <li>
-            <a href="/spring-boot-file-download-via-angular-service-01/">Spring Boot File Download via Angular7 PART 01</a>
-          </li>
-        
-          <li>
-            <a href="/decode-jwt-payload/">Java Quick Trick - Decode JWT Payload</a>
           </li>
         
       </ul>
