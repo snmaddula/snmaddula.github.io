@@ -66,10 +66,10 @@
       <div class="outer">
         <section id="main">
   
-    <article id="post-tuning-jacoco-for-powermock" class="article article-type-post" itemscope="" itemprop="blogPost">
+    <article id="post-spring-boot-file-download-via-angular-service-01" class="article article-type-post" itemscope="" itemprop="blogPost">
   <div class="article-meta">
-    <a href="/tuning-jacoco-for-powermock/" class="article-date">
-  <time datetime="2019-01-05T21:07:55.000Z" itemprop="datePublished">2019-Jan-06</time>
+    <a href="/spring-boot-file-download-via-angular-service-01/" class="article-date">
+  <time datetime="2019-02-18T06:50:57.000Z" itemprop="datePublished">2019-Feb-18</time>
 </a>
     
   </div>
@@ -80,7 +80,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/tuning-jacoco-for-powermock/">Tuning JaCoCo for PowerMock Coverage</a>
+      <a class="article-title" href="/spring-boot-file-download-via-angular-service-01/">Spring Boot File Download via Angular7 PART 01</a>
     </h1>
   
 
@@ -88,29 +88,24 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>Jacoco is widely preferred for on-the-fly instrumentation, however it cannot extend the same support when it comes to <code>powermock</code>, as <code>powermock</code>does dynamic classfile transformation which conflicts with Jacoco.</p>
-<p>To overcome this issue, we can use an offline instrumentation i.e. the classes can be pre-instrumented with JaCoCo before powermock kicks in.</p>
-<h3 id="Configuration-Steps"><a href="#Configuration-Steps" class="headerlink" title="Configuration Steps"></a>Configuration Steps</h3><p>Here are the steps involved in configuring Offline Instrumentation of JaCoCo:</p>
-<h4 id="JaCoCo-Agent"><a href="#JaCoCo-Agent" class="headerlink" title="JaCoCo Agent"></a>JaCoCo Agent</h4><p>Unlike with on-the-fly instrumentation offline instrumented classes get a direct dependency on the JaCoCo runtime.</p>
-<p>Add <code>jacoco-agent</code> dependency to our pom.xml, so that it will be available on the classpath and accessible by the instrumented classes.</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.jacoco<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>org.jacoco.agent<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">version</span>&gt;</span>$&#123;jacoco.version&#125;<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">classifier</span>&gt;</span>runtime<span class="tag">&lt;/<span class="name">classifier</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<h4 id="JaCoCo-Maven-plugin"><a href="#JaCoCo-Maven-plugin" class="headerlink" title="JaCoCo Maven plugin"></a>JaCoCo Maven plugin</h4><p>Add the below plugin configuration to the plugins section of your pom.xml</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">plugin</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.jacoco<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>jacoco-maven-plugin<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">version</span>&gt;</span>$&#123;jacoco.version&#125;<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">executions</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">execution</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">id</span>&gt;</span>default-instrument<span class="tag">&lt;/<span class="name">id</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">goals</span>&gt;</span></span><br><span class="line">				<span class="tag">&lt;<span class="name">goal</span>&gt;</span>instrument<span class="tag">&lt;/<span class="name">goal</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;/<span class="name">goals</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;/<span class="name">execution</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">execution</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">id</span>&gt;</span>default-restore-instrumented-classes<span class="tag">&lt;/<span class="name">id</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">goals</span>&gt;</span></span><br><span class="line">				<span class="tag">&lt;<span class="name">goal</span>&gt;</span>restore-instrumented-classes<span class="tag">&lt;/<span class="name">goal</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;/<span class="name">goals</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;/<span class="name">execution</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">execution</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">id</span>&gt;</span>report<span class="tag">&lt;/<span class="name">id</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">phase</span>&gt;</span>prepare-package<span class="tag">&lt;/<span class="name">phase</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">goals</span>&gt;</span></span><br><span class="line">				<span class="tag">&lt;<span class="name">goal</span>&gt;</span>report<span class="tag">&lt;/<span class="name">goal</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;/<span class="name">goals</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">configuration</span>&gt;</span></span><br><span class="line">				<span class="tag">&lt;<span class="name">dataFile</span>&gt;</span>$&#123;project.build.directory&#125;/coverage.exec<span class="tag">&lt;/<span class="name">dataFile</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;/<span class="name">execution</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">executions</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">configuration</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">excludes</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">exclude</span>&gt;</span>com/somepack/subpack/**/*<span class="tag">&lt;/<span class="name">exclude</span>&gt;</span> <span class="comment">&lt;!-- to exclude any package --&gt;</span></span><br><span class="line">		<span class="tag">&lt;/<span class="name">excludes</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">plugin</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<h4 id="Surefire-Maven-plugin"><a href="#Surefire-Maven-plugin" class="headerlink" title="Surefire Maven plugin"></a>Surefire Maven plugin</h4><p>Add the below configuration to provide coverage information to surefire.</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">plugin</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.apache.maven.plugins<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>maven-surefire-plugin<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">version</span>&gt;</span>2.19.1<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">configuration</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">systemPropertyVariables</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">jacoco-agent.destfile</span>&gt;</span>$&#123;project.build.directory&#125;/coverage.exec<span class="tag">&lt;/<span class="name">jacoco-agent.destfile</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">systemPropertyVariables</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">plugin</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<h4 id="PowerMock-Dependencies"><a href="#PowerMock-Dependencies" class="headerlink" title="PowerMock Dependencies"></a>PowerMock Dependencies</h4><p>Add the below powermock dependencies to your pom</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.powermock<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>powermock-api-mockito<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">version</span>&gt;</span>$&#123;powermock.version&#125;<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.powermock<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>powermock-core<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">version</span>&gt;</span>$&#123;powermock.version&#125;<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.powermock<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>powermock-module-junit4<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">version</span>&gt;</span>$&#123;powermock.version&#125;<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<h4 id="Version-Compatibility"><a href="#Version-Compatibility" class="headerlink" title="Version Compatibility"></a>Version Compatibility</h4><p>One last thing is version Compatibility. Make sure you use compatible versions.</p>
-<p>For Jacoco Offline Instrumentation, use powermock 1.6.6 or greater.</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">jacoco.version</span>&gt;</span>0.7.7.201606060606<span class="tag">&lt;/<span class="name">jacoco.version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">powermock.version</span>&gt;</span>1.7.1<span class="tag">&lt;/<span class="name">powermock.version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">junit.version</span>&gt;</span>4.12<span class="tag">&lt;/<span class="name">junit.version</span>&gt;</span></span><br></pre></td></tr></table></figure>
+        <h3 id="Create-a-Simple-Spring-Boot-App"><a href="#Create-a-Simple-Spring-Boot-App" class="headerlink" title="Create a Simple Spring Boot App."></a>Create a Simple Spring Boot App.</h3><p>As a pre-requisite, we need to implement a service with file download feature.</p>
+<h4 id="Video-guide-of-the-spring-boot-process"><a href="#Video-guide-of-the-spring-boot-process" class="headerlink" title="Video guide of the spring-boot process"></a>Video guide of the spring-boot process</h4><div class="iframe_container"><br>  <iframe src="https://www.youtube.com/embed/xXASGlVZX-w" frameborder="0" allowfullscreen="allowfullscreen"> </iframe><br></div>
+
+<h6 id="nbsp"><a href="#nbsp" class="headerlink" title="&nbsp;"></a>&nbsp;</h6><p>So I composed the below class, which is a complete spring boot application, with file download functionality at its simplest form.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> snmaddula.quicktrick.ng;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="keyword">static</span> java.nio.file.Files.readAllBytes;</span><br><span class="line"><span class="keyword">import</span> <span class="keyword">static</span> java.nio.file.Paths.get;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> javax.servlet.http.HttpServletResponse;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.springframework.boot.SpringApplication;</span><br><span class="line"><span class="keyword">import</span> org.springframework.boot.autoconfigure.SpringBootApplication;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.bind.annotation.GetMapping;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.bind.annotation.RestController;</span><br><span class="line"></span><br><span class="line"><span class="meta">@RestController</span></span><br><span class="line"><span class="meta">@SpringBootApplication</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">FileDownloadApp</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">  <span class="meta">@GetMapping</span>(<span class="string">"/download"</span>)</span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">downloadFile</span><span class="params">(String fileName, HttpServletResponse res)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">    res.setHeader(<span class="string">"Content-Disposition"</span>, <span class="string">"attachment; filename="</span> + fileName);</span><br><span class="line">    res.getOutputStream().write(contentOf(fileName));</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">private</span> <span class="keyword">byte</span>[] contentOf(String fileName) <span class="keyword">throws</span> Exception &#123;</span><br><span class="line">    <span class="keyword">return</span> readAllBytes(get(getClass().getClassLoader().getResource(fileName).toURI()));</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">    SpringApplication.run(FileDownloadApp.class, args);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>The only dependency that is needed for this boot application is <code>spring-boot-starter-web</code>, add it to your pom.xml</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-web<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>For testing purpose, we need some files to be available for download.<br>So place some files in your application classpath under <code>src/main/resources</code> like below: (.xls, .xlsx, .pdf, etc)</p>
+<p><img src="/images/p4/ng-file-download.png" alt=""></p>
+<p>With this we are done with the server side / spring boot side of the application. Now, let us write the Angular side implementation.</p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://snmaddula.github.io/tuning-jacoco-for-powermock/" data-id="cjtbbngd2000mdwsnwe5xyijv" class="article-share-link">Share</a>
+      <a data-url="https://snmaddula.github.io/spring-boot-file-download-via-angular-service-01/" data-id="cjtgnx17v000o2csns9g9noaa" class="article-share-link">Share</a>
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JUnit/">JUnit</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JaCoCo/">JaCoCo</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/PowerMock/">PowerMock</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Angular/">Angular</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Spring-Boot/">Spring Boot</a></li></ul>
 
     </footer>
   </div>
@@ -119,10 +114,10 @@
 
 
   
-    <article id="post-git-basics-01" class="article article-type-post" itemscope="" itemprop="blogPost">
+    <article id="post-decode-jwt-payload" class="article article-type-post" itemscope="" itemprop="blogPost">
   <div class="article-meta">
-    <a href="/git-basics-01/" class="article-date">
-  <time datetime="2019-01-01T06:42:12.000Z" itemprop="datePublished">2019-Jan-01</time>
+    <a href="/decode-jwt-payload/" class="article-date">
+  <time datetime="2019-02-11T09:11:09.000Z" itemprop="datePublished">2019-Feb-11</time>
 </a>
     
   </div>
@@ -133,7 +128,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/git-basics-01/">Git basics for day to day work</a>
+      <a class="article-title" href="/decode-jwt-payload/">Java Quick Trick - Decode JWT Payload</a>
     </h1>
   
 
@@ -141,50 +136,32 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>Welcome to Git basics!<br>This is a very basic touch up on everyday git usage.<br>Git is a <b>Distributed Version Control System (DVCS)</b>, created by <a href="https://en.wikipedia.org/wiki/Linus_Torvalds" target="_blank" rel="noopener">Linus Torvalds</a>, primarily to address collaboration issues.</p>
-<h4 id="I-CLONE-COMMANDS-git-clone"><a href="#I-CLONE-COMMANDS-git-clone" class="headerlink" title="I. CLONE COMMANDS: git clone"></a>I. CLONE COMMANDS: <code>git clone</code></h4><ol>
-<li><p>Clone a repository into a new directory</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git <span class="built_in">clone</span> &lt;URL&gt;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>Clone a repository into a new custom directory  <code>myApp</code></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git <span class="built_in">clone</span> &lt;URL&gt; myApp</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>Clone a specific branch <code>develop</code></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git <span class="built_in">clone</span> -b develop &lt;URL&gt;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>Create a shallow clone with a history truncated to the specified number of commits</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git <span class="built_in">clone</span> &lt;URL&gt; --depth=2</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>Create a shallow clone with a history after the specified time.</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git <span class="built_in">clone</span> &lt;URL&gt; --shallow-since=yyyy-mm-dd</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>Clone by providing credentials in-line</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git <span class="built_in">clone</span> &lt;protocol&gt;://&lt;username&gt;:password@&lt;domain&gt;/repo-name.git --shallow-since=yyyy-mm-dd</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-<p>In the above example,</p>
+        <p>A quick guide on programmatically decoding a JSON Web Token’s payload.</p>
+<p>JWT basically consists of <b>three</b> parts separated by dots <code>(.)</code></p>
 <ul>
-<li><b>protocol</b> can be : <code>https</code>, <code>git</code>, <code>ssh</code>, <code>ftp</code></li>
-<li><b>username</b> and <b>password</b> are the credentials that has access to clone this repository.</li>
-<li><b>domain</b> is the git host.  Ex. <code>github</code> or <code>bitbucket</code> or <code>gitlab</code>, etc.</li>
+<li>Header</li>
+<li>Payload</li>
+<li>Signing Key</li>
 </ul>
-<p><br><hr><br></p>
-<h4 id="II-CHECKOUT-COMMANDS-git-checkouy"><a href="#II-CHECKOUT-COMMANDS-git-checkouy" class="headerlink" title="II. CHECKOUT COMMANDS: git checkouy"></a>II. CHECKOUT COMMANDS: <code>git checkouy</code></h4><h3 id="Checking-for-modifications-done-in-local"><a href="#Checking-for-modifications-done-in-local" class="headerlink" title="Checking for modifications done in local"></a>Checking for modifications done in local</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git status</span><br></pre></td></tr></table></figure>
-<h3 id="Adding-your-locally-changed-files-for-staging"><a href="#Adding-your-locally-changed-files-for-staging" class="headerlink" title="Adding your locally changed files for staging"></a>Adding your locally changed files for staging</h3><p>To add a specific file:</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git add &lt;file-path&gt;</span><br></pre></td></tr></table></figure>
-<p>To add all the files at once:</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ git add --all</span><br><span class="line"><span class="comment"># OR</span></span><br><span class="line">$ git add .</span><br></pre></td></tr></table></figure>
-<h3 id="Committing-the-changes-to-local-repository"><a href="#Committing-the-changes-to-local-repository" class="headerlink" title="Committing the changes to local repository"></a>Committing the changes to local repository</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git commit -m <span class="string">'my commit message'</span></span><br></pre></td></tr></table></figure>
-<h3 id="Pushing-the-changes-to-remote"><a href="#Pushing-the-changes-to-remote" class="headerlink" title="Pushing the changes to remote"></a>Pushing the changes to remote</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ git push</span><br><span class="line"><span class="comment"># OR</span></span><br><span class="line">$ git push origin master</span><br></pre></td></tr></table></figure>
-<h3 id="Pulling-the-latest-changes-from-remote"><a href="#Pulling-the-latest-changes-from-remote" class="headerlink" title="Pulling the latest changes from remote"></a>Pulling the latest changes from remote</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git pull</span><br></pre></td></tr></table></figure>
+<p><b>The Header</b> basically consists the <code>type</code> of the token which is <code>JWT</code> and the algorithm that is used to sign this token.</p>
+<p>The second part of the token is the <b>payload</b>, which consists of the claims i.e. the information about the user.</p>
+<p>The <b>Base64 URL encoded</b> form of the Header and Payload respectively form the 1st and 2nd parts of Json Web Token.</p>
+<h3 id="Video-guide-of-the-process"><a href="#Video-guide-of-the-process" class="headerlink" title="Video guide of the process"></a>Video guide of the process</h3><div class="iframe_container"><br>  <iframe src="https://www.youtube.com/embed/rKHpPJVGC3g" frameborder="0" allowfullscreen="allowfullscreen"> </iframe><br></div>
+
+<h6 id="nbsp"><a href="#nbsp" class="headerlink" title="&nbsp;"></a>&nbsp;</h6><h3 id="Steps-involved"><a href="#Steps-involved" class="headerlink" title="Steps involved:"></a>Steps involved:</h3><p>Add <code>commons-codec</code> dependency from Apache in pom.xml<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>commons-codec<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>commons-codec<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.11<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">String token = <span class="string">"&lt;YOUR JWT TOKEN&gt;"</span>;</span><br></pre></td></tr></table></figure>
+<p>Split the token based on period <code>.</code> and extract the payload part from the token.<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">String payload = token.split(<span class="string">"\\."</span>)[<span class="number">1</span>];</span><br></pre></td></tr></table></figure></p>
+<p>Use <code>Base64</code> utility to decode the payload.<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">String payloadValue = <span class="keyword">new</span> String (Base64.decodeBase64(payload));</span><br></pre></td></tr></table></figure></p>
+<p>If you want to use a specific charset like UTF-8, you can use the below snippet.<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">try</span> &#123;</span><br><span class="line">  String payloadValue = <span class="keyword">new</span> String(Base64.decodeBase64(payload), <span class="string">"UTF-8"</span>);</span><br><span class="line">&#125;<span class="keyword">catch</span>(UnsupportedEncodingException ex) &#123;</span><br><span class="line">  System.err.println(ex.getMessage());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p><b>Note:</b> Make sure to import the <code>Base64</code> from the package <code>org.apache.commons.codec.binary.Base64</code>.</p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://snmaddula.github.io/git-basics-01/" data-id="cjtbbngbt0006dwsnqz8ynz8m" class="article-share-link">Share</a>
+      <a data-url="https://snmaddula.github.io/decode-jwt-payload/" data-id="cjtgnx16i00072csntbbltnta" class="article-share-link">Share</a>
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Git/">Git</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JWT/">JWT</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/">Java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Quick-Trick/">Quick Trick</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Security/">Security</a></li></ul>
 
     </footer>
   </div>
@@ -193,10 +170,10 @@
 
 
   
-    <article id="post-ansible-awx-magic-lab-setup" class="article article-type-post" itemscope="" itemprop="blogPost">
+    <article id="post-resultset-to-excel" class="article article-type-post" itemscope="" itemprop="blogPost">
   <div class="article-meta">
-    <a href="/ansible-awx-magic-lab-setup/" class="article-date">
-  <time datetime="2018-12-14T17:19:49.000Z" itemprop="datePublished">2018-Dec-14</time>
+    <a href="/resultset-to-excel/" class="article-date">
+  <time datetime="2019-02-08T08:01:51.000Z" itemprop="datePublished">2019-Feb-08</time>
 </a>
     
   </div>
@@ -207,7 +184,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/ansible-awx-magic-lab-setup/">Ansible &amp; Ansible Tower (AWX) Lab Setup (PowerShell)</a>
+      <a class="article-title" href="/resultset-to-excel/">Java Quick Trick - Transform JDBC ResultSet to Excel WorkBook</a>
     </h1>
   
 
@@ -215,78 +192,30 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>Magic scripts to setup <b>Ansible &amp; Ansible Tower (AWX) Learner’s Lab</b> environment on a personal computer.</p>
-<h2 id="GOAL-Automate-Setup-of-AWX-learner’s-lab-setup"><a href="#GOAL-Automate-Setup-of-AWX-learner’s-lab-setup" class="headerlink" title="GOAL : Automate Setup of AWX learner’s lab setup."></a>GOAL : Automate Setup of AWX learner’s lab setup.</h2><h3 id="Tool-Stack"><a href="#Tool-Stack" class="headerlink" title="Tool Stack"></a>Tool Stack</h3><ul>
-<li><h5 id="Git-with-SSH-Linux-Utilities"><a href="#Git-with-SSH-Linux-Utilities" class="headerlink" title="Git ( with SSH + Linux Utilities)"></a>Git ( with SSH + Linux Utilities)</h5></li>
-<li><h5 id="VirtualBox-for-spinning-up-virtual-instances"><a href="#VirtualBox-for-spinning-up-virtual-instances" class="headerlink" title="VirtualBox ( for spinning up virtual instances)"></a>VirtualBox ( for spinning up virtual instances)</h5></li>
-<li><h5 id="Vagrant-for-provisioning-virtual-instances-using-boxes"><a href="#Vagrant-for-provisioning-virtual-instances-using-boxes" class="headerlink" title="Vagrant ( for provisioning virtual instances using boxes )"></a>Vagrant ( for provisioning virtual instances using boxes )</h5></li>
-<li><h5 id="Docker-for-running-containers-needed-by-AWX"><a href="#Docker-for-running-containers-needed-by-AWX" class="headerlink" title="Docker ( for running containers needed by AWX )"></a>Docker ( for running containers needed by AWX )</h5></li>
-</ul>
-<h3 id="Approach"><a href="#Approach" class="headerlink" title="Approach"></a>Approach</h3><p>The series of steps involved in the script are illustrated in the below flow chart.</p>
-<p><img src="/images/awx/AWX-SETUP-1.JPG" alt=""></p>
-<h3 id="Get-Started"><a href="#Get-Started" class="headerlink" title="Get Started"></a>Get Started</h3><p>To get started with the setup, download the below steps.</p>
-<p><a href="/pf/AnsibleMagicLab_Pre_Reboot.ps1">AnsibleMagicLab_Pre_Reboot.ps1</a></p>
-<p><a href="/pf/AnsibleMagicLab_Post_Reboot.ps1">AnsibleMagicLab_Post_Reboot.ps1</a></p>
-<h3 id="Launch-Sequence"><a href="#Launch-Sequence" class="headerlink" title="Launch Sequence"></a>Launch Sequence</h3><p>Open Command Prompt in ‘Administrator’ mode.<br>Go to the scripts download location and execute the below command.</p>
-<h3 id="1-Pre-Reboot-Setup"><a href="#1-Pre-Reboot-Setup" class="headerlink" title="[1] Pre-Reboot Setup"></a>[1] Pre-Reboot Setup</h3><pre><code>powershell.exe -ExecutionPolicy Bypass -File AnsibleMagicLab_Pre_Reboot.ps1
-</code></pre><h6 id="On-Successful-installation-of-Vagrant-the-machine-should-reboot"><a href="#On-Successful-installation-of-Vagrant-the-machine-should-reboot" class="headerlink" title="On Successful installation of Vagrant, the machine should reboot."></a>On Successful installation of Vagrant, the machine should reboot.</h6><p>Once the machine is up, Open Command Prompt in ‘Administrator’ mode, go to the scripts download location and execute the below command.</p>
-<h3 id="1-Post-Reboot-Setup"><a href="#1-Post-Reboot-Setup" class="headerlink" title="[1] Post-Reboot Setup"></a>[1] Post-Reboot Setup</h3><pre><code>powershell.exe -ExecutionPolicy Bypass -File AnsibleMagicLab_Post_Reboot.ps1
-</code></pre><p>Done that ?<br>Now you’ll be able to access your Ansible Tower (AWX) web interface using the Ip of the Vagrant machine.</p>
-<p> Open up a browser and provide the IP <code>&lt;IP of AWX Instance&gt;</code> and hit Enter. You’ll get to see a page like below.</p>
-<p><img src="/images/awx/AWX_LOGIN.PNG" alt="AWX Web Interface Login Screen"></p>
-<h4 id="CREDENTIALS-for-AWX-Login"><a href="#CREDENTIALS-for-AWX-Login" class="headerlink" title="CREDENTIALS for AWX Login"></a>CREDENTIALS for AWX Login</h4><pre><code>username : admin
-password : password
-</code></pre><p>On successful login, you’ll see a dashboard similar to the below one.</p>
-<p><img src="/images/awx/AWX_DASHBOARD.PNG" alt="AWX Web Interface Fresh Dashboard"></p>
+        <p>A quick guide on generating an excel workbook with the output from an SQL query.</p>
+<h3 id="Video-guide-of-the-process"><a href="#Video-guide-of-the-process" class="headerlink" title="Video guide of the process"></a>Video guide of the process</h3><div class="iframe_container"><br>  <iframe src="https://www.youtube.com/embed/mXOeGJuXijc" frameborder="0" allowfullscreen="allowfullscreen"> </iframe><br></div>
+
+<h6 id="nbsp"><a href="#nbsp" class="headerlink" title="&nbsp;"></a>&nbsp;</h6><h3 id="Follow-the-below-steps"><a href="#Follow-the-below-steps" class="headerlink" title="Follow the below steps"></a>Follow the below steps</h3><p>Add <a href="https://poi.apache.org/" target="_blank" rel="noopener">Apache POI</a> dependencies to your pom.xml</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.apache.poi<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>poi<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">version</span>&gt;</span>4.0.1<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.apache.poi<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>poi-ooxml<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">version</span>&gt;</span>4.0.1<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>Create a workbook and add the header row.<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">try</span> (Workbook book = <span class="keyword">new</span> XSSFWorkbook()) &#123;</span><br><span class="line">  Sheet sheet = book.createSheet();</span><br><span class="line">  Row header = sheet.createRow(<span class="number">0</span>);  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>Extract columns from the ResultSet.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">ResultSetMetaData rsmd = rs.getMetaData();</span><br><span class="line">List&lt;String&gt; columns = <span class="keyword">new</span> ArrayList&lt;String&gt;() &#123;&#123;</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= rsmd.getColumnCount(); i++)</span><br><span class="line">      add(rsmd.getColumnLabel(i));</span><br><span class="line">&#125;&#125;;</span><br></pre></td></tr></table></figure>
+<p>Populate the header row with the extracted column names.<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; columns.size(); i++) &#123;</span><br><span class="line">  Cell cell = header.createCell(i);</span><br><span class="line">  cell.setCellValue(columns.get(i));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>Extract the rows from the <code>ResultSet</code> and populate the workbook.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> rowIndex = <span class="number">0</span>;</span><br><span class="line"><span class="keyword">while</span> (rs.next()) &#123;</span><br><span class="line">  Row row = sheet.createRow(++rowIndex);</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; columns.size(); i++) &#123;</span><br><span class="line">    Cell cell = row.createCell(i);</span><br><span class="line">    <span class="comment">// if you have complex values like Date, then use cell formatter.</span></span><br><span class="line">    cell.setCellValue(Objects.toString(rs.getObject(columns.get(i)), <span class="string">""</span>));</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>Writing the excel workbook to filesystem.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">try</span> (FileOutputStream fos = <span class="keyword">new</span> FileOutputStream(<span class="string">"FILE_PATH"</span>)) &#123;</span><br><span class="line">  book.write(fos);  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>You can download this entire class - <a href="/pf/ResultSetToExcel.java" target="_blank">ResultSetToExcel.java</a>, which is readily usable.</p>
+<p>That’s all.</p>
+<p>If you have any queries, please do reach out to me via email / phone.</p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://snmaddula.github.io/ansible-awx-magic-lab-setup/" data-id="cjtbbngb00001dwsnpt2j5vjc" class="article-share-link">Share</a>
+      <a data-url="https://snmaddula.github.io/resultset-to-excel/" data-id="cjtgnx171000e2csnqb9wlxpe" class="article-share-link">Share</a>
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/AWX/">AWX</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Ansible/">Ansible</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Powershell/">Powershell</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-ansible-winrm-windows" class="article article-type-post" itemscope="" itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/ansible-winrm-windows/" class="article-date">
-  <time datetime="2018-12-13T00:57:50.000Z" itemprop="datePublished">2018-Dec-13</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/ansible-winrm-windows/">PowerShell : Enable WinRm on Windows</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h4 id="Step-01"><a href="#Step-01" class="headerlink" title="Step 01"></a>Step 01</h4><p>Download the PowerShell script provided by Ansible here: <a href="/pf/ConfigureRemotingForAnsible.ps1">ConfigureRemotingForAnsible.ps1</a></p>
-<h5 id="Note-To-execute-the-script-Administrator-access-is-required"><a href="#Note-To-execute-the-script-Administrator-access-is-required" class="headerlink" title="Note: To execute the script, Administrator access is required."></a>Note: To execute the script, Administrator access is required.</h5><h4 id="Step-02"><a href="#Step-02" class="headerlink" title="Step 02"></a>Step 02</h4><p>Now, go to the script download location and open the Command Prompt as an ‘Administrator’ and run the following command:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">powershell.exe -ExecutionPolicy Bypass -File ConfigureRemotingForAnsible.ps1 -CertValidityDays 100</span><br></pre></td></tr></table></figure></p>
-<h5 id="Note-Ensure-that-port-5986-is-open-in-firewall-rules"><a href="#Note-Ensure-that-port-5986-is-open-in-firewall-rules" class="headerlink" title="Note: Ensure that port 5986 is open in firewall rules."></a>Note: Ensure that port 5986 is open in firewall rules.</h5><p>That’s all you need, to enable WinRm on windows!</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://snmaddula.github.io/ansible-winrm-windows/" data-id="cjtbbngbo0005dwsnzmwu30aq" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Ansible/">Ansible</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/PowerShell/">PowerShell</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/WinRm/">WinRm</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Apache-POI/">Apache POI</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JDBC/">JDBC</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/">Java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Quick-Trick/">Quick Trick</a></li></ul>
 
     </footer>
   </div>
@@ -299,7 +228,7 @@ password : password
 
   <nav id="page-nav">
     
-    <a class="extend prev" rel="prev" href="/page/2/">&laquo; Prev</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/4/">Next &raquo;</a>
+    <a class="extend prev" rel="prev" href="/page/2/">&laquo; Prev</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><a class="page-number" href="/page/6/">6</a><a class="extend next" rel="next" href="/page/4/">Next &raquo;</a>
   </nav>
 
 </section>
@@ -344,7 +273,7 @@ password : password
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">February 2019</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">January 2019</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">December 2018</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">September 2018</a><span class="archive-list-count">2</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">February 2019</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">January 2019</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">December 2018</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">September 2018</a><span class="archive-list-count">2</span></li></ul>
     </div>
   </div>
 
@@ -355,6 +284,10 @@ password : password
     <h3 class="widget-title">Recent Posts</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/spring-boot-redis-cache/">spring-boot-redis-cache</a>
+          </li>
         
           <li>
             <a href="/spring-boot-data-jdbc-crud/">Spring Boot DATA JDBC CRUD Web App</a>
@@ -370,10 +303,6 @@ password : password
         
           <li>
             <a href="/enable-https-in-spring-boot-app/">Enable HTTPS in Spring Boot Application</a>
-          </li>
-        
-          <li>
-            <a href="/spring-boot-file-download-via-angular-service-02/">Spring Boot File Download via Angular7 PART 02</a>
           </li>
         
       </ul>

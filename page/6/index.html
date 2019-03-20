@@ -5,30 +5,15 @@
   
 
   
-  <title>Wiring Angular with Spring Boot | snmaddula</title>
+  <title>snmaddula</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="In this post I am going to share the simplest way to wire an angular front-end to spring boot based back-end application. STEP 01 : Creating a Spring Boot AppOne of the ways that you can get started w">
-<meta name="keywords" content="Spring Boot,Angular">
-<meta property="og:type" content="article">
-<meta property="og:title" content="Wiring Angular with Spring Boot">
-<meta property="og:url" content="https://snmaddula.github.io/wiring-angular-to-spring-boot/index.html">
+  <meta property="og:type" content="website">
+<meta property="og:title" content="snmaddula">
+<meta property="og:url" content="https://snmaddula.github.io/page/6/index.html">
 <meta property="og:site_name" content="snmaddula">
-<meta property="og:description" content="In this post I am going to share the simplest way to wire an angular front-end to spring boot based back-end application. STEP 01 : Creating a Spring Boot AppOne of the ways that you can get started w">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="https://snmaddula.github.io/images/p2/05.png">
-<meta property="og:image" content="https://snmaddula.github.io/images/p2/06.png">
-<meta property="og:image" content="https://snmaddula.github.io/images/p2/07.png">
-<meta property="og:image" content="https://snmaddula.github.io/images/p2/08.png">
-<meta property="og:image" content="https://snmaddula.github.io/images/p2/09.png">
-<meta property="og:image" content="https://snmaddula.github.io/images/p2/11.png">
-<meta property="og:image" content="https://snmaddula.github.io/images/p2/01.png">
-<meta property="og:image" content="https://snmaddula.github.io/images/p2/02.png">
-<meta property="og:image" content="https://snmaddula.github.io/images/p2/03.png">
-<meta property="og:updated_time" content="2018-10-30T03:02:35.937Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Wiring Angular with Spring Boot">
-<meta name="twitter:description" content="In this post I am going to share the simplest way to wire an angular front-end to spring boot based back-end application. STEP 01 : Creating a Spring Boot AppOne of the ways that you can get started w">
-<meta name="twitter:image" content="https://snmaddula.github.io/images/p2/05.png">
+<meta name="twitter:title" content="snmaddula">
   
     <link rel="alternate" href="/atom.xml" title="snmaddula" type="application/atom+xml">
   
@@ -79,7 +64,93 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main"><article id="post-wiring-angular-to-spring-boot" class="article article-type-post" itemscope="" itemprop="blogPost">
+        <section id="main">
+  
+    <article id="post-oc-login" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/oc-login/" class="article-date">
+  <time datetime="2018-12-09T10:24:52.000Z" itemprop="datePublished">2018-Dec-09</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/oc-login/">Login to OpenShift Origin</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>There are quite a few ways to login into openshift through the <code>oc</code> cli. Let us explore them one by one.</p>
+<h4 id="1-Interactive-Login-with-Credentials"><a href="#1-Interactive-Login-with-Credentials" class="headerlink" title="1. Interactive Login with Credentials"></a>1. Interactive Login with Credentials</h4><p>To Simply login use <b>oc login</b>. This will prompt for <i>username</i> and <i>password</i>, providing which it will authenticate and log you in.<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$ oc login</span><br><span class="line">Server[https://localhost:8443]:</span><br><span class="line">username: snmaddula</span><br><span class="line">password:</span><br><span class="line"></span><br><span class="line">Login Successful.</span><br></pre></td></tr></table></figure></p>
+<p>You can specify the Server URL in-line:<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ oc login https://localhost:8443</span><br></pre></td></tr></table></figure></p>
+<h4 id="2-Non-Interactive-Login-with-Credentials-a-k-a-one-liner"><a href="#2-Non-Interactive-Login-with-Credentials-a-k-a-one-liner" class="headerlink" title="2. Non-Interactive Login with Credentials (a.k.a one-liner)"></a>2. Non-Interactive Login with Credentials (a.k.a one-liner)</h4><p>To login by providing username and password in-line :<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">oc login -u=snmaddula -p=secret</span><br></pre></td></tr></table></figure></p>
+<p>To instantly switch to a particular namespace / project on successful login :<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">oc login -u=snmaddula -p=secret -n=project1</span><br></pre></td></tr></table></figure></p>
+<p>In the above examples, <code>-u</code> is short for <code>--username</code> as <code>-p</code> is for <code>--password</code> and <code>-n</code> for <code>--namespace</code></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://snmaddula.github.io/oc-login/" data-id="cjtgnx16v000b2csn7f5zzzrr" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/oc/">oc</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/openshift/">openshift</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-using-camunda-with-spring-boot" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/using-camunda-with-spring-boot/" class="article-date">
+  <time datetime="2018-09-30T14:31:11.000Z" itemprop="datePublished">2018-Sep-30</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/using-camunda-with-spring-boot/">Orchestrating Spring Boot Microservices with Camunda</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="STEP-01-Create-a-simple-orchestration-flow"><a href="#STEP-01-Create-a-simple-orchestration-flow" class="headerlink" title="STEP 01 : Create a simple orchestration flow"></a>STEP 01 : Create a simple orchestration flow</h3><p>Here, I have chosen a simple remittance orchestration, where in few microservices work together in processing a remit request.</p>
+<p><img src="/images/p3/remit-orchestration.png" alt=""></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://snmaddula.github.io/using-camunda-with-spring-boot/" data-id="cjtgnx183000t2csnylzdxiyi" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Camunda/">Camunda</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Microservices/">Microservices</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Orchestration/">Orchestration</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Spring-Boot/">Spring Boot</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-wiring-angular-to-spring-boot" class="article article-type-post" itemscope="" itemprop="blogPost">
   <div class="article-meta">
     <a href="/wiring-angular-to-spring-boot/" class="article-date">
   <time datetime="2018-09-29T02:53:01.000Z" itemprop="datePublished">2018-Sep-29</time>
@@ -92,8 +163,8 @@
       <header class="article-header">
         
   
-    <h1 class="article-title" itemprop="name">
-      Wiring Angular with Spring Boot
+    <h1 itemprop="name">
+      <a class="article-title" href="/wiring-angular-to-spring-boot/">Wiring Angular with Spring Boot</a>
     </h1>
   
 
@@ -168,23 +239,16 @@
     </footer>
   </div>
   
-    
-<nav id="article-nav">
-  
-    <a href="/using-camunda-with-spring-boot/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Newer</strong>
-      <div class="article-nav-title">
-        
-          Orchestrating Spring Boot Microservices with Camunda
-        
-      </div>
-    </a>
-  
-  
-</nav>
+</article>
+
 
   
-</article>
+
+
+  <nav id="page-nav">
+    
+    <a class="extend prev" rel="prev" href="/page/5/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><span class="page-number current">6</span>
+  </nav>
 
 </section>
         
