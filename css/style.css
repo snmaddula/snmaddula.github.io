@@ -1312,7 +1312,6 @@ pre .javascript .function {
 }
 .widget {
   color: #777;
-  text-shadow: 0 1px #fff;
   background: #ddd;
   -webkit-box-shadow: 0 -1px 4px #ccc inset;
   box-shadow: 0 -1px 4px #ccc inset;
@@ -1322,7 +1321,7 @@ pre .javascript .function {
 }
 .widget a {
   color: #258fb8;
-  color: MAROON;
+  color: WHITE;
   text-decoration: none;
 }
 .widget a:hover {
@@ -1368,7 +1367,7 @@ pre .javascript .function {
 .tag-list-count,
 .archive-list-count {
   padding-left: 5px;
-  color: #999;
+  color: #ffc0cb;
   font-size: 0.85em;
 }
 .category-list-count:before,
@@ -1384,7 +1383,7 @@ pre .javascript .function {
 .tagcloud a {
   margin-right: 5px;
   display: inline-block;
-  color: MAROON;
+  color: #fff;
 }
 .iframe_container {
   position: relative;
