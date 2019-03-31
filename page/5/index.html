@@ -66,10 +66,10 @@
       <div class="outer">
         <section id="main">
   
-    <article id="post-spring-boot-file-download-via-angular-service-02" class="article article-type-post" itemscope="" itemprop="blogPost">
+    <article id="post-ansible-winrm-windows" class="article article-type-post" itemscope="" itemprop="blogPost">
   <div class="article-meta">
-    <a href="/spring-boot-file-download-via-angular-service-02/" class="article-date">
-  <time datetime="2019-03-08T23:00:57.000Z" itemprop="datePublished">2019-Mar-09</time>
+    <a href="/ansible-winrm-windows/" class="article-date">
+  <time datetime="2018-12-13T00:57:50.000Z" itemprop="datePublished">2018-Dec-13</time>
 </a>
     
   </div>
@@ -80,7 +80,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/spring-boot-file-download-via-angular-service-02/">Spring Boot File Download via Angular7 PART 02</a>
+      <a class="article-title" href="/ansible-winrm-windows/">PowerShell : Enable WinRm on Windows</a>
     </h1>
   
 
@@ -88,33 +88,112 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h3 id="Preparing-the-Angular-Client-Angular-7"><a href="#Preparing-the-Angular-Client-Angular-7" class="headerlink" title="Preparing the Angular Client (Angular 7)"></a>Preparing the Angular Client (Angular 7)</h3><h4 id="Video-guide-of-the-angular-client-process"><a href="#Video-guide-of-the-angular-client-process" class="headerlink" title="Video guide of the angular-client process"></a>Video guide of the angular-client process</h4><div class="iframe_container"><br>  <iframe src="https://www.youtube.com/embed/zrTgjnOQcpw" frameborder="0" allowfullscreen="allowfullscreen"> </iframe><br></div>
-
-
-<h5 id="1-Create-Angular-App"><a href="#1-Create-Angular-App" class="headerlink" title="1. Create Angular App"></a>1. Create Angular App</h5><p>Use the below command to create a new angular app with name <code>client</code>.<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ng <span class="keyword">new</span> client --minimal=<span class="literal">true</span> --routing=<span class="literal">false</span> --style=css</span><br></pre></td></tr></table></figure></p>
-<p>In case if you see any vulnerabilities reported after the app was created, switch to the <code>client</code> directory and run the below command to let <code>npm</code> fix those issues.<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm audit fix</span><br></pre></td></tr></table></figure></p>
-<h5 id="2-Add-File-Saver-dependency"><a href="#2-Add-File-Saver-dependency" class="headerlink" title="2. Add File Saver dependency"></a>2. Add File Saver dependency</h5><p>Add <code>file-saver</code> dependency to enable saving files to the file-system on the client side.<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm i -s file-saver</span><br></pre></td></tr></table></figure></p>
-<h5 id="3-Create-File-Download-Service"><a href="#3-Create-File-Download-Service" class="headerlink" title="3. Create File Download Service"></a>3. Create File Download Service</h5><p>Use the below command to generate file download service.<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ng g s service/file-download</span><br></pre></td></tr></table></figure></p>
-<h5 id="4-Create-File-Download-Component"><a href="#4-Create-File-Download-Component" class="headerlink" title="4. Create File Download Component"></a>4. Create File Download Component</h5><p>Use the below command to generate file download component.<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ng g c component/file-download</span><br></pre></td></tr></table></figure></p>
-<h5 id="5-Add-HttpClientModule-to-the-application"><a href="#5-Add-HttpClientModule-to-the-application" class="headerlink" title="5. Add HttpClientModule to the application."></a>5. Add HttpClientModule to the application.</h5><p>To be able to use the HttpClient service within your components we first need to include the HttpClientModule in the Angular application.<br>First we need to import HttpClientModule in the application’s root module in the file <b>app.module.ts</b> by adding the below import statement.</p>
-<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; HttpClientModule &#125; <span class="keyword">from</span> <span class="string">'@angular/common/http'</span>;</span><br></pre></td></tr></table></figure>
-<h5 id="6-Implement-File-Download-Service"><a href="#6-Implement-File-Download-Service" class="headerlink" title="6. Implement File Download Service"></a>6. Implement File Download Service</h5><p>Update <b>file-download.service.ts</b> with the below implementation.<br><figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; Injectable &#125; <span class="keyword">from</span> <span class="string">'@angular/core'</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; HttpClient, HttpParams &#125; <span class="keyword">from</span> <span class="string">'@angular/common/http'</span>;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Injectable</span>(&#123;</span><br><span class="line">  providedIn: <span class="string">'root'</span></span><br><span class="line">&#125;)</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">class</span> FileDownloadService &#123;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">constructor</span>(<span class="params"><span class="keyword">private</span> http:HttpClient</span>) &#123; &#125;</span><br><span class="line"></span><br><span class="line">  downloadFile(data) &#123;</span><br><span class="line">    <span class="keyword">const</span> REQUEST_PARAMS = <span class="keyword">new</span> HttpParams().set(<span class="string">'fileName'</span>, data.fileName);</span><br><span class="line">    <span class="keyword">const</span> REQUEST_URL = <span class="string">'/server/download'</span></span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">this</span>.http.get(REQUEST_URL, &#123;</span><br><span class="line">      params: REQUEST_PARAMS,</span><br><span class="line">      responseType: <span class="string">'arraybuffer'</span></span><br><span class="line">    &#125;);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<h5 id="7-Implement-File-Download-Component"><a href="#7-Implement-File-Download-Component" class="headerlink" title="7. Implement File Download Component"></a>7. Implement File Download Component</h5><p>&nbsp;&nbsp;&nbsp;&nbsp;<b>i.</b> Update <b>file-download.component.ts</b> with the below implementation.<br><figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; Component, OnInit &#125; <span class="keyword">from</span> <span class="string">'@angular/core'</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; FileDownloadService &#125; <span class="keyword">from</span> <span class="string">'../../service/file-download.service'</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; saveAs &#125; <span class="keyword">from</span> <span class="string">'file-saver'</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> MIME_TYPES = &#123;</span><br><span class="line">  pdf  : <span class="string">'application/pdf'</span>,</span><br><span class="line">  xls  : <span class="string">'application/vnd.ms-excel'</span>,</span><br><span class="line">  xlsx : <span class="string">'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Component</span>(&#123;</span><br><span class="line">  selector: <span class="string">'app-file-download'</span>,</span><br><span class="line">  templateUrl: <span class="string">'./file-download.component.html'</span>,</span><br><span class="line">  styleUrls: [<span class="string">'./file-download.component.css'</span>]</span><br><span class="line">&#125;)</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">class</span> FileDownloadComponent <span class="keyword">implements</span> OnInit &#123;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">constructor</span>(<span class="params"><span class="keyword">private</span> service:FileDownloadService</span>) &#123; &#125;</span><br><span class="line"></span><br><span class="line">  ngOnInit() &#123;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  downloadFile(fileName) &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">"fileName : "</span> + fileName);</span><br><span class="line">    <span class="keyword">const</span> extension = fileName.substr(fileName.lastIndexOf(<span class="string">'.'</span>) + <span class="number">1</span>)</span><br><span class="line">    <span class="keyword">this</span>.service.downloadFile(&#123;<span class="string">'fileName'</span>: fileName&#125;)</span><br><span class="line">    .subscribe(<span class="function"><span class="params">data</span> =&gt;</span> &#123;</span><br><span class="line">      saveAs(<span class="keyword">new</span> Blob([data], &#123; <span class="keyword">type</span>: MIME_TYPES[extension] &#125;), fileName);</span><br><span class="line">    &#125;)</span><br><span class="line">  &#125;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>&nbsp;&nbsp;&nbsp;&nbsp;<b>ii.</b> Update <b>file-download.component.html</b> with the below implementation.</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">h3</span>&gt;</span>Choose File <span class="tag">&lt;/<span class="name">h3</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">select</span> #<span class="attr">selectedFile</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">""</span>&gt;</span>- select -<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">"alpha.xls"</span>&gt;</span>alpha.xls<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">"alpha.xlsx"</span>&gt;</span>alpha.xlsx<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">select</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">button</span> <span class="attr">style</span>=<span class="string">"margin-left: 30px;"</span> (<span class="attr">click</span>)=<span class="string">"downloadFile(selectedFile.value)"</span>&gt;</span>Download<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<p>&nbsp;&nbsp;&nbsp;&nbsp;<b>iii.</b> Update <b>app.component.html</b> with the below implementation.</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">style</span>=<span class="string">"text-align:center"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">h1</span>&gt;</span></span><br><span class="line">    File Download Demo</span><br><span class="line">  <span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">app-file-download</span>&gt;</span><span class="tag">&lt;/<span class="name">app-file-download</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<h5 id="8-Add-Proxy-Configuration-to-reach-Spring-Boot-Service"><a href="#8-Add-Proxy-Configuration-to-reach-Spring-Boot-Service" class="headerlink" title="8. Add Proxy Configuration to reach Spring Boot Service."></a>8. Add Proxy Configuration to reach Spring Boot Service.</h5><p>In the root directory of the angular app, create a file proxy.config.json with the below contents.<br><figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">   <span class="attr">"/server"</span>:&#123;</span><br><span class="line">      <span class="attr">"target"</span>:<span class="string">"http://localhost:8080"</span>,</span><br><span class="line">      <span class="attr">"pathRewrite"</span>:&#123;</span><br><span class="line">         <span class="attr">"^/server"</span>:<span class="string">""</span></span><br><span class="line">      &#125;</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>The last change we need to make is to tell the Angular server to use the new proxy.<br>Open <b>package.json</b> file and update the <b>start</b> script as below.<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">"start"</span>: <span class="string">"ng serve --proxy-config proxy.config.json"</span></span><br></pre></td></tr></table></figure></p>
-<p>Now start the app using <em>npm start</em> and navigate to <a href="http://localhost:4200" target="_blank" rel="noopener">http://localhost:4200</a>.<br>You’ll see a UI similar to the one in the below image.<br><img src="/images/p5/02.png" alt=""></p>
+        <h4 id="Step-01"><a href="#Step-01" class="headerlink" title="Step 01"></a>Step 01</h4><p>Download the PowerShell script provided by Ansible here: <a href="/pf/ConfigureRemotingForAnsible.ps1">ConfigureRemotingForAnsible.ps1</a></p>
+<h5 id="Note-To-execute-the-script-Administrator-access-is-required"><a href="#Note-To-execute-the-script-Administrator-access-is-required" class="headerlink" title="Note: To execute the script, Administrator access is required."></a>Note: To execute the script, Administrator access is required.</h5><h4 id="Step-02"><a href="#Step-02" class="headerlink" title="Step 02"></a>Step 02</h4><p>Now, go to the script download location and open the Command Prompt as an ‘Administrator’ and run the following command:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">powershell.exe -ExecutionPolicy Bypass -File ConfigureRemotingForAnsible.ps1 -CertValidityDays 100</span><br></pre></td></tr></table></figure></p>
+<h5 id="Note-Ensure-that-port-5986-is-open-in-firewall-rules"><a href="#Note-Ensure-that-port-5986-is-open-in-firewall-rules" class="headerlink" title="Note: Ensure that port 5986 is open in firewall rules."></a>Note: Ensure that port 5986 is open in firewall rules.</h5><p>That’s all you need, to enable WinRm on windows!</p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://snmaddula.github.io/spring-boot-file-download-via-angular-service-02/" data-id="cjtnag6xi000omcsn4v9hiuqk" class="article-share-link">Share</a>
+      <a data-url="https://snmaddula.github.io/ansible-winrm-windows/" data-id="cjtweg80u0005ygsntrsa1cat" class="article-share-link">Share</a>
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Angular/">Angular</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Spring-Boot/">Spring Boot</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Ansible/">Ansible</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/PowerShell/">PowerShell</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/WinRm/">WinRm</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-open-port-firewall-cmd" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/open-port-firewall-cmd/" class="article-date">
+  <time datetime="2018-12-12T09:23:55.000Z" itemprop="datePublished">2018-Dec-12</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/open-port-firewall-cmd/">Enable / Disable TCP Ports</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>To enable / disable port accessibility on a machine, we can use the <code>firewall-cmd</code> utility.</p>
+<p><b>Note</b>: You need Administrator / sudo access to play around with this utility.</p>
+<p><b> Switch to Root Account.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo su</span><br></pre></td></tr></table></figure></b></p>
+<h4 id="To-Install-firewalld"><a href="#To-Install-firewalld" class="headerlink" title="To Install firewalld"></a>To Install <code>firewalld</code></h4><p>If you already have <b>firewall daemon</b> available on your machine, you can skip this.</p>
+<p>Execute the below command to install <b>firewall daemon</b><br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install -y firewalld</span><br></pre></td></tr></table></figure></p>
+<h4 id="To-check-status-of-firewall-daemon"><a href="#To-check-status-of-firewall-daemon" class="headerlink" title="To check status of firewall daemon"></a>To check status of firewall daemon</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">firewall-cmd --state</span><br></pre></td></tr></table></figure>
+<p>You should see <i>running</i> as the result for the above command.</p>
+<h4 id="Enable-TCP-Ports"><a href="#Enable-TCP-Ports" class="headerlink" title="Enable TCP Ports"></a>Enable TCP Ports</h4><p>To enable any tcp port say 9090 for example, the command you need to execute is :<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">firewall-cmd --zone=public --permanent --add-port=9090/tcp</span><br><span class="line">firewall-cmd --reload</span><br></pre></td></tr></table></figure></p>
+<h4 id="Enable-TCP-Ports-1"><a href="#Enable-TCP-Ports-1" class="headerlink" title="Enable TCP Ports"></a>Enable TCP Ports</h4><p>To disable any tcp port say 8090 for example, the command you need to execute is :<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">firewall-cmd --zone=public --permanent --remove-port=8090/tcp</span><br><span class="line">firewall-cmd --reload</span><br></pre></td></tr></table></figure></p>
+<h4 id="List-open-ports"><a href="#List-open-ports" class="headerlink" title="List open ports"></a>List open ports</h4><p>To list publicly accessible ports on the machine, use the below command.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ firewall-cmd --zone=public --list-ports</span><br><span class="line">9090/tcp</span><br></pre></td></tr></table></figure></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://snmaddula.github.io/open-port-firewall-cmd/" data-id="cjtweg815000dygsn7ndim6ih" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Firewall/">Firewall</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/">Linux</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-git-and-ssh-client-setup-windows" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/git-and-ssh-client-setup-windows/" class="article-date">
+  <time datetime="2018-12-11T10:31:14.000Z" itemprop="datePublished">2018-Dec-11</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/git-and-ssh-client-setup-windows/">Git + SSH Client Setup</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>In this article, we shall setup SSH client on Windows machine.</p>
+<h5 id="What-we-need"><a href="#What-we-need" class="headerlink" title="What we need ?"></a>What we need ?</h5><ul>
+<li>Git</li>
+<li>PowerShell (Optional)</li>
+<li>Command Prompt (Optional)</li>
+</ul>
+<p>Let us get started with the setup.</p>
+<h3 id="Silent-UnAttended-Install-Using-PowerShell"><a href="#Silent-UnAttended-Install-Using-PowerShell" class="headerlink" title="Silent / UnAttended Install :: Using PowerShell"></a>Silent / UnAttended Install :: Using PowerShell</h3><p>To download &amp; install <code>git</code> in silent / un-attended mode, execute the below commands<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12</span><br><span class="line">Invoke-WebRequest -Uri https://github.com/git-for-windows/git/releases/download/v2.20.0.windows.1/Git-2.20.0-64-bit.exe -OutFile gitbin.exe</span><br><span class="line">cmd &quot;/C .\gitbin.exe /SP- /SILENT /NOCANCEL /NORESTART /COMPONENTS=icons,ext\reg\shellhere,assoc,assoc_sh&quot;</span><br></pre></td></tr></table></figure></p>
+<p>Add git &amp; ssh to your path without closing and re-launching PowerShell.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$env:Path=&quot;$env:Path;C:\Program Files\Git\bin\;&quot;</span><br><span class="line">$env:Path=&quot;$env:Path;C:\Program Files\Git\usr\bin\;&quot;</span><br></pre></td></tr></table></figure></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://snmaddula.github.io/git-and-ssh-client-setup-windows/" data-id="cjtweg80x0007ygsnohej8t7o" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Git/">Git</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/SSH/">SSH</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Windows/">Windows</a></li></ul>
 
     </footer>
   </div>
@@ -127,7 +206,7 @@
 
   <nav id="page-nav">
     
-    <a class="extend prev" rel="prev" href="/page/4/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><span class="page-number current">5</span><a class="page-number" href="/page/6/">6</a><a class="page-number" href="/page/7/">7</a><span class="space">&hellip;</span><a class="page-number" href="/page/17/">17</a><a class="extend next" rel="next" href="/page/6/">Next &raquo;</a>
+    <a class="extend prev" rel="prev" href="/page/4/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><span class="page-number current">5</span><a class="page-number" href="/page/6/">6</a><a class="extend next" rel="next" href="/page/6/">Next &raquo;</a>
   </nav>
 
 </section>
@@ -164,7 +243,7 @@
     <!-- <div class="widget" style="background: #025A5B"> -->
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud" style="background: #025A5B">
-      <a href="/tags/AWX/" style="font-size: 10px;">AWX</a> <a href="/tags/Angular/" style="font-size: 16.67px;">Angular</a> <a href="/tags/Ansible/" style="font-size: 13.33px;">Ansible</a> <a href="/tags/Apache-POI/" style="font-size: 10px;">Apache POI</a> <a href="/tags/CRUD/" style="font-size: 13.33px;">CRUD</a> <a href="/tags/Camunda/" style="font-size: 10px;">Camunda</a> <a href="/tags/Firewall/" style="font-size: 10px;">Firewall</a> <a href="/tags/Git/" style="font-size: 13.33px;">Git</a> <a href="/tags/HTTPS/" style="font-size: 13.33px;">HTTPS</a> <a href="/tags/JDBC/" style="font-size: 13.33px;">JDBC</a> <a href="/tags/JPA/" style="font-size: 10px;">JPA</a> <a href="/tags/JUnit/" style="font-size: 10px;">JUnit</a> <a href="/tags/JWT/" style="font-size: 10px;">JWT</a> <a href="/tags/JaCoCo/" style="font-size: 10px;">JaCoCo</a> <a href="/tags/Java/" style="font-size: 13.33px;">Java</a> <a href="/tags/Linux/" style="font-size: 10px;">Linux</a> <a href="/tags/Microservices/" style="font-size: 10px;">Microservices</a> <a href="/tags/Orchestration/" style="font-size: 10px;">Orchestration</a> <a href="/tags/PowerMock/" style="font-size: 10px;">PowerMock</a> <a href="/tags/PowerShell/" style="font-size: 10px;">PowerShell</a> <a href="/tags/Powershell/" style="font-size: 10px;">Powershell</a> <a href="/tags/Quick-Trick/" style="font-size: 13.33px;">Quick Trick</a> <a href="/tags/SSH/" style="font-size: 10px;">SSH</a> <a href="/tags/SSL/" style="font-size: 13.33px;">SSL</a> <a href="/tags/Security/" style="font-size: 10px;">Security</a> <a href="/tags/Spring-Boot/" style="font-size: 20px;">Spring Boot</a> <a href="/tags/TLS/" style="font-size: 13.33px;">TLS</a> <a href="/tags/WinRm/" style="font-size: 10px;">WinRm</a> <a href="/tags/Windows/" style="font-size: 10px;">Windows</a> <a href="/tags/oc/" style="font-size: 10px;">oc</a> <a href="/tags/openshift/" style="font-size: 10px;">openshift</a>
+      <a href="/tags/AWX/" style="font-size: 10px;">AWX</a> <a href="/tags/Angular/" style="font-size: 16.67px;">Angular</a> <a href="/tags/Ansible/" style="font-size: 13.33px;">Ansible</a> <a href="/tags/Apache-POI/" style="font-size: 10px;">Apache POI</a> <a href="/tags/CRUD/" style="font-size: 13.33px;">CRUD</a> <a href="/tags/Camunda/" style="font-size: 10px;">Camunda</a> <a href="/tags/Firewall/" style="font-size: 10px;">Firewall</a> <a href="/tags/Git/" style="font-size: 13.33px;">Git</a> <a href="/tags/HTTPS/" style="font-size: 13.33px;">HTTPS</a> <a href="/tags/JDBC/" style="font-size: 13.33px;">JDBC</a> <a href="/tags/JPA/" style="font-size: 10px;">JPA</a> <a href="/tags/JUnit/" style="font-size: 10px;">JUnit</a> <a href="/tags/JWT/" style="font-size: 10px;">JWT</a> <a href="/tags/JaCoCo/" style="font-size: 10px;">JaCoCo</a> <a href="/tags/Java/" style="font-size: 13.33px;">Java</a> <a href="/tags/Linux/" style="font-size: 10px;">Linux</a> <a href="/tags/Logging/" style="font-size: 10px;">Logging</a> <a href="/tags/Microservices/" style="font-size: 10px;">Microservices</a> <a href="/tags/Orchestration/" style="font-size: 10px;">Orchestration</a> <a href="/tags/PowerMock/" style="font-size: 10px;">PowerMock</a> <a href="/tags/PowerShell/" style="font-size: 10px;">PowerShell</a> <a href="/tags/Powershell/" style="font-size: 10px;">Powershell</a> <a href="/tags/Quick-Trick/" style="font-size: 13.33px;">Quick Trick</a> <a href="/tags/SSH/" style="font-size: 10px;">SSH</a> <a href="/tags/SSL/" style="font-size: 13.33px;">SSL</a> <a href="/tags/Security/" style="font-size: 10px;">Security</a> <a href="/tags/Spring-Boot/" style="font-size: 20px;">Spring Boot</a> <a href="/tags/TLS/" style="font-size: 13.33px;">TLS</a> <a href="/tags/WinRm/" style="font-size: 10px;">WinRm</a> <a href="/tags/Windows/" style="font-size: 10px;">Windows</a> <a href="/tags/oc/" style="font-size: 10px;">oc</a> <a href="/tags/openshift/" style="font-size: 10px;">openshift</a>
     </div>
   </div>
 
@@ -174,7 +253,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget" style="background: #025A5B">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">February 2019</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">January 2019</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">December 2018</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">September 2018</a><span class="archive-list-count">2</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">February 2019</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">January 2019</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">December 2018</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">September 2018</a><span class="archive-list-count">2</span></li></ul>
     </div>
   </div>
 
@@ -185,6 +264,10 @@
     <h3 class="widget-title">Recent Posts</h3>
     <div class="widget" style="background: #025A5B">
       <ul>
+        
+          <li>
+            <a href="/spring-boot-execution-time-logging/">Spring Boot : Logging Execution Time</a>
+          </li>
         
           <li>
             <a href="/spring-boot-data-jdbc-crud/">Spring Boot DATA JDBC CRUD Web App</a>
@@ -200,10 +283,6 @@
         
           <li>
             <a href="/enable-https-in-spring-boot-app/">Enable HTTPS in Spring Boot Application</a>
-          </li>
-        
-          <li>
-            <a href="/spring-boot-file-download-via-angular-service-02/">Spring Boot File Download via Angular7 PART 02</a>
           </li>
         
       </ul>

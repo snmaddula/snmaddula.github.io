@@ -66,10 +66,10 @@
       <div class="outer">
         <section id="main">
   
-    <article id="post-enable-https-in-spring-boot-app" class="article article-type-post" itemscope="" itemprop="blogPost">
+    <article id="post-tuning-jacoco-for-powermock" class="article article-type-post" itemscope="" itemprop="blogPost">
   <div class="article-meta">
-    <a href="/enable-https-in-spring-boot-app/" class="article-date">
-  <time datetime="2019-03-11T08:38:36.000Z" itemprop="datePublished">2019-Mar-11</time>
+    <a href="/tuning-jacoco-for-powermock/" class="article-date">
+  <time datetime="2019-01-05T21:07:55.000Z" itemprop="datePublished">2019-Jan-06</time>
 </a>
     
   </div>
@@ -80,7 +80,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/enable-https-in-spring-boot-app/">Enable HTTPS in Spring Boot Application</a>
+      <a class="article-title" href="/tuning-jacoco-for-powermock/">Tuning JaCoCo for PowerMock Coverage</a>
     </h1>
   
 
@@ -88,24 +88,164 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h3 id="Video-guide-of-the-process"><a href="#Video-guide-of-the-process" class="headerlink" title="Video guide of the process"></a>Video guide of the process</h3><div class="iframe_container"><br>  <iframe src="https://www.youtube.com/embed/H-pn7NrEssM" frameborder="0" allowfullscreen="allowfullscreen"> </iframe><br></div>
-
-<h4 id="Step-1-Generate-SSL-Certificate"><a href="#Step-1-Generate-SSL-Certificate" class="headerlink" title="Step 1 : Generate SSL Certificate"></a>Step 1 : Generate SSL Certificate</h4><p>To enable HTTPS, we would require a SSL certificate. This certificate can be obtained from a Certificate Authority.<br>Also, we can generate a self-signed certificate using java <code>keytool</code> utility.</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">keytool -genkey -noprompt -<span class="built_in">alias</span> chocolate \</span><br><span class="line">-storetype PKCS12 -keyalg RSA -keysize 2048 -validity 365 \</span><br><span class="line">-keystore chocolate.p12 -keypass chocolate -storepass chocolate \</span><br><span class="line">-dname <span class="string">"CN=snmaddula, OU=security, O=snmaddula, L=waverock, S=Hyderabad, C=IN"</span></span><br></pre></td></tr></table></figure>
-<p>This will generate a PKCS12 <code>keystore</code> file as <b>chocolate.p12</b> with the newly generated certificate.</p>
-<h4 id="Step-2-Configure-SSL-connector-for-Server"><a href="#Step-2-Configure-SSL-connector-for-Server" class="headerlink" title="Step 2 : Configure SSL connector for Server"></a>Step 2 : Configure SSL connector for Server</h4><p>To enable HTTPS in our application, we need to configure few ssl properties binding the application server with the keystore that was generated in the previous step.</p>
-<p>Add the below configuration to your <code>application.yml</code><br><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">server:</span></span><br><span class="line"><span class="attr">  port:</span> <span class="number">8443</span></span><br><span class="line"></span><br><span class="line"><span class="attr">  ssl:</span></span><br><span class="line"><span class="attr">    key-store:</span> <span class="attr">classpath:chocolate.p12</span></span><br><span class="line"><span class="attr">    key-alias:</span> <span class="string">chocolate</span></span><br><span class="line"><span class="attr">    key-store-password:</span> <span class="string">chocolate</span></span><br><span class="line"><span class="attr">    key-store-type:</span> <span class="string">PKCS12</span></span><br></pre></td></tr></table></figure></p>
-<p>That’s all you need to enable HTTPS in a spring boot application.</p>
-<p>You can now access the application with the endpoint: <a href="https://localhost:8443" target="_blank" rel="noopener">https://localhost:8443</a></p>
-<p>You would need to add the Security Certificate Exception in this was a self-signed certificate.</p>
+        <p>Jacoco is widely preferred for on-the-fly instrumentation, however it cannot extend the same support when it comes to <code>powermock</code>, as <code>powermock</code>does dynamic classfile transformation which conflicts with Jacoco.</p>
+<p>To overcome this issue, we can use an offline instrumentation i.e. the classes can be pre-instrumented with JaCoCo before powermock kicks in.</p>
+<h3 id="Configuration-Steps"><a href="#Configuration-Steps" class="headerlink" title="Configuration Steps"></a>Configuration Steps</h3><p>Here are the steps involved in configuring Offline Instrumentation of JaCoCo:</p>
+<h4 id="JaCoCo-Agent"><a href="#JaCoCo-Agent" class="headerlink" title="JaCoCo Agent"></a>JaCoCo Agent</h4><p>Unlike with on-the-fly instrumentation offline instrumented classes get a direct dependency on the JaCoCo runtime.</p>
+<p>Add <code>jacoco-agent</code> dependency to our pom.xml, so that it will be available on the classpath and accessible by the instrumented classes.</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.jacoco<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>org.jacoco.agent<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">version</span>&gt;</span>$&#123;jacoco.version&#125;<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">classifier</span>&gt;</span>runtime<span class="tag">&lt;/<span class="name">classifier</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h4 id="JaCoCo-Maven-plugin"><a href="#JaCoCo-Maven-plugin" class="headerlink" title="JaCoCo Maven plugin"></a>JaCoCo Maven plugin</h4><p>Add the below plugin configuration to the plugins section of your pom.xml</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">plugin</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.jacoco<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>jacoco-maven-plugin<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">version</span>&gt;</span>$&#123;jacoco.version&#125;<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">executions</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">execution</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">id</span>&gt;</span>default-instrument<span class="tag">&lt;/<span class="name">id</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">goals</span>&gt;</span></span><br><span class="line">				<span class="tag">&lt;<span class="name">goal</span>&gt;</span>instrument<span class="tag">&lt;/<span class="name">goal</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;/<span class="name">goals</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;/<span class="name">execution</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">execution</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">id</span>&gt;</span>default-restore-instrumented-classes<span class="tag">&lt;/<span class="name">id</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">goals</span>&gt;</span></span><br><span class="line">				<span class="tag">&lt;<span class="name">goal</span>&gt;</span>restore-instrumented-classes<span class="tag">&lt;/<span class="name">goal</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;/<span class="name">goals</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;/<span class="name">execution</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">execution</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">id</span>&gt;</span>report<span class="tag">&lt;/<span class="name">id</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">phase</span>&gt;</span>prepare-package<span class="tag">&lt;/<span class="name">phase</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">goals</span>&gt;</span></span><br><span class="line">				<span class="tag">&lt;<span class="name">goal</span>&gt;</span>report<span class="tag">&lt;/<span class="name">goal</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;/<span class="name">goals</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">configuration</span>&gt;</span></span><br><span class="line">				<span class="tag">&lt;<span class="name">dataFile</span>&gt;</span>$&#123;project.build.directory&#125;/coverage.exec<span class="tag">&lt;/<span class="name">dataFile</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;/<span class="name">execution</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">executions</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">configuration</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">excludes</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">exclude</span>&gt;</span>com/somepack/subpack/**/*<span class="tag">&lt;/<span class="name">exclude</span>&gt;</span> <span class="comment">&lt;!-- to exclude any package --&gt;</span></span><br><span class="line">		<span class="tag">&lt;/<span class="name">excludes</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">plugin</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h4 id="Surefire-Maven-plugin"><a href="#Surefire-Maven-plugin" class="headerlink" title="Surefire Maven plugin"></a>Surefire Maven plugin</h4><p>Add the below configuration to provide coverage information to surefire.</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">plugin</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.apache.maven.plugins<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>maven-surefire-plugin<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">version</span>&gt;</span>2.19.1<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">configuration</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">systemPropertyVariables</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">jacoco-agent.destfile</span>&gt;</span>$&#123;project.build.directory&#125;/coverage.exec<span class="tag">&lt;/<span class="name">jacoco-agent.destfile</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">systemPropertyVariables</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">plugin</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h4 id="PowerMock-Dependencies"><a href="#PowerMock-Dependencies" class="headerlink" title="PowerMock Dependencies"></a>PowerMock Dependencies</h4><p>Add the below powermock dependencies to your pom</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.powermock<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>powermock-api-mockito<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">version</span>&gt;</span>$&#123;powermock.version&#125;<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.powermock<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>powermock-core<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">version</span>&gt;</span>$&#123;powermock.version&#125;<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.powermock<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>powermock-module-junit4<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">version</span>&gt;</span>$&#123;powermock.version&#125;<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h4 id="Version-Compatibility"><a href="#Version-Compatibility" class="headerlink" title="Version Compatibility"></a>Version Compatibility</h4><p>One last thing is version Compatibility. Make sure you use compatible versions.</p>
+<p>For Jacoco Offline Instrumentation, use powermock 1.6.6 or greater.</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">jacoco.version</span>&gt;</span>0.7.7.201606060606<span class="tag">&lt;/<span class="name">jacoco.version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">powermock.version</span>&gt;</span>1.7.1<span class="tag">&lt;/<span class="name">powermock.version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">junit.version</span>&gt;</span>4.12<span class="tag">&lt;/<span class="name">junit.version</span>&gt;</span></span><br></pre></td></tr></table></figure>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://snmaddula.github.io/enable-https-in-spring-boot-app/" data-id="cjtnag6wz000amcsnxkhdud6f" class="article-share-link">Share</a>
+      <a data-url="https://snmaddula.github.io/tuning-jacoco-for-powermock/" data-id="cjtweg81i000pygsn1rlceopa" class="article-share-link">Share</a>
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/HTTPS/">HTTPS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/SSL/">SSL</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Spring-Boot/">Spring Boot</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/TLS/">TLS</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JUnit/">JUnit</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JaCoCo/">JaCoCo</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/PowerMock/">PowerMock</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-git-basics-01" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/git-basics-01/" class="article-date">
+  <time datetime="2019-01-01T06:42:12.000Z" itemprop="datePublished">2019-Jan-01</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/git-basics-01/">Git basics for day to day work</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Welcome to Git basics!<br>This is a very basic touch up on everyday git usage.<br>Git is a <b>Distributed Version Control System (DVCS)</b>, created by <a href="https://en.wikipedia.org/wiki/Linus_Torvalds" target="_blank" rel="noopener">Linus Torvalds</a>, primarily to address collaboration issues.</p>
+<h4 id="I-CLONE-COMMANDS-git-clone"><a href="#I-CLONE-COMMANDS-git-clone" class="headerlink" title="I. CLONE COMMANDS: git clone"></a>I. CLONE COMMANDS: <code>git clone</code></h4><ol>
+<li><p>Clone a repository into a new directory</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git <span class="built_in">clone</span> &lt;URL&gt;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Clone a repository into a new custom directory  <code>myApp</code></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git <span class="built_in">clone</span> &lt;URL&gt; myApp</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Clone a specific branch <code>develop</code></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git <span class="built_in">clone</span> -b develop &lt;URL&gt;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Create a shallow clone with a history truncated to the specified number of commits</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git <span class="built_in">clone</span> &lt;URL&gt; --depth=2</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Create a shallow clone with a history after the specified time.</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git <span class="built_in">clone</span> &lt;URL&gt; --shallow-since=yyyy-mm-dd</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Clone by providing credentials in-line</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git <span class="built_in">clone</span> &lt;protocol&gt;://&lt;username&gt;:password@&lt;domain&gt;/repo-name.git --shallow-since=yyyy-mm-dd</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>In the above example,</p>
+<ul>
+<li><b>protocol</b> can be : <code>https</code>, <code>git</code>, <code>ssh</code>, <code>ftp</code></li>
+<li><b>username</b> and <b>password</b> are the credentials that has access to clone this repository.</li>
+<li><b>domain</b> is the git host.  Ex. <code>github</code> or <code>bitbucket</code> or <code>gitlab</code>, etc.</li>
+</ul>
+<p><br><hr><br></p>
+<h4 id="II-CHECKOUT-COMMANDS-git-checkouy"><a href="#II-CHECKOUT-COMMANDS-git-checkouy" class="headerlink" title="II. CHECKOUT COMMANDS: git checkouy"></a>II. CHECKOUT COMMANDS: <code>git checkouy</code></h4><h3 id="Checking-for-modifications-done-in-local"><a href="#Checking-for-modifications-done-in-local" class="headerlink" title="Checking for modifications done in local"></a>Checking for modifications done in local</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git status</span><br></pre></td></tr></table></figure>
+<h3 id="Adding-your-locally-changed-files-for-staging"><a href="#Adding-your-locally-changed-files-for-staging" class="headerlink" title="Adding your locally changed files for staging"></a>Adding your locally changed files for staging</h3><p>To add a specific file:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git add &lt;file-path&gt;</span><br></pre></td></tr></table></figure>
+<p>To add all the files at once:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ git add --all</span><br><span class="line"><span class="comment"># OR</span></span><br><span class="line">$ git add .</span><br></pre></td></tr></table></figure>
+<h3 id="Committing-the-changes-to-local-repository"><a href="#Committing-the-changes-to-local-repository" class="headerlink" title="Committing the changes to local repository"></a>Committing the changes to local repository</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git commit -m <span class="string">'my commit message'</span></span><br></pre></td></tr></table></figure>
+<h3 id="Pushing-the-changes-to-remote"><a href="#Pushing-the-changes-to-remote" class="headerlink" title="Pushing the changes to remote"></a>Pushing the changes to remote</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ git push</span><br><span class="line"><span class="comment"># OR</span></span><br><span class="line">$ git push origin master</span><br></pre></td></tr></table></figure>
+<h3 id="Pulling-the-latest-changes-from-remote"><a href="#Pulling-the-latest-changes-from-remote" class="headerlink" title="Pulling the latest changes from remote"></a>Pulling the latest changes from remote</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git pull</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://snmaddula.github.io/git-basics-01/" data-id="cjtweg814000cygsneirikiv9" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Git/">Git</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-ansible-awx-magic-lab-setup" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/ansible-awx-magic-lab-setup/" class="article-date">
+  <time datetime="2018-12-14T17:19:49.000Z" itemprop="datePublished">2018-Dec-14</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/ansible-awx-magic-lab-setup/">Ansible &amp; Ansible Tower (AWX) Lab Setup (PowerShell)</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Magic scripts to setup <b>Ansible &amp; Ansible Tower (AWX) Learner’s Lab</b> environment on a personal computer.</p>
+<h2 id="GOAL-Automate-Setup-of-AWX-learner’s-lab-setup"><a href="#GOAL-Automate-Setup-of-AWX-learner’s-lab-setup" class="headerlink" title="GOAL : Automate Setup of AWX learner’s lab setup."></a>GOAL : Automate Setup of AWX learner’s lab setup.</h2><h3 id="Tool-Stack"><a href="#Tool-Stack" class="headerlink" title="Tool Stack"></a>Tool Stack</h3><ul>
+<li><h5 id="Git-with-SSH-Linux-Utilities"><a href="#Git-with-SSH-Linux-Utilities" class="headerlink" title="Git ( with SSH + Linux Utilities)"></a>Git ( with SSH + Linux Utilities)</h5></li>
+<li><h5 id="VirtualBox-for-spinning-up-virtual-instances"><a href="#VirtualBox-for-spinning-up-virtual-instances" class="headerlink" title="VirtualBox ( for spinning up virtual instances)"></a>VirtualBox ( for spinning up virtual instances)</h5></li>
+<li><h5 id="Vagrant-for-provisioning-virtual-instances-using-boxes"><a href="#Vagrant-for-provisioning-virtual-instances-using-boxes" class="headerlink" title="Vagrant ( for provisioning virtual instances using boxes )"></a>Vagrant ( for provisioning virtual instances using boxes )</h5></li>
+<li><h5 id="Docker-for-running-containers-needed-by-AWX"><a href="#Docker-for-running-containers-needed-by-AWX" class="headerlink" title="Docker ( for running containers needed by AWX )"></a>Docker ( for running containers needed by AWX )</h5></li>
+</ul>
+<h3 id="Approach"><a href="#Approach" class="headerlink" title="Approach"></a>Approach</h3><p>The series of steps involved in the script are illustrated in the below flow chart.</p>
+<p><img src="/images/awx/AWX-SETUP-1.JPG" alt=""></p>
+<h3 id="Get-Started"><a href="#Get-Started" class="headerlink" title="Get Started"></a>Get Started</h3><p>To get started with the setup, download the below steps.</p>
+<p><a href="/pf/AnsibleMagicLab_Pre_Reboot.ps1">AnsibleMagicLab_Pre_Reboot.ps1</a></p>
+<p><a href="/pf/AnsibleMagicLab_Post_Reboot.ps1">AnsibleMagicLab_Post_Reboot.ps1</a></p>
+<h3 id="Launch-Sequence"><a href="#Launch-Sequence" class="headerlink" title="Launch Sequence"></a>Launch Sequence</h3><p>Open Command Prompt in ‘Administrator’ mode.<br>Go to the scripts download location and execute the below command.</p>
+<h3 id="1-Pre-Reboot-Setup"><a href="#1-Pre-Reboot-Setup" class="headerlink" title="[1] Pre-Reboot Setup"></a>[1] Pre-Reboot Setup</h3><pre><code>powershell.exe -ExecutionPolicy Bypass -File AnsibleMagicLab_Pre_Reboot.ps1
+</code></pre><h6 id="On-Successful-installation-of-Vagrant-the-machine-should-reboot"><a href="#On-Successful-installation-of-Vagrant-the-machine-should-reboot" class="headerlink" title="On Successful installation of Vagrant, the machine should reboot."></a>On Successful installation of Vagrant, the machine should reboot.</h6><p>Once the machine is up, Open Command Prompt in ‘Administrator’ mode, go to the scripts download location and execute the below command.</p>
+<h3 id="1-Post-Reboot-Setup"><a href="#1-Post-Reboot-Setup" class="headerlink" title="[1] Post-Reboot Setup"></a>[1] Post-Reboot Setup</h3><pre><code>powershell.exe -ExecutionPolicy Bypass -File AnsibleMagicLab_Post_Reboot.ps1
+</code></pre><p>Done that ?<br>Now you’ll be able to access your Ansible Tower (AWX) web interface using the Ip of the Vagrant machine.</p>
+<p> Open up a browser and provide the IP <code>&lt;IP of AWX Instance&gt;</code> and hit Enter. You’ll get to see a page like below.</p>
+<p><img src="/images/awx/AWX_LOGIN.PNG" alt="AWX Web Interface Login Screen"></p>
+<h4 id="CREDENTIALS-for-AWX-Login"><a href="#CREDENTIALS-for-AWX-Login" class="headerlink" title="CREDENTIALS for AWX Login"></a>CREDENTIALS for AWX Login</h4><pre><code>username : admin
+password : password
+</code></pre><p>On successful login, you’ll see a dashboard similar to the below one.</p>
+<p><img src="/images/awx/AWX_DASHBOARD.PNG" alt="AWX Web Interface Fresh Dashboard"></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://snmaddula.github.io/ansible-awx-magic-lab-setup/" data-id="cjtweg80j0001ygsnypcxfp3i" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/AWX/">AWX</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Ansible/">Ansible</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Powershell/">Powershell</a></li></ul>
 
     </footer>
   </div>
@@ -118,7 +258,7 @@
 
   <nav id="page-nav">
     
-    <a class="extend prev" rel="prev" href="/page/3/">&laquo; Prev</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><a class="page-number" href="/page/6/">6</a><span class="space">&hellip;</span><a class="page-number" href="/page/17/">17</a><a class="extend next" rel="next" href="/page/5/">Next &raquo;</a>
+    <a class="extend prev" rel="prev" href="/page/3/">&laquo; Prev</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><a class="page-number" href="/page/6/">6</a><a class="extend next" rel="next" href="/page/5/">Next &raquo;</a>
   </nav>
 
 </section>
@@ -155,7 +295,7 @@
     <!-- <div class="widget" style="background: #025A5B"> -->
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud" style="background: #025A5B">
-      <a href="/tags/AWX/" style="font-size: 10px;">AWX</a> <a href="/tags/Angular/" style="font-size: 16.67px;">Angular</a> <a href="/tags/Ansible/" style="font-size: 13.33px;">Ansible</a> <a href="/tags/Apache-POI/" style="font-size: 10px;">Apache POI</a> <a href="/tags/CRUD/" style="font-size: 13.33px;">CRUD</a> <a href="/tags/Camunda/" style="font-size: 10px;">Camunda</a> <a href="/tags/Firewall/" style="font-size: 10px;">Firewall</a> <a href="/tags/Git/" style="font-size: 13.33px;">Git</a> <a href="/tags/HTTPS/" style="font-size: 13.33px;">HTTPS</a> <a href="/tags/JDBC/" style="font-size: 13.33px;">JDBC</a> <a href="/tags/JPA/" style="font-size: 10px;">JPA</a> <a href="/tags/JUnit/" style="font-size: 10px;">JUnit</a> <a href="/tags/JWT/" style="font-size: 10px;">JWT</a> <a href="/tags/JaCoCo/" style="font-size: 10px;">JaCoCo</a> <a href="/tags/Java/" style="font-size: 13.33px;">Java</a> <a href="/tags/Linux/" style="font-size: 10px;">Linux</a> <a href="/tags/Microservices/" style="font-size: 10px;">Microservices</a> <a href="/tags/Orchestration/" style="font-size: 10px;">Orchestration</a> <a href="/tags/PowerMock/" style="font-size: 10px;">PowerMock</a> <a href="/tags/PowerShell/" style="font-size: 10px;">PowerShell</a> <a href="/tags/Powershell/" style="font-size: 10px;">Powershell</a> <a href="/tags/Quick-Trick/" style="font-size: 13.33px;">Quick Trick</a> <a href="/tags/SSH/" style="font-size: 10px;">SSH</a> <a href="/tags/SSL/" style="font-size: 13.33px;">SSL</a> <a href="/tags/Security/" style="font-size: 10px;">Security</a> <a href="/tags/Spring-Boot/" style="font-size: 20px;">Spring Boot</a> <a href="/tags/TLS/" style="font-size: 13.33px;">TLS</a> <a href="/tags/WinRm/" style="font-size: 10px;">WinRm</a> <a href="/tags/Windows/" style="font-size: 10px;">Windows</a> <a href="/tags/oc/" style="font-size: 10px;">oc</a> <a href="/tags/openshift/" style="font-size: 10px;">openshift</a>
+      <a href="/tags/AWX/" style="font-size: 10px;">AWX</a> <a href="/tags/Angular/" style="font-size: 16.67px;">Angular</a> <a href="/tags/Ansible/" style="font-size: 13.33px;">Ansible</a> <a href="/tags/Apache-POI/" style="font-size: 10px;">Apache POI</a> <a href="/tags/CRUD/" style="font-size: 13.33px;">CRUD</a> <a href="/tags/Camunda/" style="font-size: 10px;">Camunda</a> <a href="/tags/Firewall/" style="font-size: 10px;">Firewall</a> <a href="/tags/Git/" style="font-size: 13.33px;">Git</a> <a href="/tags/HTTPS/" style="font-size: 13.33px;">HTTPS</a> <a href="/tags/JDBC/" style="font-size: 13.33px;">JDBC</a> <a href="/tags/JPA/" style="font-size: 10px;">JPA</a> <a href="/tags/JUnit/" style="font-size: 10px;">JUnit</a> <a href="/tags/JWT/" style="font-size: 10px;">JWT</a> <a href="/tags/JaCoCo/" style="font-size: 10px;">JaCoCo</a> <a href="/tags/Java/" style="font-size: 13.33px;">Java</a> <a href="/tags/Linux/" style="font-size: 10px;">Linux</a> <a href="/tags/Logging/" style="font-size: 10px;">Logging</a> <a href="/tags/Microservices/" style="font-size: 10px;">Microservices</a> <a href="/tags/Orchestration/" style="font-size: 10px;">Orchestration</a> <a href="/tags/PowerMock/" style="font-size: 10px;">PowerMock</a> <a href="/tags/PowerShell/" style="font-size: 10px;">PowerShell</a> <a href="/tags/Powershell/" style="font-size: 10px;">Powershell</a> <a href="/tags/Quick-Trick/" style="font-size: 13.33px;">Quick Trick</a> <a href="/tags/SSH/" style="font-size: 10px;">SSH</a> <a href="/tags/SSL/" style="font-size: 13.33px;">SSL</a> <a href="/tags/Security/" style="font-size: 10px;">Security</a> <a href="/tags/Spring-Boot/" style="font-size: 20px;">Spring Boot</a> <a href="/tags/TLS/" style="font-size: 13.33px;">TLS</a> <a href="/tags/WinRm/" style="font-size: 10px;">WinRm</a> <a href="/tags/Windows/" style="font-size: 10px;">Windows</a> <a href="/tags/oc/" style="font-size: 10px;">oc</a> <a href="/tags/openshift/" style="font-size: 10px;">openshift</a>
     </div>
   </div>
 
@@ -165,7 +305,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget" style="background: #025A5B">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">February 2019</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">January 2019</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">December 2018</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">September 2018</a><span class="archive-list-count">2</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">February 2019</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">January 2019</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">December 2018</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">September 2018</a><span class="archive-list-count">2</span></li></ul>
     </div>
   </div>
 
@@ -176,6 +316,10 @@
     <h3 class="widget-title">Recent Posts</h3>
     <div class="widget" style="background: #025A5B">
       <ul>
+        
+          <li>
+            <a href="/spring-boot-execution-time-logging/">Spring Boot : Logging Execution Time</a>
+          </li>
         
           <li>
             <a href="/spring-boot-data-jdbc-crud/">Spring Boot DATA JDBC CRUD Web App</a>
@@ -191,10 +335,6 @@
         
           <li>
             <a href="/enable-https-in-spring-boot-app/">Enable HTTPS in Spring Boot Application</a>
-          </li>
-        
-          <li>
-            <a href="/spring-boot-file-download-via-angular-service-02/">Spring Boot File Download via Angular7 PART 02</a>
           </li>
         
       </ul>

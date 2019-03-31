@@ -5,20 +5,20 @@
   
 
   
-  <title>Enable HTTPS in Spring Boot Application | SNMADDULA</title>
+  <title>Spring Boot : Logging Execution Time | SNMADDULA</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Video guide of the process     Step 1 : Generate SSL CertificateTo enable HTTPS, we would require a SSL certificate. This certificate can be obtained from a Certificate Authority.Also, we can generate">
-<meta name="keywords" content="SSL,TLS,HTTPS,Spring Boot">
+  <meta name="description" content="Create a Simple Spring Boot App.As a pre-requisite, we need to have a basic microservice with few endpoints. In the earlier post Spring Boot JPA Crud Web App, we have implemented a simple microservice">
+<meta name="keywords" content="Spring Boot,Logging">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Enable HTTPS in Spring Boot Application">
-<meta property="og:url" content="https://snmaddula.github.io/enable-https-in-spring-boot-app/index.html">
+<meta property="og:title" content="Spring Boot : Logging Execution Time">
+<meta property="og:url" content="https://snmaddula.github.io/spring-boot-execution-time-logging/index.html">
 <meta property="og:site_name" content="SNMADDULA">
-<meta property="og:description" content="Video guide of the process     Step 1 : Generate SSL CertificateTo enable HTTPS, we would require a SSL certificate. This certificate can be obtained from a Certificate Authority.Also, we can generate">
+<meta property="og:description" content="Create a Simple Spring Boot App.As a pre-requisite, we need to have a basic microservice with few endpoints. In the earlier post Spring Boot JPA Crud Web App, we have implemented a simple microservice">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-03-12T09:15:08.233Z">
+<meta property="og:updated_time" content="2019-03-31T04:02:57.722Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Enable HTTPS in Spring Boot Application">
-<meta name="twitter:description" content="Video guide of the process     Step 1 : Generate SSL CertificateTo enable HTTPS, we would require a SSL certificate. This certificate can be obtained from a Certificate Authority.Also, we can generate">
+<meta name="twitter:title" content="Spring Boot : Logging Execution Time">
+<meta name="twitter:description" content="Create a Simple Spring Boot App.As a pre-requisite, we need to have a basic microservice with few endpoints. In the earlier post Spring Boot JPA Crud Web App, we have implemented a simple microservice">
   
     <link rel="alternate" href="/atom.xml" title="SNMADDULA" type="application/atom+xml">
   
@@ -69,10 +69,10 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main"><article id="post-enable-https-in-spring-boot-app" class="article article-type-post" itemscope="" itemprop="blogPost">
+        <section id="main"><article id="post-spring-boot-execution-time-logging" class="article article-type-post" itemscope="" itemprop="blogPost">
   <div class="article-meta">
-    <a href="/enable-https-in-spring-boot-app/" class="article-date">
-  <time datetime="2019-03-11T08:38:36.000Z" itemprop="datePublished">2019-Mar-11</time>
+    <a href="/spring-boot-execution-time-logging/" class="article-date">
+  <time datetime="2019-03-31T03:39:34.000Z" itemprop="datePublished">2019-Mar-31</time>
 </a>
     
   </div>
@@ -83,7 +83,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      Enable HTTPS in Spring Boot Application
+      Spring Boot : Logging Execution Time
     </h1>
   
 
@@ -91,24 +91,29 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h3 id="Video-guide-of-the-process"><a href="#Video-guide-of-the-process" class="headerlink" title="Video guide of the process"></a>Video guide of the process</h3><div class="iframe_container"><br>  <iframe src="https://www.youtube.com/embed/H-pn7NrEssM" frameborder="0" allowfullscreen="allowfullscreen"> </iframe><br></div>
+        <h3 id="Create-a-Simple-Spring-Boot-App"><a href="#Create-a-Simple-Spring-Boot-App" class="headerlink" title="Create a Simple Spring Boot App."></a>Create a Simple Spring Boot App.</h3><p>As a pre-requisite, we need to have a basic microservice with few endpoints.</p>
+<p>In the earlier post <a href="https://snmaddula.github.io/spring-boot-data-jpa-crud/">Spring Boot JPA Crud Web App</a>, we have implemented a simple microservice with basic CRUD functionality.</p>
+<p>In this post, we shall see how to clock the execution time of a request within a microservice application.</p>
+<h4 id="Video-guide-of-the-process"><a href="#Video-guide-of-the-process" class="headerlink" title="Video guide of the process"></a>Video guide of the process</h4><div class="iframe_container"><br>  <iframe src="https://www.youtube.com/embed/QcDpu2Vh_jo" frameborder="0" allowfullscreen="allowfullscreen"> </iframe><br></div>
 
-<h4 id="Step-1-Generate-SSL-Certificate"><a href="#Step-1-Generate-SSL-Certificate" class="headerlink" title="Step 1 : Generate SSL Certificate"></a>Step 1 : Generate SSL Certificate</h4><p>To enable HTTPS, we would require a SSL certificate. This certificate can be obtained from a Certificate Authority.<br>Also, we can generate a self-signed certificate using java <code>keytool</code> utility.</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">keytool -genkey -noprompt -<span class="built_in">alias</span> chocolate \</span><br><span class="line">-storetype PKCS12 -keyalg RSA -keysize 2048 -validity 365 \</span><br><span class="line">-keystore chocolate.p12 -keypass chocolate -storepass chocolate \</span><br><span class="line">-dname <span class="string">"CN=snmaddula, OU=security, O=snmaddula, L=waverock, S=Hyderabad, C=IN"</span></span><br></pre></td></tr></table></figure>
-<p>This will generate a PKCS12 <code>keystore</code> file as <b>chocolate.p12</b> with the newly generated certificate.</p>
-<h4 id="Step-2-Configure-SSL-connector-for-Server"><a href="#Step-2-Configure-SSL-connector-for-Server" class="headerlink" title="Step 2 : Configure SSL connector for Server"></a>Step 2 : Configure SSL connector for Server</h4><p>To enable HTTPS in our application, we need to configure few ssl properties binding the application server with the keystore that was generated in the previous step.</p>
-<p>Add the below configuration to your <code>application.yml</code><br><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">server:</span></span><br><span class="line"><span class="attr">  port:</span> <span class="number">8443</span></span><br><span class="line"></span><br><span class="line"><span class="attr">  ssl:</span></span><br><span class="line"><span class="attr">    key-store:</span> <span class="attr">classpath:chocolate.p12</span></span><br><span class="line"><span class="attr">    key-alias:</span> <span class="string">chocolate</span></span><br><span class="line"><span class="attr">    key-store-password:</span> <span class="string">chocolate</span></span><br><span class="line"><span class="attr">    key-store-type:</span> <span class="string">PKCS12</span></span><br></pre></td></tr></table></figure></p>
-<p>That’s all you need to enable HTTPS in a spring boot application.</p>
-<p>You can now access the application with the endpoint: <a href="https://localhost:8443" target="_blank" rel="noopener">https://localhost:8443</a></p>
-<p>You would need to add the Security Certificate Exception in this was a self-signed certificate.</p>
+<h6 id="nbsp"><a href="#nbsp" class="headerlink" title="&nbsp;"></a>&nbsp;</h6><p>For instance, we have few <code>Controller</code> or <code>RestController</code> classes, each having some <code>RequestMapping</code> methods. Now, how do we track the time taken by a specific endpoint for processing the request.</p>
+<p>This can be easily achieved by registering a <code>Filter</code> that intercepts all the desired endpoints or url-patterns and clock the execution time.</p>
+<p>Let’s register a <code>OncePerRequestFilter</code> through <code>FilterRegistrationBean</code>.</p>
+<p><b>OncePerRequestFilter</b> is an abstract class with one default method <code>doFilterInternal</code>, where we need to add our clock logic.</p>
+<p>Any servlet filter that wraps the <code>request</code>, should be configured with an order that is less than or equal to <code>0</code>, which is <code>OrderedFilter.REQUEST_WRAPPER_FILTER_MAX_ORDER</code>.</p>
+<p>Configure the execution time logging filter bean as shown below.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Bean</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> FilterRegistrationBean&lt;OncePerRequestFilter&gt; <span class="title">executionTimeLoggingFilter</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">new</span> FilterRegistrationBean&lt;OncePerRequestFilter&gt;() &#123;&#123;</span><br><span class="line">  setOrder(OrderedFilter.REQUEST_WRAPPER_FILTER_MAX_ORDER);</span><br><span class="line">  setFilter(<span class="keyword">new</span> OncePerRequestFilter() &#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">doFilterInternal</span><span class="params">(HttpServletRequest req, HttpServletResponse res,</span></span></span><br><span class="line"><span class="function"><span class="params">    FilterChain chain)</span> <span class="keyword">throws</span> ServletException, IOException </span>&#123;</span><br><span class="line">        StopWatch watch = <span class="keyword">new</span> StopWatch();</span><br><span class="line">        watch.start();</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">          chain.doFilter(req, res);</span><br><span class="line">        &#125;<span class="keyword">finally</span> &#123;</span><br><span class="line">          watch.stop();</span><br><span class="line">          log.info(<span class="string">"REQUEST: &#123;&#125; completed within &#123;&#125; ms"</span>,</span><br><span class="line">                  getUriWithMethodAndQuery(req), watch.getTotalTimeMillis());</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line"></span><br><span class="line">      <span class="function"><span class="keyword">private</span> String <span class="title">getUriWithMethodAndQuery</span><span class="params">(HttpServletRequest req)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> req.getMethod() + <span class="string">": "</span> + req.getRequestURI() +</span><br><span class="line">         (StringUtils.hasText(req.getQueryString()) ? <span class="string">"?"</span> + req.getQueryString() : <span class="string">""</span>);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">  &#125;&#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>With this, you are done with configuring the execution time logging filter bean.</p>
+<p>Now, if you access any endpoints in your application, you will get output logging that includes the execution time as follows:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">REQUEST: GET: /products completed within 174 ms</span><br><span class="line">REQUEST: POST: /products completed within 8 ms</span><br><span class="line">REQUEST: GET: /products completed within 4 ms</span><br><span class="line">REQUEST: GET: /products/2 completed within 21 ms</span><br><span class="line">REQUEST: GET: /products/2?alpha=beta&amp;gamma=delta completed within 4 ms</span><br></pre></td></tr></table></figure>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://snmaddula.github.io/enable-https-in-spring-boot-app/" data-id="cjtweg80v0006ygsns1wcu7er" class="article-share-link">Share</a>
+      <a data-url="https://snmaddula.github.io/spring-boot-execution-time-logging/" data-id="cjtweg81f000mygsndt7z3q8b" class="article-share-link">Share</a>
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/HTTPS/">HTTPS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/SSL/">SSL</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Spring-Boot/">Spring Boot</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/TLS/">TLS</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Logging/">Logging</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Spring-Boot/">Spring Boot</a></li></ul>
 
     </footer>
   </div>
@@ -116,19 +121,10 @@
     
 <nav id="article-nav">
   
-    <a href="/configure-https-redirect-connector-spring-boot/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Newer</strong>
-      <div class="article-nav-title">
-        
-          Configure HTTP to HTTPS Redirect in Spring Boot
-        
-      </div>
-    </a>
   
-  
-    <a href="/spring-boot-file-download-via-angular-service-02/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/spring-boot-data-jdbc-crud/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">Spring Boot File Download via Angular7 PART 02</div>
+      <div class="article-nav-title">Spring Boot DATA JDBC CRUD Web App</div>
     </a>
   
 </nav>

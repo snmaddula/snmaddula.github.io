@@ -66,10 +66,10 @@
       <div class="outer">
         <section id="main">
   
-    <article id="post-configure-https-redirect-connector-spring-boot" class="article article-type-post" itemscope="" itemprop="blogPost">
+    <article id="post-spring-boot-file-download-via-angular-service-01" class="article article-type-post" itemscope="" itemprop="blogPost">
   <div class="article-meta">
-    <a href="/configure-https-redirect-connector-spring-boot/" class="article-date">
-  <time datetime="2019-03-12T08:38:36.000Z" itemprop="datePublished">2019-Mar-12</time>
+    <a href="/spring-boot-file-download-via-angular-service-01/" class="article-date">
+  <time datetime="2019-02-18T06:50:57.000Z" itemprop="datePublished">2019-Feb-18</time>
 </a>
     
   </div>
@@ -80,7 +80,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/configure-https-redirect-connector-spring-boot/">Configure HTTP to HTTPS Redirect in Spring Boot</a>
+      <a class="article-title" href="/spring-boot-file-download-via-angular-service-01/">Spring Boot File Download via Angular7 PART 01</a>
     </h1>
   
 
@@ -88,27 +88,134 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>In the <a href="https://snmaddula.github.io/enable-https-in-spring-boot-app">previous post</a>, we have configured HTTPS in Spring Boot application. Today, we shall see how we can accept HTTP requests and redirect them to HTTPS.</p>
-<h3 id="Video-guide-of-the-process"><a href="#Video-guide-of-the-process" class="headerlink" title="Video guide of the process"></a>Video guide of the process</h3><div class="iframe_container"><br>  <iframe src="https://www.youtube.com/embed/I4Z_yzqILwA" frameborder="0" allowfullscreen="allowfullscreen"> </iframe><br></div>
+        <h3 id="Create-a-Simple-Spring-Boot-App"><a href="#Create-a-Simple-Spring-Boot-App" class="headerlink" title="Create a Simple Spring Boot App."></a>Create a Simple Spring Boot App.</h3><p>As a pre-requisite, we need to implement a service with file download feature.</p>
+<h4 id="Video-guide-of-the-spring-boot-process"><a href="#Video-guide-of-the-spring-boot-process" class="headerlink" title="Video guide of the spring-boot process"></a>Video guide of the spring-boot process</h4><div class="iframe_container"><br>  <iframe src="https://www.youtube.com/embed/xXASGlVZX-w" frameborder="0" allowfullscreen="allowfullscreen"> </iframe><br></div>
 
-<h4 id="Step-1-Configure-Redirect-Connector"><a href="#Step-1-Configure-Redirect-Connector" class="headerlink" title="Step 1 : Configure Redirect Connector."></a>Step 1 : Configure Redirect Connector.</h4><p>Configure a connector, that will listen on port 80 for HTTP requests and redirect them to HTTPS on port 443, where HTTPS connector configured by Spring is listening to.</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> Connector <span class="title">redirectConnector</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> Connector(Http11NioProtocol.class.getName()) &#123;&#123;</span><br><span class="line">      setScheme(<span class="string">"http"</span>);</span><br><span class="line">      setPort(<span class="number">80</span>);</span><br><span class="line">      setSecure(<span class="keyword">false</span>);</span><br><span class="line">      setRedirectPort(<span class="number">443</span>);</span><br><span class="line">    &#125;&#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h4 id="Step-2-Configure-TomcatServletWebServerFactory-Bean"><a href="#Step-2-Configure-TomcatServletWebServerFactory-Bean" class="headerlink" title="Step 2 : Configure TomcatServletWebServerFactory Bean"></a>Step 2 : Configure TomcatServletWebServerFactory Bean</h4><p>Now, we need to configure <code>TomcatServletWebServerFactory</code>, which is used by Spring Boot to configure the embedded tomcat server.</p>
-<p>Override the <code>postProcessContext(Context context)</code> method and add the securityConstraints of <b>CONFIDENTIAL</b> for all the requests.</p>
-<p>Finally, we need to expose this factory as a Bean, so that Spring Boot uses it to create the embedded tomcat server.</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Bean</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> TomcatServletWebServerFactory <span class="title">servletContainer</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">new</span> TomcatServletWebServerFactory() &#123;</span><br><span class="line">      <span class="meta">@Override</span></span><br><span class="line">      <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">postProcessContext</span><span class="params">(Context context)</span> </span>&#123;</span><br><span class="line">      	SecurityConstraint securityConstraint = <span class="keyword">new</span> SecurityConstraint();</span><br><span class="line">      	securityConstraint.setUserConstraint(<span class="string">"CONFIDENTIAL"</span>);</span><br><span class="line">      	SecurityCollection collection = <span class="keyword">new</span> SecurityCollection();</span><br><span class="line">      	collection.addPattern(<span class="string">"/*"</span>);</span><br><span class="line">      	securityConstraint.addCollection(collection);</span><br><span class="line">      	context.addConstraint(securityConstraint);</span><br><span class="line">      &#125;</span><br><span class="line">    &#123;</span><br><span class="line">    	getAdditionalTomcatConnectors().add(<span class="number">0</span>, redirectConnector());</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h4 id="Step-3-Update-TLS-Port-Optional"><a href="#Step-3-Update-TLS-Port-Optional" class="headerlink" title="Step 3 : Update TLS Port (Optional)"></a>Step 3 : Update TLS Port (Optional)</h4><p>Update <code>server.port</code> to <code>443</code> in your <code>application</code> properties file as <code>443</code> is the default TLS port.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">server.port=443</span><br></pre></td></tr></table></figure></p>
-<p>With this, the redirect connector configuration is done and you can verify by accessing the application using HTTP endpoint.</p>
-<p>Go to your browser, type <code>localhost</code> and hit enter.</p>
-<p>This will be redirected to <a href="https://localhost" target="_blank" rel="noopener">https://localhost</a> and you will see the <code>Hello TLS / SSL</code> response.</p>
+<h6 id="nbsp"><a href="#nbsp" class="headerlink" title="&nbsp;"></a>&nbsp;</h6><p>So I composed the below class, which is a complete spring boot application, with file download functionality at its simplest form.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> snmaddula.quicktrick.ng;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="keyword">static</span> java.nio.file.Files.readAllBytes;</span><br><span class="line"><span class="keyword">import</span> <span class="keyword">static</span> java.nio.file.Paths.get;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> javax.servlet.http.HttpServletResponse;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.springframework.boot.SpringApplication;</span><br><span class="line"><span class="keyword">import</span> org.springframework.boot.autoconfigure.SpringBootApplication;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.bind.annotation.GetMapping;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.bind.annotation.RestController;</span><br><span class="line"></span><br><span class="line"><span class="meta">@RestController</span></span><br><span class="line"><span class="meta">@SpringBootApplication</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">FileDownloadApp</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">  <span class="meta">@GetMapping</span>(<span class="string">"/download"</span>)</span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">downloadFile</span><span class="params">(String fileName, HttpServletResponse res)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">    res.setHeader(<span class="string">"Content-Disposition"</span>, <span class="string">"attachment; filename="</span> + fileName);</span><br><span class="line">    res.getOutputStream().write(contentOf(fileName));</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">private</span> <span class="keyword">byte</span>[] contentOf(String fileName) <span class="keyword">throws</span> Exception &#123;</span><br><span class="line">    <span class="keyword">return</span> readAllBytes(get(getClass().getClassLoader().getResource(fileName).toURI()));</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">    SpringApplication.run(FileDownloadApp.class, args);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>The only dependency that is needed for this boot application is <code>spring-boot-starter-web</code>, add it to your pom.xml</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-web<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>For testing purpose, we need some files to be available for download.<br>So place some files in your application classpath under <code>src/main/resources</code> like below: (.xls, .xlsx, .pdf, etc)</p>
+<p><img src="/images/p4/ng-file-download.png" alt=""></p>
+<p>With this we are done with the server side / spring boot side of the application. Now, let us write the Angular side implementation.</p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://snmaddula.github.io/configure-https-redirect-connector-spring-boot/" data-id="cjtnag6wj0002mcsnbqftchkg" class="article-share-link">Share</a>
+      <a data-url="https://snmaddula.github.io/spring-boot-file-download-via-angular-service-01/" data-id="cjtweg81c000kygsnnqznfh5o" class="article-share-link">Share</a>
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/HTTPS/">HTTPS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/SSL/">SSL</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Spring-Boot/">Spring Boot</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/TLS/">TLS</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Angular/">Angular</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Spring-Boot/">Spring Boot</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-decode-jwt-payload" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/decode-jwt-payload/" class="article-date">
+  <time datetime="2019-02-11T09:11:09.000Z" itemprop="datePublished">2019-Feb-11</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/decode-jwt-payload/">Java Quick Trick - Decode JWT Payload</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>A quick guide on programmatically decoding a JSON Web Token’s payload.</p>
+<p>JWT basically consists of <b>three</b> parts separated by dots <code>(.)</code></p>
+<ul>
+<li>Header</li>
+<li>Payload</li>
+<li>Signing Key</li>
+</ul>
+<p><b>The Header</b> basically consists the <code>type</code> of the token which is <code>JWT</code> and the algorithm that is used to sign this token.</p>
+<p>The second part of the token is the <b>payload</b>, which consists of the claims i.e. the information about the user.</p>
+<p>The <b>Base64 URL encoded</b> form of the Header and Payload respectively form the 1st and 2nd parts of Json Web Token.</p>
+<h3 id="Video-guide-of-the-process"><a href="#Video-guide-of-the-process" class="headerlink" title="Video guide of the process"></a>Video guide of the process</h3><div class="iframe_container"><br>  <iframe src="https://www.youtube.com/embed/rKHpPJVGC3g" frameborder="0" allowfullscreen="allowfullscreen"> </iframe><br></div>
+
+<h6 id="nbsp"><a href="#nbsp" class="headerlink" title="&nbsp;"></a>&nbsp;</h6><h3 id="Steps-involved"><a href="#Steps-involved" class="headerlink" title="Steps involved:"></a>Steps involved:</h3><p>Add <code>commons-codec</code> dependency from Apache in pom.xml<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>commons-codec<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>commons-codec<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.11<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">String token = <span class="string">"&lt;YOUR JWT TOKEN&gt;"</span>;</span><br></pre></td></tr></table></figure>
+<p>Split the token based on period <code>.</code> and extract the payload part from the token.<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">String payload = token.split(<span class="string">"\\."</span>)[<span class="number">1</span>];</span><br></pre></td></tr></table></figure></p>
+<p>Use <code>Base64</code> utility to decode the payload.<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">String payloadValue = <span class="keyword">new</span> String (Base64.decodeBase64(payload));</span><br></pre></td></tr></table></figure></p>
+<p>If you want to use a specific charset like UTF-8, you can use the below snippet.<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">try</span> &#123;</span><br><span class="line">  String payloadValue = <span class="keyword">new</span> String(Base64.decodeBase64(payload), <span class="string">"UTF-8"</span>);</span><br><span class="line">&#125;<span class="keyword">catch</span>(UnsupportedEncodingException ex) &#123;</span><br><span class="line">  System.err.println(ex.getMessage());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p><b>Note:</b> Make sure to import the <code>Base64</code> from the package <code>org.apache.commons.codec.binary.Base64</code>.</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://snmaddula.github.io/decode-jwt-payload/" data-id="cjtweg80z0009ygsn6zy8ewui" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JWT/">JWT</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/">Java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Quick-Trick/">Quick Trick</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Security/">Security</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-resultset-to-excel" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/resultset-to-excel/" class="article-date">
+  <time datetime="2019-02-08T08:01:51.000Z" itemprop="datePublished">2019-Feb-08</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/resultset-to-excel/">Java Quick Trick - Transform JDBC ResultSet to Excel WorkBook</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>A quick guide on generating an excel workbook with the output from an SQL query.</p>
+<h3 id="Video-guide-of-the-process"><a href="#Video-guide-of-the-process" class="headerlink" title="Video guide of the process"></a>Video guide of the process</h3><div class="iframe_container"><br>  <iframe src="https://www.youtube.com/embed/mXOeGJuXijc" frameborder="0" allowfullscreen="allowfullscreen"> </iframe><br></div>
+
+<h6 id="nbsp"><a href="#nbsp" class="headerlink" title="&nbsp;"></a>&nbsp;</h6><h3 id="Follow-the-below-steps"><a href="#Follow-the-below-steps" class="headerlink" title="Follow the below steps"></a>Follow the below steps</h3><p>Add <a href="https://poi.apache.org/" target="_blank" rel="noopener">Apache POI</a> dependencies to your pom.xml</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.apache.poi<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>poi<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">version</span>&gt;</span>4.0.1<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.apache.poi<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>poi-ooxml<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">version</span>&gt;</span>4.0.1<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>Create a workbook and add the header row.<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">try</span> (Workbook book = <span class="keyword">new</span> XSSFWorkbook()) &#123;</span><br><span class="line">  Sheet sheet = book.createSheet();</span><br><span class="line">  Row header = sheet.createRow(<span class="number">0</span>);  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>Extract columns from the ResultSet.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">ResultSetMetaData rsmd = rs.getMetaData();</span><br><span class="line">List&lt;String&gt; columns = <span class="keyword">new</span> ArrayList&lt;String&gt;() &#123;&#123;</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= rsmd.getColumnCount(); i++)</span><br><span class="line">      add(rsmd.getColumnLabel(i));</span><br><span class="line">&#125;&#125;;</span><br></pre></td></tr></table></figure>
+<p>Populate the header row with the extracted column names.<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; columns.size(); i++) &#123;</span><br><span class="line">  Cell cell = header.createCell(i);</span><br><span class="line">  cell.setCellValue(columns.get(i));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>Extract the rows from the <code>ResultSet</code> and populate the workbook.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> rowIndex = <span class="number">0</span>;</span><br><span class="line"><span class="keyword">while</span> (rs.next()) &#123;</span><br><span class="line">  Row row = sheet.createRow(++rowIndex);</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; columns.size(); i++) &#123;</span><br><span class="line">    Cell cell = row.createCell(i);</span><br><span class="line">    <span class="comment">// if you have complex values like Date, then use cell formatter.</span></span><br><span class="line">    cell.setCellValue(Objects.toString(rs.getObject(columns.get(i)), <span class="string">""</span>));</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>Writing the excel workbook to filesystem.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">try</span> (FileOutputStream fos = <span class="keyword">new</span> FileOutputStream(<span class="string">"FILE_PATH"</span>)) &#123;</span><br><span class="line">  book.write(fos);  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>You can download this entire class - <a href="/pf/ResultSetToExcel.java" target="_blank">ResultSetToExcel.java</a>, which is readily usable.</p>
+<p>That’s all.</p>
+<p>If you have any queries, please do reach out to me via email / phone.</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://snmaddula.github.io/resultset-to-excel/" data-id="cjtweg819000hygsn6hy3f3qa" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Apache-POI/">Apache POI</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JDBC/">JDBC</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/">Java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Quick-Trick/">Quick Trick</a></li></ul>
 
     </footer>
   </div>
@@ -121,7 +228,7 @@
 
   <nav id="page-nav">
     
-    <a class="extend prev" rel="prev" href="/page/2/">&laquo; Prev</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><span class="space">&hellip;</span><a class="page-number" href="/page/17/">17</a><a class="extend next" rel="next" href="/page/4/">Next &raquo;</a>
+    <a class="extend prev" rel="prev" href="/page/2/">&laquo; Prev</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><a class="page-number" href="/page/6/">6</a><a class="extend next" rel="next" href="/page/4/">Next &raquo;</a>
   </nav>
 
 </section>
@@ -158,7 +265,7 @@
     <!-- <div class="widget" style="background: #025A5B"> -->
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud" style="background: #025A5B">
-      <a href="/tags/AWX/" style="font-size: 10px;">AWX</a> <a href="/tags/Angular/" style="font-size: 16.67px;">Angular</a> <a href="/tags/Ansible/" style="font-size: 13.33px;">Ansible</a> <a href="/tags/Apache-POI/" style="font-size: 10px;">Apache POI</a> <a href="/tags/CRUD/" style="font-size: 13.33px;">CRUD</a> <a href="/tags/Camunda/" style="font-size: 10px;">Camunda</a> <a href="/tags/Firewall/" style="font-size: 10px;">Firewall</a> <a href="/tags/Git/" style="font-size: 13.33px;">Git</a> <a href="/tags/HTTPS/" style="font-size: 13.33px;">HTTPS</a> <a href="/tags/JDBC/" style="font-size: 13.33px;">JDBC</a> <a href="/tags/JPA/" style="font-size: 10px;">JPA</a> <a href="/tags/JUnit/" style="font-size: 10px;">JUnit</a> <a href="/tags/JWT/" style="font-size: 10px;">JWT</a> <a href="/tags/JaCoCo/" style="font-size: 10px;">JaCoCo</a> <a href="/tags/Java/" style="font-size: 13.33px;">Java</a> <a href="/tags/Linux/" style="font-size: 10px;">Linux</a> <a href="/tags/Microservices/" style="font-size: 10px;">Microservices</a> <a href="/tags/Orchestration/" style="font-size: 10px;">Orchestration</a> <a href="/tags/PowerMock/" style="font-size: 10px;">PowerMock</a> <a href="/tags/PowerShell/" style="font-size: 10px;">PowerShell</a> <a href="/tags/Powershell/" style="font-size: 10px;">Powershell</a> <a href="/tags/Quick-Trick/" style="font-size: 13.33px;">Quick Trick</a> <a href="/tags/SSH/" style="font-size: 10px;">SSH</a> <a href="/tags/SSL/" style="font-size: 13.33px;">SSL</a> <a href="/tags/Security/" style="font-size: 10px;">Security</a> <a href="/tags/Spring-Boot/" style="font-size: 20px;">Spring Boot</a> <a href="/tags/TLS/" style="font-size: 13.33px;">TLS</a> <a href="/tags/WinRm/" style="font-size: 10px;">WinRm</a> <a href="/tags/Windows/" style="font-size: 10px;">Windows</a> <a href="/tags/oc/" style="font-size: 10px;">oc</a> <a href="/tags/openshift/" style="font-size: 10px;">openshift</a>
+      <a href="/tags/AWX/" style="font-size: 10px;">AWX</a> <a href="/tags/Angular/" style="font-size: 16.67px;">Angular</a> <a href="/tags/Ansible/" style="font-size: 13.33px;">Ansible</a> <a href="/tags/Apache-POI/" style="font-size: 10px;">Apache POI</a> <a href="/tags/CRUD/" style="font-size: 13.33px;">CRUD</a> <a href="/tags/Camunda/" style="font-size: 10px;">Camunda</a> <a href="/tags/Firewall/" style="font-size: 10px;">Firewall</a> <a href="/tags/Git/" style="font-size: 13.33px;">Git</a> <a href="/tags/HTTPS/" style="font-size: 13.33px;">HTTPS</a> <a href="/tags/JDBC/" style="font-size: 13.33px;">JDBC</a> <a href="/tags/JPA/" style="font-size: 10px;">JPA</a> <a href="/tags/JUnit/" style="font-size: 10px;">JUnit</a> <a href="/tags/JWT/" style="font-size: 10px;">JWT</a> <a href="/tags/JaCoCo/" style="font-size: 10px;">JaCoCo</a> <a href="/tags/Java/" style="font-size: 13.33px;">Java</a> <a href="/tags/Linux/" style="font-size: 10px;">Linux</a> <a href="/tags/Logging/" style="font-size: 10px;">Logging</a> <a href="/tags/Microservices/" style="font-size: 10px;">Microservices</a> <a href="/tags/Orchestration/" style="font-size: 10px;">Orchestration</a> <a href="/tags/PowerMock/" style="font-size: 10px;">PowerMock</a> <a href="/tags/PowerShell/" style="font-size: 10px;">PowerShell</a> <a href="/tags/Powershell/" style="font-size: 10px;">Powershell</a> <a href="/tags/Quick-Trick/" style="font-size: 13.33px;">Quick Trick</a> <a href="/tags/SSH/" style="font-size: 10px;">SSH</a> <a href="/tags/SSL/" style="font-size: 13.33px;">SSL</a> <a href="/tags/Security/" style="font-size: 10px;">Security</a> <a href="/tags/Spring-Boot/" style="font-size: 20px;">Spring Boot</a> <a href="/tags/TLS/" style="font-size: 13.33px;">TLS</a> <a href="/tags/WinRm/" style="font-size: 10px;">WinRm</a> <a href="/tags/Windows/" style="font-size: 10px;">Windows</a> <a href="/tags/oc/" style="font-size: 10px;">oc</a> <a href="/tags/openshift/" style="font-size: 10px;">openshift</a>
     </div>
   </div>
 
@@ -168,7 +275,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget" style="background: #025A5B">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">February 2019</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">January 2019</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">December 2018</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">September 2018</a><span class="archive-list-count">2</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">February 2019</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">January 2019</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">December 2018</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">September 2018</a><span class="archive-list-count">2</span></li></ul>
     </div>
   </div>
 
@@ -179,6 +286,10 @@
     <h3 class="widget-title">Recent Posts</h3>
     <div class="widget" style="background: #025A5B">
       <ul>
+        
+          <li>
+            <a href="/spring-boot-execution-time-logging/">Spring Boot : Logging Execution Time</a>
+          </li>
         
           <li>
             <a href="/spring-boot-data-jdbc-crud/">Spring Boot DATA JDBC CRUD Web App</a>
@@ -194,10 +305,6 @@
         
           <li>
             <a href="/enable-https-in-spring-boot-app/">Enable HTTPS in Spring Boot Application</a>
-          </li>
-        
-          <li>
-            <a href="/spring-boot-file-download-via-angular-service-02/">Spring Boot File Download via Angular7 PART 02</a>
           </li>
         
       </ul>
