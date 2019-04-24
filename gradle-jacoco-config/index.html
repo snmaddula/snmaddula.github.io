@@ -5,15 +5,22 @@
   
 
   
-  <title>Tag: CRUD | SNMADDULA</title>
+  <title>Configuring Jacoco in a Gradle Project | SNMADDULA</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="SNMADDULA">
-<meta property="og:url" content="https://snmaddula.github.io/tags/CRUD/index.html">
+  <meta name="description" content="To enable jacoco code coverage in a gradle project, just add the below configuration to your build.gradle file. 12345678910111213141516171819202122apply plugin: &apos;jacoco&apos;jacoco &amp;#123;    toolVersion =">
+<meta name="keywords" content="Jacoco,Gradle">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Configuring Jacoco in a Gradle Project">
+<meta property="og:url" content="https://snmaddula.github.io/gradle-jacoco-config/index.html">
 <meta property="og:site_name" content="SNMADDULA">
+<meta property="og:description" content="To enable jacoco code coverage in a gradle project, just add the below configuration to your build.gradle file. 12345678910111213141516171819202122apply plugin: &apos;jacoco&apos;jacoco &amp;#123;    toolVersion =">
 <meta property="og:locale" content="default">
+<meta property="og:image" content="https://snmaddula.github.io/images/p7/code-coverage.png">
+<meta property="og:updated_time" content="2019-04-24T06:49:02.547Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="SNMADDULA">
+<meta name="twitter:title" content="Configuring Jacoco in a Gradle Project">
+<meta name="twitter:description" content="To enable jacoco code coverage in a gradle project, just add the below configuration to your build.gradle file. 12345678910111213141516171819202122apply plugin: &apos;jacoco&apos;jacoco &amp;#123;    toolVersion =">
+<meta name="twitter:image" content="https://snmaddula.github.io/images/p7/code-coverage.png">
   
     <link rel="alternate" href="/atom.xml" title="SNMADDULA" type="application/atom+xml">
   
@@ -64,59 +71,61 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main">
-  
-  
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2019" class="archive-year">2019</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/spring-boot-data-jdbc-crud/" class="archive-article-date">
-  <time datetime="2019-03-22T02:24:21.000Z" itemprop="datePublished">Mar 22</time>
+        <section id="main"><article id="post-gradle-jacoco-config" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/gradle-jacoco-config/" class="article-date">
+  <time datetime="2019-04-04T06:30:44.000Z" itemprop="datePublished">2019-Apr-04</time>
 </a>
-      
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/spring-boot-data-jdbc-crud/">Spring Boot DATA JDBC CRUD Web App</a>
+    <h1 class="article-title" itemprop="name">
+      Configuring Jacoco in a Gradle Project
     </h1>
   
 
-    </header>
-  </div>
-</article>
-  
+      </header>
     
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/spring-boot-data-jpa-crud/" class="archive-article-date">
-  <time datetime="2019-03-13T02:24:21.000Z" itemprop="datePublished">Mar 13</time>
-</a>
+    <div class="article-entry" itemprop="articleBody">
       
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/spring-boot-data-jpa-crud/">Spring Boot DATA JPA CRUD Web App</a>
-    </h1>
-  
+        <p>To enable jacoco code coverage in a gradle project, just add the below configuration to your <code>build.gradle</code> file.</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">apply <span class="string">plugin:</span> <span class="string">'jacoco'</span></span><br><span class="line"></span><br><span class="line">jacoco &#123;</span><br><span class="line">    toolVersion = <span class="string">'0.8.1'</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">jacocoTestReport &#123;</span><br><span class="line">    reports &#123;</span><br><span class="line">        csv.enabled = <span class="literal">false</span></span><br><span class="line">        xml.enabled = <span class="literal">false</span></span><br><span class="line">        html.enabled = <span class="literal">true</span></span><br><span class="line">    &#125;</span><br><span class="line">    afterEvaluate &#123; <span class="comment">// (optional) : to exclude classes / packages from coverage</span></span><br><span class="line">        classDirectories.from = files(classDirectories.files.collect &#123;</span><br><span class="line">            fileTree(</span><br><span class="line"><span class="symbol">                dir:</span> it, </span><br><span class="line"><span class="symbol">                exclude:</span> [ <span class="string">'snmaddula/sboot/crud/App.class'</span>, <span class="string">'snmaddula/sboot/util/**'</span> ])</span><br><span class="line">        &#125;)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">build.dependsOn jacocoTestReport</span><br></pre></td></tr></table></figure>
+<p>Now execute <code>gradle clean build</code> in the project directory. You’ll see the output similar to the below one.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">12:10:08 PM: Executing tasks &apos;clean build&apos;...</span><br><span class="line"></span><br><span class="line">&gt; Task :clean UP-TO-DATE</span><br><span class="line">&gt; Task :compileJava</span><br><span class="line">&gt; Task :processResources</span><br><span class="line">&gt; Task :classes</span><br><span class="line">&gt; Task :bootJar</span><br><span class="line">&gt; Task :jar SKIPPED</span><br><span class="line">&gt; Task :assemble</span><br><span class="line">&gt; Task :compileTestJava</span><br><span class="line">&gt; Task :processTestResources NO-SOURCE</span><br><span class="line">&gt; Task :testClasses</span><br><span class="line">&gt; Task :test</span><br><span class="line">&gt; Task :check</span><br><span class="line">&gt; Task :jacocoTestReport</span><br><span class="line">&gt; Task :build</span><br><span class="line"></span><br><span class="line">BUILD SUCCESSFUL in 9s</span><br><span class="line">7 actionable tasks: 6 executed, 1 up-to-date</span><br><span class="line">12:10:18 PM: Tasks execution finished &apos;clean build&apos;.</span><br></pre></td></tr></table></figure>
+<p>Navigate to <code>build &gt; reports &gt; jacoco &gt; test &gt; html</code> and open <code>index.html</code> using a web browser.</p>
+<p>You’ll see a report similar to the one shown below.</p>
+<p><img src="/images/p7/code-coverage.png" alt=""></p>
+<p>That’s all you need to configure jacoco in a gradle project.</p>
 
-    </header>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://snmaddula.github.io/gradle-jacoco-config/" data-id="cjuuuywpd000dp0tga2zunuc0" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Gradle/">Gradle</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Jacoco/">Jacoco</a></li></ul>
+
+    </footer>
   </div>
-</article>
+  
+    
+<nav id="article-nav">
   
   
-    </div></section>
+    <a href="/spring-boot-execution-time-logging/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Spring Boot : Logging Execution Time</div>
+    </a>
   
+</nav>
 
+  
+</article>
 
 </section>
         
