@@ -66,6 +66,63 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-spring-boot-data-jdbc-crud" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/spring-boot-data-jdbc-crud/" class="article-date">
+  <time datetime="2019-03-22T02:24:21.000Z" itemprop="datePublished">2019-Mar-22</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/spring-boot-data-jdbc-crud/">Spring Boot DATA JDBC CRUD Web App</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="DATA-JPA-vs-DATA-JDBC"><a href="#DATA-JPA-vs-DATA-JDBC" class="headerlink" title="DATA JPA vs DATA JDBC"></a>DATA JPA vs DATA JDBC</h3><p>In the previous post <a href="https://snmaddula.github.io/spring-boot-data-jpa-crud/">Spring Boot JPA Crud Web App</a>, we have implemented CRUD functionality using spring boot’s <code>data-jpa</code> module.</p>
+<p><b>Spring Data JPA</b> is very rich in features but unfortunately it is not widely preferred due to its internal complexities and the latency costs involved in getting the work done.<br>If you are looking for an alternative, then you can consider <b>Spring Data JDBC</b>.</p>
+<p>Here are some of the cool things about this module:</p>
+<ul>
+<li>Spring Data JDBC is much simpler, cleaner and a straight-forward model.</li>
+<li>The SQL commands are executed only when invoked by a repository method.</li>
+<li>You get a fully loaded object / entity instance as a result for your query – forget about <code>session</code>, <code>proxies</code>, <code>lazy-loading</code> or <code>caching</code>.</li>
+<li>In order to be simple, it <b>does NOT</b> offer <code>caching, lazy loading, write behind</code> and many other features of JPA</li>
+<li>All these things make is a simple, limited and better choice compared to JPA for certain use-cases.</li>
+</ul>
+<h4 id="01-Add-spring-data-jdbc-dependency"><a href="#01-Add-spring-data-jdbc-dependency" class="headerlink" title="01. Add spring-data-jdbc dependency"></a>01. Add <code>spring-data-jdbc</code> dependency</h4><p>Remove <code>spring-boot-starter-data-jpa</code> dependency and add the below dependency.</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.data<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-data-jdbc<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h4 id="02-Update-Entity-Definition"><a href="#02-Update-Entity-Definition" class="headerlink" title="02. Update Entity Definition"></a>02. Update Entity Definition</h4><p>Remove <code>javax.persistence</code> annotations and update <code>Product.java</code> as show below.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> snmaddula.product.crud.entity;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.springframework.data.annotation.Id;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> lombok.Data;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Data</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Product</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">  <span class="meta">@Id</span></span><br><span class="line">  <span class="keyword">private</span> Long id;</span><br><span class="line">  <span class="keyword">private</span> String title;</span><br><span class="line">  <span class="keyword">private</span> String description;</span><br><span class="line">  <span class="keyword">private</span> Double price;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>In case, if your <code>lombok</code> configuration is not working, you can define <code>setters &amp; getters</code> in the above class.</p>
+<h4 id="03-Repository-Definition"><a href="#03-Repository-Definition" class="headerlink" title="03. Repository Definition"></a>03. Repository Definition</h4><p>Instead of <code>JpaRepository</code>, our <code>ProductRepository</code> would now extend <code>CrudRepository</code> as below.<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> snmaddula.product.crud.repo;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.springframework.data.repository.CrudRepository;</span><br><span class="line"><span class="keyword">import</span> org.springframework.stereotype.Repository;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> snmaddula.product.crud.entity.Product;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Repository</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">ProductRepo</span> <span class="keyword">extends</span> <span class="title">CrudRepository</span>&lt;<span class="title">Product</span>, <span class="title">Long</span>&gt; </span>&#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h4 id="04-Service-Implementation"><a href="#04-Service-Implementation" class="headerlink" title="04. Service Implementation"></a>04. Service Implementation</h4><p>Refer to <code>ProductService.java</code> from <a href="https://snmaddula.github.io/spring-boot-data-jpa-crud/">previous post</a> and update the below methods accordingly.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> snmaddula.product.crud.service;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.util.List;</span><br><span class="line"><span class="keyword">import</span> <span class="keyword">static</span> java.util.stream.Collectors.toList;</span><br><span class="line"><span class="keyword">import</span> <span class="keyword">static</span> java.util.stream.StreamSupport.stream;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.springframework.stereotype.Service;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> lombok.RequiredArgsConstructor;</span><br><span class="line"><span class="keyword">import</span> snmaddula.product.crud.entity.Product;</span><br><span class="line"><span class="keyword">import</span> snmaddula.product.crud.repo.ProductRepo;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Service</span></span><br><span class="line"><span class="meta">@RequiredArgsConstructor</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ProductService</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">private</span> <span class="keyword">final</span> ProductRepo productRepo;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">public</span> List&lt;Product&gt; <span class="title">fetchAll</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> stream(productRepo.findAll().spliterator(), <span class="keyword">false</span>).collect(toList());</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">removeAll</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    productRepo.deleteAll();</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="05-CREATE-schema-sql"><a href="#05-CREATE-schema-sql" class="headerlink" title="05. CREATE schema.sql"></a>05. CREATE <code>schema.sql</code></h4><p>As JDBC does not auto create tables, we need to create table on our own.<br>Add the below <code>CREATE</code> query in your <code>schema.sql</code> file and place this file on the classpath.<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> PRODUCT (</span><br><span class="line">  <span class="keyword">ID</span> <span class="built_in">INT</span> PRIMARY <span class="keyword">KEY</span> AUTO_INCREMENT,</span><br><span class="line">  TITLE <span class="built_in">TEXT</span>,</span><br><span class="line">  DESCRIPTION <span class="built_in">TEXT</span>,</span><br><span class="line">  PRICE <span class="built_in">DECIMAL</span></span><br><span class="line">);</span><br></pre></td></tr></table></figure></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://snmaddula.github.io/spring-boot-data-jdbc-crud/" data-id="cjv7kobqc000haktgau4m4vx5" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CRUD/">CRUD</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JDBC/">JDBC</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Spring-Boot/">Spring Boot</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-spring-boot-data-jpa-crud" class="article article-type-post" itemscope="" itemprop="blogPost">
   <div class="article-meta">
     <a href="/spring-boot-data-jpa-crud/" class="article-date">
@@ -115,7 +172,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://snmaddula.github.io/spring-boot-data-jpa-crud/" data-id="cjuuuywpk000kp0tg9vixquib" class="article-share-link">Share</a>
+      <a data-url="https://snmaddula.github.io/spring-boot-data-jpa-crud/" data-id="cjv7kobqi000naktg0899iojd" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CRUD/">CRUD</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JPA/">JPA</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Spring-Boot/">Spring Boot</a></li></ul>
@@ -166,55 +223,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://snmaddula.github.io/configure-https-redirect-connector-spring-boot/" data-id="cjuuuywos0000p0tglgknjcpr" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/HTTPS/">HTTPS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/SSL/">SSL</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Spring-Boot/">Spring Boot</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/TLS/">TLS</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-enable-https-in-spring-boot-app" class="article article-type-post" itemscope="" itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/enable-https-in-spring-boot-app/" class="article-date">
-  <time datetime="2019-03-11T08:38:36.000Z" itemprop="datePublished">2019-Mar-11</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/enable-https-in-spring-boot-app/">Enable HTTPS in Spring Boot Application</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="Video-guide-of-the-process"><a href="#Video-guide-of-the-process" class="headerlink" title="Video guide of the process"></a>Video guide of the process</h3><div class="iframe_container"><br>  <iframe src="https://www.youtube.com/embed/H-pn7NrEssM" frameborder="0" allowfullscreen="allowfullscreen"> </iframe><br></div>
-
-<h4 id="Step-1-Generate-SSL-Certificate"><a href="#Step-1-Generate-SSL-Certificate" class="headerlink" title="Step 1 : Generate SSL Certificate"></a>Step 1 : Generate SSL Certificate</h4><p>To enable HTTPS, we would require a SSL certificate. This certificate can be obtained from a Certificate Authority.<br>Also, we can generate a self-signed certificate using java <code>keytool</code> utility.</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">keytool -genkey -noprompt -<span class="built_in">alias</span> chocolate \</span><br><span class="line">-storetype PKCS12 -keyalg RSA -keysize 2048 -validity 365 \</span><br><span class="line">-keystore chocolate.p12 -keypass chocolate -storepass chocolate \</span><br><span class="line">-dname <span class="string">"CN=snmaddula, OU=security, O=snmaddula, L=waverock, S=Hyderabad, C=IN"</span></span><br></pre></td></tr></table></figure>
-<p>This will generate a PKCS12 <code>keystore</code> file as <b>chocolate.p12</b> with the newly generated certificate.</p>
-<h4 id="Step-2-Configure-SSL-connector-for-Server"><a href="#Step-2-Configure-SSL-connector-for-Server" class="headerlink" title="Step 2 : Configure SSL connector for Server"></a>Step 2 : Configure SSL connector for Server</h4><p>To enable HTTPS in our application, we need to configure few ssl properties binding the application server with the keystore that was generated in the previous step.</p>
-<p>Add the below configuration to your <code>application.yml</code><br><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">server:</span></span><br><span class="line"><span class="attr">  port:</span> <span class="number">8443</span></span><br><span class="line"></span><br><span class="line"><span class="attr">  ssl:</span></span><br><span class="line"><span class="attr">    key-store:</span> <span class="attr">classpath:chocolate.p12</span></span><br><span class="line"><span class="attr">    key-alias:</span> <span class="string">chocolate</span></span><br><span class="line"><span class="attr">    key-store-password:</span> <span class="string">chocolate</span></span><br><span class="line"><span class="attr">    key-store-type:</span> <span class="string">PKCS12</span></span><br></pre></td></tr></table></figure></p>
-<p>That’s all you need to enable HTTPS in a spring boot application.</p>
-<p>You can now access the application with the endpoint: <a href="https://localhost:8443" target="_blank" rel="noopener">https://localhost:8443</a></p>
-<p>You would need to add the Security Certificate Exception in this was a self-signed certificate.</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://snmaddula.github.io/enable-https-in-spring-boot-app/" data-id="cjuuuywp40005p0tgpjzxtqv5" class="article-share-link">Share</a>
+      <a data-url="https://snmaddula.github.io/configure-https-redirect-connector-spring-boot/" data-id="cjv7kobpa0000aktgbqkr3fg7" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/HTTPS/">HTTPS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/SSL/">SSL</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Spring-Boot/">Spring Boot</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/TLS/">TLS</a></li></ul>
@@ -267,7 +276,7 @@
     <!-- <div class="widget" style="background: #025A5B"> -->
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud" style="background: #540A94"> <!--#025A5B" -->
-      <a href="/tags/AWX/" style="font-size: 10px;">AWX</a> <a href="/tags/Angular/" style="font-size: 16.67px;">Angular</a> <a href="/tags/Ansible/" style="font-size: 13.33px;">Ansible</a> <a href="/tags/Apache-POI/" style="font-size: 10px;">Apache POI</a> <a href="/tags/CRUD/" style="font-size: 13.33px;">CRUD</a> <a href="/tags/Camunda/" style="font-size: 10px;">Camunda</a> <a href="/tags/Firewall/" style="font-size: 10px;">Firewall</a> <a href="/tags/Git/" style="font-size: 13.33px;">Git</a> <a href="/tags/Gradle/" style="font-size: 10px;">Gradle</a> <a href="/tags/HTTPS/" style="font-size: 13.33px;">HTTPS</a> <a href="/tags/JDBC/" style="font-size: 13.33px;">JDBC</a> <a href="/tags/JPA/" style="font-size: 10px;">JPA</a> <a href="/tags/JUnit/" style="font-size: 10px;">JUnit</a> <a href="/tags/JWT/" style="font-size: 10px;">JWT</a> <a href="/tags/JaCoCo/" style="font-size: 10px;">JaCoCo</a> <a href="/tags/Jacoco/" style="font-size: 10px;">Jacoco</a> <a href="/tags/Java/" style="font-size: 13.33px;">Java</a> <a href="/tags/Linux/" style="font-size: 10px;">Linux</a> <a href="/tags/Logging/" style="font-size: 10px;">Logging</a> <a href="/tags/Microservices/" style="font-size: 10px;">Microservices</a> <a href="/tags/Orchestration/" style="font-size: 10px;">Orchestration</a> <a href="/tags/PowerMock/" style="font-size: 10px;">PowerMock</a> <a href="/tags/PowerShell/" style="font-size: 10px;">PowerShell</a> <a href="/tags/Powershell/" style="font-size: 10px;">Powershell</a> <a href="/tags/Quick-Trick/" style="font-size: 13.33px;">Quick Trick</a> <a href="/tags/SSH/" style="font-size: 10px;">SSH</a> <a href="/tags/SSL/" style="font-size: 13.33px;">SSL</a> <a href="/tags/Security/" style="font-size: 10px;">Security</a> <a href="/tags/Spring-Boot/" style="font-size: 20px;">Spring Boot</a> <a href="/tags/TLS/" style="font-size: 13.33px;">TLS</a> <a href="/tags/WinRm/" style="font-size: 10px;">WinRm</a> <a href="/tags/Windows/" style="font-size: 10px;">Windows</a> <a href="/tags/oc/" style="font-size: 10px;">oc</a> <a href="/tags/openshift/" style="font-size: 10px;">openshift</a>
+      <a href="/tags/AWX/" style="font-size: 10px;">AWX</a> <a href="/tags/Angular/" style="font-size: 16.67px;">Angular</a> <a href="/tags/Ansible/" style="font-size: 13.33px;">Ansible</a> <a href="/tags/Apache-POI/" style="font-size: 10px;">Apache POI</a> <a href="/tags/CRUD/" style="font-size: 13.33px;">CRUD</a> <a href="/tags/Camunda/" style="font-size: 10px;">Camunda</a> <a href="/tags/Firewall/" style="font-size: 10px;">Firewall</a> <a href="/tags/Git/" style="font-size: 13.33px;">Git</a> <a href="/tags/Gradle/" style="font-size: 10px;">Gradle</a> <a href="/tags/HTTPS/" style="font-size: 13.33px;">HTTPS</a> <a href="/tags/JDBC/" style="font-size: 13.33px;">JDBC</a> <a href="/tags/JPA/" style="font-size: 10px;">JPA</a> <a href="/tags/JUnit/" style="font-size: 10px;">JUnit</a> <a href="/tags/JWT/" style="font-size: 10px;">JWT</a> <a href="/tags/JaCoCo/" style="font-size: 10px;">JaCoCo</a> <a href="/tags/Jacoco/" style="font-size: 10px;">Jacoco</a> <a href="/tags/Java/" style="font-size: 13.33px;">Java</a> <a href="/tags/Linux/" style="font-size: 10px;">Linux</a> <a href="/tags/Logging/" style="font-size: 10px;">Logging</a> <a href="/tags/Microservices/" style="font-size: 10px;">Microservices</a> <a href="/tags/Orchestration/" style="font-size: 10px;">Orchestration</a> <a href="/tags/PowerMock/" style="font-size: 10px;">PowerMock</a> <a href="/tags/PowerShell/" style="font-size: 10px;">PowerShell</a> <a href="/tags/Powershell/" style="font-size: 10px;">Powershell</a> <a href="/tags/Quick-Trick/" style="font-size: 13.33px;">Quick Trick</a> <a href="/tags/SSH/" style="font-size: 10px;">SSH</a> <a href="/tags/SSL/" style="font-size: 13.33px;">SSL</a> <a href="/tags/Security/" style="font-size: 10px;">Security</a> <a href="/tags/Spring-Boot/" style="font-size: 20px;">Spring Boot</a> <a href="/tags/TLS/" style="font-size: 13.33px;">TLS</a> <a href="/tags/TestNG/" style="font-size: 10px;">TestNG</a> <a href="/tags/WinRm/" style="font-size: 10px;">WinRm</a> <a href="/tags/Windows/" style="font-size: 10px;">Windows</a> <a href="/tags/oc/" style="font-size: 10px;">oc</a> <a href="/tags/openshift/" style="font-size: 10px;">openshift</a>
     </div>
   </div>
 
@@ -277,7 +286,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget" style="background: #540A94">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">April 2019</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">February 2019</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">January 2019</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">December 2018</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">September 2018</a><span class="archive-list-count">2</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">April 2019</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">February 2019</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">January 2019</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">December 2018</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">September 2018</a><span class="archive-list-count">2</span></li></ul>
     </div>
   </div>
 
@@ -288,6 +297,10 @@
     <h3 class="widget-title">Recent Posts</h3>
     <div class="widget" style="background: #540A94">
       <ul>
+        
+          <li>
+            <a href="/testng-plugin-setup-in-sts/">TestNG : Plugin Setup for STS / Eclipse</a>
+          </li>
         
           <li>
             <a href="/gradle-jacoco-config/">Configuring Jacoco in a Gradle Project</a>
@@ -303,10 +316,6 @@
         
           <li>
             <a href="/spring-boot-data-jpa-crud/">Spring Boot DATA JPA CRUD Web App</a>
-          </li>
-        
-          <li>
-            <a href="/configure-https-redirect-connector-spring-boot/">Configure HTTP to HTTPS Redirect in Spring Boot</a>
           </li>
         
       </ul>
