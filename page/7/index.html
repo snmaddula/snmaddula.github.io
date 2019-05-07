@@ -66,6 +66,50 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-oc-login" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/oc-login/" class="article-date">
+  <time datetime="2018-12-09T10:24:52.000Z" itemprop="datePublished">2018-Dec-09</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/oc-login/">Login to OpenShift Origin</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>There are quite a few ways to login into openshift through the <code>oc</code> cli. Let us explore them one by one.</p>
+<h4 id="1-Interactive-Login-with-Credentials"><a href="#1-Interactive-Login-with-Credentials" class="headerlink" title="1. Interactive Login with Credentials"></a>1. Interactive Login with Credentials</h4><p>To Simply login use <b>oc login</b>. This will prompt for <i>username</i> and <i>password</i>, providing which it will authenticate and log you in.<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$ oc login</span><br><span class="line">Server[https://localhost:8443]:</span><br><span class="line">username: snmaddula</span><br><span class="line">password:</span><br><span class="line"></span><br><span class="line">Login Successful.</span><br></pre></td></tr></table></figure></p>
+<p>You can specify the Server URL in-line:<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ oc login https://localhost:8443</span><br></pre></td></tr></table></figure></p>
+<h4 id="2-Non-Interactive-Login-with-Credentials-a-k-a-one-liner"><a href="#2-Non-Interactive-Login-with-Credentials-a-k-a-one-liner" class="headerlink" title="2. Non-Interactive Login with Credentials (a.k.a one-liner)"></a>2. Non-Interactive Login with Credentials (a.k.a one-liner)</h4><p>To login by providing username and password in-line :<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">oc login -u=snmaddula -p=secret</span><br></pre></td></tr></table></figure></p>
+<p>To instantly switch to a particular namespace / project on successful login :<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">oc login -u=snmaddula -p=secret -n=project1</span><br></pre></td></tr></table></figure></p>
+<p>In the above examples, <code>-u</code> is short for <code>--username</code> as <code>-p</code> is for <code>--password</code> and <code>-n</code> for <code>--namespace</code></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://snmaddula.github.io/oc-login/" data-id="cjvdhhh94000dsotg25uqqurs" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/oc/">oc</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/openshift/">openshift</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-using-camunda-with-spring-boot" class="article article-type-post" itemscope="" itemprop="blogPost">
   <div class="article-meta">
     <a href="/using-camunda-with-spring-boot/" class="article-date">
@@ -94,7 +138,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://snmaddula.github.io/using-camunda-with-spring-boot/" data-id="cjv7kyg64000u48tgbhm1ojvy" class="article-share-link">Share</a>
+      <a data-url="https://snmaddula.github.io/using-camunda-with-spring-boot/" data-id="cjvdhhh9h000tsotgi8scb4k5" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Camunda/">Camunda</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Microservices/">Microservices</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Orchestration/">Orchestration</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Spring-Boot/">Spring Boot</a></li></ul>
@@ -187,7 +231,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://snmaddula.github.io/wiring-angular-to-spring-boot/" data-id="cjv7kyg81003h48tg48ndze4e" class="article-share-link">Share</a>
+      <a data-url="https://snmaddula.github.io/wiring-angular-to-spring-boot/" data-id="cjvdhhh9k000ysotgo7oxlndv" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Angular/">Angular</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Spring-Boot/">Spring Boot</a></li></ul>
@@ -240,7 +284,7 @@
     <!-- <div class="widget" style="background: #025A5B"> -->
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud" style="background: #540A94"> <!--#025A5B" -->
-      <a href="/tags/AWX/" style="font-size: 10px;">AWX</a> <a href="/tags/Angular/" style="font-size: 16.67px;">Angular</a> <a href="/tags/Ansible/" style="font-size: 13.33px;">Ansible</a> <a href="/tags/Apache-POI/" style="font-size: 10px;">Apache POI</a> <a href="/tags/CRUD/" style="font-size: 13.33px;">CRUD</a> <a href="/tags/Camunda/" style="font-size: 10px;">Camunda</a> <a href="/tags/Firewall/" style="font-size: 10px;">Firewall</a> <a href="/tags/Git/" style="font-size: 13.33px;">Git</a> <a href="/tags/Gradle/" style="font-size: 10px;">Gradle</a> <a href="/tags/HTTPS/" style="font-size: 13.33px;">HTTPS</a> <a href="/tags/JDBC/" style="font-size: 13.33px;">JDBC</a> <a href="/tags/JPA/" style="font-size: 10px;">JPA</a> <a href="/tags/JUnit/" style="font-size: 10px;">JUnit</a> <a href="/tags/JWT/" style="font-size: 10px;">JWT</a> <a href="/tags/JaCoCo/" style="font-size: 10px;">JaCoCo</a> <a href="/tags/Jacoco/" style="font-size: 10px;">Jacoco</a> <a href="/tags/Java/" style="font-size: 13.33px;">Java</a> <a href="/tags/Linux/" style="font-size: 10px;">Linux</a> <a href="/tags/Logging/" style="font-size: 10px;">Logging</a> <a href="/tags/Microservices/" style="font-size: 10px;">Microservices</a> <a href="/tags/Orchestration/" style="font-size: 10px;">Orchestration</a> <a href="/tags/PowerMock/" style="font-size: 10px;">PowerMock</a> <a href="/tags/PowerShell/" style="font-size: 10px;">PowerShell</a> <a href="/tags/Powershell/" style="font-size: 10px;">Powershell</a> <a href="/tags/Quick-Trick/" style="font-size: 13.33px;">Quick Trick</a> <a href="/tags/SSH/" style="font-size: 10px;">SSH</a> <a href="/tags/SSL/" style="font-size: 13.33px;">SSL</a> <a href="/tags/Security/" style="font-size: 10px;">Security</a> <a href="/tags/Spring-Boot/" style="font-size: 20px;">Spring Boot</a> <a href="/tags/TLS/" style="font-size: 13.33px;">TLS</a> <a href="/tags/TestNG/" style="font-size: 10px;">TestNG</a> <a href="/tags/WinRm/" style="font-size: 10px;">WinRm</a> <a href="/tags/Windows/" style="font-size: 10px;">Windows</a> <a href="/tags/oc/" style="font-size: 10px;">oc</a> <a href="/tags/openshift/" style="font-size: 10px;">openshift</a>
+      <a href="/tags/AWX/" style="font-size: 10px;">AWX</a> <a href="/tags/Angular/" style="font-size: 16.67px;">Angular</a> <a href="/tags/Ansible/" style="font-size: 13.33px;">Ansible</a> <a href="/tags/Apache-POI/" style="font-size: 10px;">Apache POI</a> <a href="/tags/CRUD/" style="font-size: 13.33px;">CRUD</a> <a href="/tags/Camunda/" style="font-size: 10px;">Camunda</a> <a href="/tags/Firewall/" style="font-size: 10px;">Firewall</a> <a href="/tags/Git/" style="font-size: 13.33px;">Git</a> <a href="/tags/Gradle/" style="font-size: 10px;">Gradle</a> <a href="/tags/HTTPS/" style="font-size: 13.33px;">HTTPS</a> <a href="/tags/JDBC/" style="font-size: 13.33px;">JDBC</a> <a href="/tags/JPA/" style="font-size: 10px;">JPA</a> <a href="/tags/JUnit/" style="font-size: 10px;">JUnit</a> <a href="/tags/JWT/" style="font-size: 10px;">JWT</a> <a href="/tags/JaCoCo/" style="font-size: 10px;">JaCoCo</a> <a href="/tags/Jacoco/" style="font-size: 13.33px;">Jacoco</a> <a href="/tags/Java/" style="font-size: 13.33px;">Java</a> <a href="/tags/Linux/" style="font-size: 10px;">Linux</a> <a href="/tags/Logging/" style="font-size: 10px;">Logging</a> <a href="/tags/Maven/" style="font-size: 10px;">Maven</a> <a href="/tags/Microservices/" style="font-size: 10px;">Microservices</a> <a href="/tags/Orchestration/" style="font-size: 10px;">Orchestration</a> <a href="/tags/PowerMock/" style="font-size: 10px;">PowerMock</a> <a href="/tags/PowerShell/" style="font-size: 10px;">PowerShell</a> <a href="/tags/Powershell/" style="font-size: 10px;">Powershell</a> <a href="/tags/Quick-Trick/" style="font-size: 13.33px;">Quick Trick</a> <a href="/tags/SSH/" style="font-size: 10px;">SSH</a> <a href="/tags/SSL/" style="font-size: 13.33px;">SSL</a> <a href="/tags/Security/" style="font-size: 10px;">Security</a> <a href="/tags/Spring-Boot/" style="font-size: 20px;">Spring Boot</a> <a href="/tags/TLS/" style="font-size: 13.33px;">TLS</a> <a href="/tags/TestNG/" style="font-size: 10px;">TestNG</a> <a href="/tags/WinRm/" style="font-size: 10px;">WinRm</a> <a href="/tags/Windows/" style="font-size: 10px;">Windows</a> <a href="/tags/oc/" style="font-size: 10px;">oc</a> <a href="/tags/openshift/" style="font-size: 10px;">openshift</a>
     </div>
   </div>
 
@@ -250,7 +294,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget" style="background: #540A94">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">April 2019</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">February 2019</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">January 2019</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">December 2018</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">September 2018</a><span class="archive-list-count">2</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">April 2019</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">February 2019</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">January 2019</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">December 2018</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">September 2018</a><span class="archive-list-count">2</span></li></ul>
     </div>
   </div>
 
@@ -267,6 +311,10 @@
           </li>
         
           <li>
+            <a href="/maven-jacoco-config/">Configuring Jacoco in a Maven Project</a>
+          </li>
+        
+          <li>
             <a href="/gradle-jacoco-config/">Configuring Jacoco in a Gradle Project</a>
           </li>
         
@@ -276,10 +324,6 @@
         
           <li>
             <a href="/spring-boot-data-jdbc-crud/">Spring Boot DATA JDBC CRUD Web App</a>
-          </li>
-        
-          <li>
-            <a href="/spring-boot-data-jpa-crud/">Spring Boot DATA JPA CRUD Web App</a>
           </li>
         
       </ul>
