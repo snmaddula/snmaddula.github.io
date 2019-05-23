@@ -5,15 +5,19 @@
   
 
   
-  <title>Archives | SNMADDULA</title>
+  <title>Spring Cloud Config :: Deep Dive | SNMADDULA</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="SNMADDULA">
-<meta property="og:url" content="https://snmaddula.github.io/archives/index.html">
+  <meta name="description" content="Spring Cloud Config provides server and client-side support for externalizing configuration in a distributed system. With the config server we can have a centrlized place to manage the properties / co">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Spring Cloud Config :: Deep Dive">
+<meta property="og:url" content="https://snmaddula.github.io/spring-cloud-config-1-basic-server-setup/index.html">
 <meta property="og:site_name" content="SNMADDULA">
+<meta property="og:description" content="Spring Cloud Config provides server and client-side support for externalizing configuration in a distributed system. With the config server we can have a centrlized place to manage the properties / co">
 <meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2019-05-23T04:58:25.684Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="SNMADDULA">
+<meta name="twitter:title" content="Spring Cloud Config :: Deep Dive">
+<meta name="twitter:description" content="Spring Cloud Config provides server and client-side support for externalizing configuration in a distributed system. With the config server we can have a centrlized place to manage the properties / co">
   
     <link rel="alternate" href="/atom.xml" title="SNMADDULA" type="application/atom+xml">
   
@@ -64,83 +68,67 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main">
-  
-  
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2019" class="archive-year">2019</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/spring-cloud-config-1-basic-server-setup/" class="archive-article-date">
-  <time datetime="2019-05-23T02:11:46.000Z" itemprop="datePublished">May 23</time>
+        <section id="main"><article id="post-spring-cloud-config-1-basic-server-setup" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/spring-cloud-config-1-basic-server-setup/" class="article-date">
+  <time datetime="2019-05-23T02:11:46.000Z" itemprop="datePublished">2019-May-23</time>
 </a>
-      
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/spring-cloud-config-1-basic-server-setup/">Spring Cloud Config :: Deep Dive</a>
+    <h1 class="article-title" itemprop="name">
+      Spring Cloud Config :: Deep Dive
     </h1>
   
 
-    </header>
-  </div>
-</article>
-  
+      </header>
     
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/testng-plugin-setup-in-sts/" class="archive-article-date">
-  <time datetime="2019-04-06T03:59:23.000Z" itemprop="datePublished">Apr 6</time>
-</a>
+    <div class="article-entry" itemprop="articleBody">
       
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/testng-plugin-setup-in-sts/">TestNG : Plugin Setup for STS / Eclipse</a>
-    </h1>
-  
+        <p>Spring Cloud Config provides server and client-side support for externalizing configuration in a distributed system.</p>
+<p>With the config server we can have a centrlized place to manage the properties / configurations of applications across all environments.</p>
+<p>Getting config server up and running is very easy and straight forward.</p>
+<p>The default implementation of the config server uses <code>git</code> as storage backend.<br>The other storage backends available are : </p>
+<ul>
+<li>File System</li>
+<li>Jdbc </li>
+<li>Vault (HarshiCorp)</li>
+<li>CredHub</li>
+</ul>
+<h4 id="01-Config-Server-setup-and-Github-integration"><a href="#01-Config-Server-setup-and-Github-integration" class="headerlink" title="01 - Config Server setup and Github integration"></a>01 - Config Server setup and Github integration</h4><div class="iframe_container"><br>  <iframe src="https://www.youtube.com/embed/A4d0DDPVh_M" frameborder="0" allowfullscreen="allowfullscreen"> </iframe><br></div>
 
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/maven-jacoco-config/" class="archive-article-date">
-  <time datetime="2019-04-05T06:30:44.000Z" itemprop="datePublished">Apr 5</time>
-</a>
+<h6 id="nbsp"><a href="#nbsp" class="headerlink" title="&nbsp;"></a>&nbsp;</h6><h3 id="Stay-Tuned…-More-in-pipeline"><a href="#Stay-Tuned…-More-in-pipeline" class="headerlink" title="Stay Tuned…! More in pipeline..!"></a>Stay Tuned…! More in pipeline..!</h3><h4 id="02-Config-Client-and-Config-Server-collaboration"><a href="#02-Config-Client-and-Config-Server-collaboration" class="headerlink" title="02 - Config Client and Config Server collaboration"></a>02 - Config Client and Config Server collaboration</h4><pre><code>##### TBD - 24/05/2019 07:00 IST
+</code></pre><h4 id="03-Encryption-and-Decryption-Endpoints"><a href="#03-Encryption-and-Decryption-Endpoints" class="headerlink" title="03 - Encryption and Decryption Endpoints"></a>03 - Encryption and Decryption Endpoints</h4><pre><code>##### TBD - 24/05/2019 10:00 IST
+</code></pre><h4 id="04-Config-Server-and-Config-Client-with-TLS-HTTPS"><a href="#04-Config-Server-and-Config-Client-with-TLS-HTTPS" class="headerlink" title="04 - Config Server and Config Client with TLS / HTTPS"></a>04 - Config Server and Config Client with TLS / HTTPS</h4><pre><code>##### TBD - 24/05/2019 13:00 IST
+</code></pre><h4 id="05-Bus-Refresh-with-RabbitMQ-AMQP"><a href="#05-Bus-Refresh-with-RabbitMQ-AMQP" class="headerlink" title="05 - Bus Refresh with RabbitMQ (AMQP)"></a>05 - Bus Refresh with RabbitMQ (AMQP)</h4><pre><code>##### TBD - 24/05/2019 16:00 IST
+</code></pre>
       
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/maven-jacoco-config/">Configuring Jacoco in a Maven Project</a>
-    </h1>
-  
-
-    </header>
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://snmaddula.github.io/spring-cloud-config-1-basic-server-setup/" data-id="cjw06rsa30023tctglcwcqqtw" class="article-share-link">Share</a>
+      
+      
+    </footer>
   </div>
-</article>
   
-  
-    </div></section>
-  
-
-
-  <nav id="page-nav">
     
-    <span class="page-number current">1</span><a class="page-number" href="/archives/page/2/">2</a><a class="page-number" href="/archives/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/archives/page/8/">8</a><a class="extend next" rel="next" href="/archives/page/2/">Next &raquo;</a>
-  </nav>
+<nav id="article-nav">
+  
+  
+    <a href="/testng-plugin-setup-in-sts/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">TestNG : Plugin Setup for STS / Eclipse</div>
+    </a>
+  
+</nav>
+
+  
+</article>
 
 </section>
         

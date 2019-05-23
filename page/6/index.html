@@ -66,6 +66,67 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-ansible-awx-magic-lab-setup" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/ansible-awx-magic-lab-setup/" class="article-date">
+  <time datetime="2018-12-14T17:19:49.000Z" itemprop="datePublished">2018-Dec-14</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/ansible-awx-magic-lab-setup/">Ansible &amp; Ansible Tower (AWX) Lab Setup (PowerShell)</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Magic scripts to setup <b>Ansible &amp; Ansible Tower (AWX) Learner’s Lab</b> environment on a personal computer.</p>
+<h2 id="GOAL-Automate-Setup-of-AWX-learner’s-lab-setup"><a href="#GOAL-Automate-Setup-of-AWX-learner’s-lab-setup" class="headerlink" title="GOAL : Automate Setup of AWX learner’s lab setup."></a>GOAL : Automate Setup of AWX learner’s lab setup.</h2><h3 id="Tool-Stack"><a href="#Tool-Stack" class="headerlink" title="Tool Stack"></a>Tool Stack</h3><ul>
+<li><h5 id="Git-with-SSH-Linux-Utilities"><a href="#Git-with-SSH-Linux-Utilities" class="headerlink" title="Git ( with SSH + Linux Utilities)"></a>Git ( with SSH + Linux Utilities)</h5></li>
+<li><h5 id="VirtualBox-for-spinning-up-virtual-instances"><a href="#VirtualBox-for-spinning-up-virtual-instances" class="headerlink" title="VirtualBox ( for spinning up virtual instances)"></a>VirtualBox ( for spinning up virtual instances)</h5></li>
+<li><h5 id="Vagrant-for-provisioning-virtual-instances-using-boxes"><a href="#Vagrant-for-provisioning-virtual-instances-using-boxes" class="headerlink" title="Vagrant ( for provisioning virtual instances using boxes )"></a>Vagrant ( for provisioning virtual instances using boxes )</h5></li>
+<li><h5 id="Docker-for-running-containers-needed-by-AWX"><a href="#Docker-for-running-containers-needed-by-AWX" class="headerlink" title="Docker ( for running containers needed by AWX )"></a>Docker ( for running containers needed by AWX )</h5></li>
+</ul>
+<h3 id="Approach"><a href="#Approach" class="headerlink" title="Approach"></a>Approach</h3><p>The series of steps involved in the script are illustrated in the below flow chart.</p>
+<p><img src="/images/awx/AWX-SETUP-1.JPG" alt=""></p>
+<h3 id="Get-Started"><a href="#Get-Started" class="headerlink" title="Get Started"></a>Get Started</h3><p>To get started with the setup, download the below steps.</p>
+<p><a href="/pf/AnsibleMagicLab_Pre_Reboot.ps1">AnsibleMagicLab_Pre_Reboot.ps1</a></p>
+<p><a href="/pf/AnsibleMagicLab_Post_Reboot.ps1">AnsibleMagicLab_Post_Reboot.ps1</a></p>
+<h3 id="Launch-Sequence"><a href="#Launch-Sequence" class="headerlink" title="Launch Sequence"></a>Launch Sequence</h3><p>Open Command Prompt in ‘Administrator’ mode.<br>Go to the scripts download location and execute the below command.</p>
+<h3 id="1-Pre-Reboot-Setup"><a href="#1-Pre-Reboot-Setup" class="headerlink" title="[1] Pre-Reboot Setup"></a>[1] Pre-Reboot Setup</h3><pre><code>powershell.exe -ExecutionPolicy Bypass -File AnsibleMagicLab_Pre_Reboot.ps1
+</code></pre><h6 id="On-Successful-installation-of-Vagrant-the-machine-should-reboot"><a href="#On-Successful-installation-of-Vagrant-the-machine-should-reboot" class="headerlink" title="On Successful installation of Vagrant, the machine should reboot."></a>On Successful installation of Vagrant, the machine should reboot.</h6><p>Once the machine is up, Open Command Prompt in ‘Administrator’ mode, go to the scripts download location and execute the below command.</p>
+<h3 id="1-Post-Reboot-Setup"><a href="#1-Post-Reboot-Setup" class="headerlink" title="[1] Post-Reboot Setup"></a>[1] Post-Reboot Setup</h3><pre><code>powershell.exe -ExecutionPolicy Bypass -File AnsibleMagicLab_Post_Reboot.ps1
+</code></pre><p>Done that ?<br>Now you’ll be able to access your Ansible Tower (AWX) web interface using the Ip of the Vagrant machine.</p>
+<p> Open up a browser and provide the IP <code>&lt;IP of AWX Instance&gt;</code> and hit Enter. You’ll get to see a page like below.</p>
+<p><img src="/images/awx/AWX_LOGIN.PNG" alt="AWX Web Interface Login Screen"></p>
+<h4 id="CREDENTIALS-for-AWX-Login"><a href="#CREDENTIALS-for-AWX-Login" class="headerlink" title="CREDENTIALS for AWX Login"></a>CREDENTIALS for AWX Login</h4><pre><code>username : admin
+password : password
+</code></pre><p>On successful login, you’ll see a dashboard similar to the below one.</p>
+<p><img src="/images/awx/AWX_DASHBOARD.PNG" alt="AWX Web Interface Fresh Dashboard"></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://snmaddula.github.io/ansible-awx-magic-lab-setup/" data-id="cjw06rs820004tctgcxu8rqss" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/AWX/">AWX</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Ansible/">Ansible</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Powershell/">Powershell</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-ansible-winrm-windows" class="article article-type-post" itemscope="" itemprop="blogPost">
   <div class="article-meta">
     <a href="/ansible-winrm-windows/" class="article-date">
@@ -95,7 +156,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://snmaddula.github.io/ansible-winrm-windows/" data-id="cjvdhuxn8000034tgk9gss0z8" class="article-share-link">Share</a>
+      <a data-url="https://snmaddula.github.io/ansible-winrm-windows/" data-id="cjw06rs810003tctgk84e7txx" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Ansible/">Ansible</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/PowerShell/">PowerShell</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/WinRm/">WinRm</a></li></ul>
@@ -143,57 +204,10 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://snmaddula.github.io/open-port-firewall-cmd/" data-id="cjvdhuxp7001p34tgoj7mnhpq" class="article-share-link">Share</a>
+      <a data-url="https://snmaddula.github.io/open-port-firewall-cmd/" data-id="cjw06rs9r001vtctgu6yzu5ih" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Firewall/">Firewall</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/">Linux</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-git-and-ssh-client-setup-windows" class="article article-type-post" itemscope="" itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/git-and-ssh-client-setup-windows/" class="article-date">
-  <time datetime="2018-12-11T10:31:14.000Z" itemprop="datePublished">2018-Dec-11</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/git-and-ssh-client-setup-windows/">Git + SSH Client Setup</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>In this article, we shall setup SSH client on Windows machine.</p>
-<h5 id="What-we-need"><a href="#What-we-need" class="headerlink" title="What we need ?"></a>What we need ?</h5><ul>
-<li>Git</li>
-<li>PowerShell (Optional)</li>
-<li>Command Prompt (Optional)</li>
-</ul>
-<p>Let us get started with the setup.</p>
-<h3 id="Silent-UnAttended-Install-Using-PowerShell"><a href="#Silent-UnAttended-Install-Using-PowerShell" class="headerlink" title="Silent / UnAttended Install :: Using PowerShell"></a>Silent / UnAttended Install :: Using PowerShell</h3><p>To download &amp; install <code>git</code> in silent / un-attended mode, execute the below commands<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12</span><br><span class="line">Invoke-WebRequest -Uri https://github.com/git-for-windows/git/releases/download/v2.20.0.windows.1/Git-2.20.0-64-bit.exe -OutFile gitbin.exe</span><br><span class="line">cmd &quot;/C .\gitbin.exe /SP- /SILENT /NOCANCEL /NORESTART /COMPONENTS=icons,ext\reg\shellhere,assoc,assoc_sh&quot;</span><br></pre></td></tr></table></figure></p>
-<p>Add git &amp; ssh to your path without closing and re-launching PowerShell.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$env:Path=&quot;$env:Path;C:\Program Files\Git\bin\;&quot;</span><br><span class="line">$env:Path=&quot;$env:Path;C:\Program Files\Git\usr\bin\;&quot;</span><br></pre></td></tr></table></figure></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://snmaddula.github.io/git-and-ssh-client-setup-windows/" data-id="cjvdhuxno000834tg5ygrdlk9" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Git/">Git</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/SSH/">SSH</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Windows/">Windows</a></li></ul>
 
     </footer>
   </div>
@@ -206,7 +220,7 @@
 
   <nav id="page-nav">
     
-    <a class="extend prev" rel="prev" href="/page/5/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><span class="page-number current">6</span><a class="page-number" href="/page/7/">7</a><a class="extend next" rel="next" href="/page/7/">Next &raquo;</a>
+    <a class="extend prev" rel="prev" href="/page/5/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><span class="page-number current">6</span><a class="page-number" href="/page/7/">7</a><a class="page-number" href="/page/8/">8</a><a class="extend next" rel="next" href="/page/7/">Next &raquo;</a>
   </nav>
 
 </section>
@@ -253,7 +267,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget" style="background: #540A94">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">April 2019</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">February 2019</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">January 2019</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">December 2018</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">September 2018</a><span class="archive-list-count">2</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">May 2019</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">April 2019</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">February 2019</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">January 2019</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">December 2018</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">September 2018</a><span class="archive-list-count">2</span></li></ul>
     </div>
   </div>
 
@@ -264,6 +278,10 @@
     <h3 class="widget-title">Recent Posts</h3>
     <div class="widget" style="background: #540A94">
       <ul>
+        
+          <li>
+            <a href="/spring-cloud-config-1-basic-server-setup/">Spring Cloud Config :: Deep Dive</a>
+          </li>
         
           <li>
             <a href="/testng-plugin-setup-in-sts/">TestNG : Plugin Setup for STS / Eclipse</a>
@@ -279,10 +297,6 @@
         
           <li>
             <a href="/spring-boot-execution-time-logging/">Spring Boot : Logging Execution Time</a>
-          </li>
-        
-          <li>
-            <a href="/spring-boot-data-jdbc-crud/">Spring Boot DATA JDBC CRUD Web App</a>
           </li>
         
       </ul>
